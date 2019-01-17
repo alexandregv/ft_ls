@@ -5,6 +5,13 @@
 #include <sys/stat.h>
 #include "../libft/libft.h"
 
+#ifndef S_ISVTX
+# define S_ISVTX	 0001000
+#endif
+#ifndef S_ISTXT
+# define S_ISTXT	 0001000
+#endif
+
 static char  *get_filetype(struct stat statb)
 {
   mode_t mode;
@@ -81,7 +88,11 @@ static char  *get_filegroup(struct stat statb)
 
 static char  *get_mtime(struct stat statb)
 {
+#ifdef _DARWIN_FEATURE_64_BIT_INODE
   return(ctime(&statb.st_mtimespec.tv_sec));
+#else
+  return(ctime(&statb.st_mtime));
+#endif
 }
 
 static void print_time(char *time)
