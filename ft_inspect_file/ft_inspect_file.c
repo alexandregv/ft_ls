@@ -101,6 +101,19 @@ static void print_time(char *time)
   write(1, time, 12);
 }
 
+static void print_size(int size)
+{
+  if (size < 1000)
+   ft_putnbr(size);
+  else
+  {
+    ft_putnbr(size / 1024.00);
+    ft_putchar('.');
+    ft_putnbr(size % 1024);
+    ft_putchar('K');
+  }
+}
+
 int main(int ac, char **av)
 {
   struct stat statb;
@@ -137,6 +150,21 @@ int main(int ac, char **av)
   print_time(get_mtime(statb));
   ft_putchar('\n');
 
+  
+  ft_putstr(get_filemodes(statb));
+  ft_putchar(' ');
+  ft_putnbr(statb.st_nlink);
+  ft_putchar(' ');
+  ft_putstr(get_fileowner(statb));
+  ft_putchar(' ');
+  ft_putstr(get_filegroup(statb));
+  ft_putchar(' ');
+  print_size(statb.st_size);
+  ft_putchar(' ');
+  print_time(get_mtime(statb));
+  ft_putchar(' ');
+  ft_putendl(av[1]);
+  
   ft_putchar('\n');
   return (0);
 }
