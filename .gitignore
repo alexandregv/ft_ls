@@ -1,4 +1,8 @@
+obj/
+*.dSYM
 *.swp
 *.o
 *.a
 *_test
+a.out
+ft_ls
