@@ -17,12 +17,13 @@ CC				= gcc
 CFLAGS		+= -Wall -Werror -Wextra
 CPPFLAGS	+= -I include/ -I libft/
 
-# Take care of headers/Makefile changes
+# Recompile on headers/Makefile changes
 DEPS			= libft/libft.h include/ft_ls.h Makefile
 
 # Source files
 SRC_PATH	= src/
-SRC_NAME	= ft_list_dir ft_inspect_file
+#SRC_NAME	= ft_list_dir ft_inspect_file
+SRC_NAME	= main
 SRC				= $(addsuffix .c, $(SRC_NAME))
 
 # Object files
@@ -56,10 +57,10 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(ECHO) "$(LIB_PATH)\t[$(C_PENDING)⏳ $(C_RESET)]"
-	@$(MAKE) -C $(LIB_PATH) $(HIDE_STD)
+#	@$(ECHO) "$(LIB_PATH)\t[$(C_PENDING)⏳ $(C_RESET)]"
+	@$(MAKE) -C $(LIB_PATH)
 	@$(ECHO) $(ES_ERASE)
-	@$(ECHO) "$(LIB_PATH)\t[$(C_SUCCESS)✅ $(C_RESET)]"
+#	@$(ECHO) "$(LIB_PATH)\t[$(C_SUCCESS)✅ $(C_RESET)]"
 	@$(ECHO) "$(NAME)\t[$(C_PENDING)⏳ $(C_RESET)]"
 	@$(CC) $(OBJ) $(LIB) -o $(NAME)
 	@$(ECHO) $(ES_ERASE)
@@ -79,8 +80,6 @@ fclean: clean
 	@$(RM) $(NAME)
 	@$(MAKE) -C $(LIB_PATH) fclean
 
-re: 
-	@$(MAKE) fclean
-	@$(MAKE) all
+re: fclean all
 
 .PHONY: clean fclean all re
