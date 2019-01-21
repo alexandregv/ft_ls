@@ -12,9 +12,9 @@
 #define OPT_t options[4]
 #define OPTIONS_COUNT 5
 
-int	  	parse_options(int ac, char **av, int *options)
+int					 parse_options(int ac, char **av, int *options)
 {
-	int		i;
+	int				i;
 
 	i = 0;
 	while (i < OPTIONS_COUNT)
@@ -34,10 +34,10 @@ int	  	parse_options(int ac, char **av, int *options)
 		}
 		++i;
 	}
-  return (i);
+	return (i);
 }
 
-void		debug_options(int *options, int i)
+void				debug_options(int *options, int i)
 {
 	ft_putstr(" R:");
 	ft_putnbr(OPT_R);
@@ -56,58 +56,57 @@ void		debug_options(int *options, int i)
 	ft_putchar('\n');
 }
 
-int			ls(int ac, char **av, int *options)
+void		ls_onedir(struct dirent *direntp, int *options)
 {
-	int		i;
-	DIR		*dirp;
-	struct	dirent *direntp;
+	if (OPT_a)
+		ft_putendl(direntp->d_name);
+	else if (!OPT_a && direntp->d_name[0] != '.')
+		ft_putendl(direntp->d_name);
+}
+
+int						 ls(int ac, char **av, int *options)
+{
+	int				i;
+	DIR				*dirp;
+	struct		 dirent *direntp;
 
 	if (ac == 0)
 	{
-		dirp = opendir(".");
+		ac = 1;
+		//av = (char **)malloc(sizeof(char *)* 2);
+		av[0] = ".";
+		//av[1] = NULL;
+	}
+	i = 0;
+	while (i < ac)
+	{
+		dirp = opendir(av[i]);
 		if (dirp == NULL)
 		{
 			perror("ft_ls");
-			exit(errno);
+			exit(EXIT_FAILURE);
+		}
+		if (ac >= 2)
+		{
+			if (i != 0)
+				ft_putchar('\n');
+			ft_putstr(av[i]);
+			ft_putendl(":");
 		}
 		while ((direntp = readdir(dirp)))
-			if (direntp->d_name[0] != '.')
-				ft_putendl(direntp->d_name);
+			ls_onedir(direntp, options);
 		closedir(dirp);
+		++i;
 	}
-	else
-	{
-		i = 0;
-		while (i < ac)
-		{
-      dirp = opendir(av[i]);
-			if (dirp == NULL)
-			{
-				perror("ft_ls");
-				exit(EXIT_FAILURE);
-			}
-			if (ac >= 2)
-			{
-				if (i != 0)
-					ft_putchar('\n');
-				ft_putstr(av[i]);
-				ft_putendl(":");
-			}
-			while ((direntp = readdir(dirp)))
-				if (direntp->d_name[0] != '.')
-					ft_putendl(direntp->d_name);
-			closedir(dirp);
-			++i;
-		}
-	}
-  (void)options;
-	return (EXIT_SUCCESS);	
+	//free(av);
+	(void)options;
+	return (EXIT_SUCCESS);		 
 }
 
-int 		main(int ac, char **av)
+int					main(int ac, char **av)
 {
-	int   i;
-  int		options[5];
+	int	 i;
+	int				options[5];
 
 	i = parse_options(ac, av, options);
 	//debug_options(options, i);

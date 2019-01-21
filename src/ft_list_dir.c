@@ -2,7 +2,7 @@
 #include <string.h>
 #include "libft.h"
 
-int main(int ac, char **av)
+int mmmain(int ac, char **av)
 {
   DIR *dirp;
   struct dirent *direntp;
