@@ -52,6 +52,7 @@ C_SUCCESS	= \033[0;32m
 
 # Escape Sequences (ANSI/VT100)
 ES_ERASE	= "\033[A\033[K\033[A"
+ERASE			= $(ECHO) $(ES_ERASE)
 
 # Hide STD/ERR and prevent Make from returning non-zero code
 HIDE_STD	= > /dev/null
@@ -66,19 +67,17 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(ECHO) "$(NAME)\t[$(C_PENDING)⏳ $(C_RESET)]"
-	@ar -rcs $(NAME) $(OBJ)
-	@$(ECHO) $(ES_ERASE)
-	@$(ECHO) "\033[A\033[2K\033[A"
+	@ar -rcs $(NAME) $(OBJ) $(HIDE_STD)
+	@$(ERASE)
 	@$(ECHO) "$(NAME)\t[$(C_SUCCESS)✅ $(C_RESET)]"
 	@$(ECHO) "$(C_SUCCESS)All done, compilation successful! 👌 $(C_RESET)"
 
 $(OBJ_PATH)%.o: %.c $(DEPS)
 	@mkdir $(OBJ_PATH) $(HIDE_ERR)
-	@$(ECHO) $(ES_ERASE)
+	@$(ERASE)
 	@$(ECHO) "$(NAME)\t[$(C_PENDING)⏳ $(C_RESET)]"
 	$(CC) $(CFLAGS) -o $@ -c $<
-	@$(ECHO) $(ES_ERASE)
+	@$(ERASE)
 
 clean:
 	@$(RM) -r $(OBJ_PATH) $(HIDE_ERR)

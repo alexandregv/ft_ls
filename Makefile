@@ -22,7 +22,6 @@ DEPS			= libft/libft.h include/ft_ls.h Makefile
 
 # Source files
 SRC_PATH	= src/
-#SRC_NAME	= ft_list_dir ft_inspect_file
 SRC_NAME	= main
 SRC				= $(addsuffix .c, $(SRC_NAME))
 
@@ -34,7 +33,8 @@ OBJ				= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 # Library
 LIB_PATH	= libft
 LIB_NAME	= ft
-LIB				= -L $(LIB_PATH) -l $(LIB_NAME)
+LIB_FILE	= $(LIB_PATH)/lib$(LIB_NAME).a
+LIB_FLAGS	= -L $(LIB_PATH) -l $(LIB_NAME)
 
 # Colors
 C_RESET		= \033[0m
@@ -43,6 +43,7 @@ C_SUCCESS	= \033[0;32m
 
 # Escape Sequences (ANSI/VT100)
 ES_ERASE	= "\033[A\033[K\033[A"
+ERASE			= $(ECHO) $(ES_ERASE)
 
 # Hide STD/ERR and prevent Make from returning non-zero code
 HIDE_STD	= > /dev/null
@@ -56,20 +57,23 @@ endif
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-#	@$(ECHO) "$(LIB_PATH)\t[$(C_PENDING)⏳ $(C_RESET)]"
-	@$(MAKE) -C $(LIB_PATH)
-	@$(ECHO) $(ES_ERASE)
-#	@$(ECHO) "$(LIB_PATH)\t[$(C_SUCCESS)✅ $(C_RESET)]"
-	@$(ECHO) "$(NAME)\t[$(C_PENDING)⏳ $(C_RESET)]"
-	@$(CC) $(OBJ) $(LIB) -o $(NAME)
-	@$(ECHO) $(ES_ERASE)
+$(NAME): $(LIB_FILE) $(OBJ)
+	$(CC) $(OBJ) $(LIB_FLAGS) -o $(NAME)
+	@$(ERASE)
+	@$(ERASE)
 	@$(ECHO) "$(NAME)\t[$(C_SUCCESS)✅ $(C_RESET)]"
 	@$(ECHO) "$(C_SUCCESS)All done, compilation successful! 👌 $(C_RESET)"
 
+$(LIB_FILE):
+	@echo ""
+	@$(MAKE) -C $(LIB_PATH)
+
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(DEPS)
 	@mkdir $(OBJ_PATH) $(HIDE_ERR)
-	@$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+	@$(ERASE)
+	@$(ECHO) "$(NAME)\t[$(C_PENDING)⏳ $(C_RESET)]"
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+	@$(ERASE)
 
 clean:
 	@$(RM) -r $(OBJ_PATH) $(HIDE_ERR)
