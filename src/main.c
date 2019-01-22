@@ -58,47 +58,67 @@ void				debug_options(int *options, int i)
 
 void		ls_onedir(struct dirent *direntp, int *options)
 {
-	if (OPT_a)
-		ft_putendl(direntp->d_name);
-	else if (!OPT_a && direntp->d_name[0] != '.')
+	if (OPT_a || (!OPT_a && direntp->d_name[0] != '.'))
 		ft_putendl(direntp->d_name);
 }
 
-int						 ls(int ac, char **av, int *options)
+int			count_dirs(char *path, int *options)
 {
-	int				i;
-	DIR				*dirp;
-	struct		 dirent *direntp;
+	int						count;
+	DIR						*dirp;
+	struct dirent	*direntp;
 
-	if (ac == 0)
+	count = 0;
+	dirp = opendir(path);
+	while ((direntp = readdir(dirp)))
+		if (OPT_a || (!OPT_a && direntp->d_name[0] != '.'))
+			++count;
+	(void)options;
+	return (count);
+}
+
+int						 ls(int fc, char **fv, int *options)
+{
+	int						i;
+	int						j;
+	DIR						*dirp;
+	struct dirent	*direntp;
+	char					**dirs;
+
+	if (fc == 0)
 	{
-		ac = 1;
-		//av = (char **)malloc(sizeof(char *)* 2);
-		av[0] = ".";
-		//av[1] = NULL;
+		fc = 1;
+		fv[0] = ".";
 	}
 	i = 0;
-	while (i < ac)
+	while (i < fc)
 	{
-		dirp = opendir(av[i]);
+		dirp = opendir(fv[i]);
 		if (dirp == NULL)
 		{
 			perror("ft_ls");
 			exit(EXIT_FAILURE);
 		}
-		if (ac >= 2)
+		if (fc >= 2)
 		{
 			if (i != 0)
 				ft_putchar('\n');
-			ft_putstr(av[i]);
+			ft_putstr(fv[i]);
 			ft_putendl(":");
 		}
+		//ft_putnbr(count_dirs(av[i], options));
+		//ft_putstr("\n");
+		dirs = (char **)malloc(sizeof(char *) * (count_dirs(fv[i], options) + 1));
+		j = 0;
 		while ((direntp = readdir(dirp)))
-			ls_onedir(direntp, options);
+			if (OPT_a || (!OPT_a && direntp->d_name[0] != '.'))
+				dirs[j++] = direntp->d_name;
 		closedir(dirp);
+		dirs = ft_sort_table(dirs, count_dirs(fv[i], options));
+		while (*dirs)
+			ft_putendl(*dirs++);
 		++i;
 	}
-	//free(av);
 	(void)options;
 	return (EXIT_SUCCESS);		 
 }
