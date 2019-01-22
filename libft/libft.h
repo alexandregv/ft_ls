@@ -106,5 +106,6 @@ int					ft_str_copy_to(char **dst, char *src, char c);
 char				*ft_strnjoin(char const *s1, char const *s2, size_t n);
 int					get_next_line(const int fd, char **line);
 void				ft_die(char *msg, int status);
+char        **ft_sort_table(char **table, size_t size);
 
 #endif

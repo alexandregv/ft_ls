@@ -37,7 +37,7 @@ SRC_NAME	= ft_putchar_fd ft_putchar ft_putstr_fd ft_putstr ft_putnbr_fd \
 	  				ft_memccpy ft_strsplit ft_itoa ft_lstnew ft_lstadd \
 	  				ft_lstdelone ft_lstdel ft_lstiter ft_lstmap ft_str_skip_to \
 	  				ft_str_skip_while ft_str_skip_charset get_next_line ft_str_copy_to \
-						ft_strnjoin ft_die
+						ft_strnjoin ft_die ft_sort_table
 SRC				= $(addsuffix .c, $(SRC_NAME))
 
 # Object files
