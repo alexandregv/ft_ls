@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 16:33:53 by aguiot--          #+#    #+#             */
-/*   Updated: 2018/11/13 16:58:31 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/02/14 13:17:41 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ t_list		*ft_lstnew(void const *content, size_t content_size)
 	}
 	else
 	{
-		list->content = ft_memcpy(
-				ft_memalloc(content_size + 1), content, content_size);
+		if ((list->content = ft_memalloc(content_size)) == NULL)
+		{
+			ft_memdel((void **)&list);
+			return (NULL);
+		}
+		ft_memcpy(list->content, content, content_size);
 		list->content_size = content_size;
 	}
 	list->next = NULL;

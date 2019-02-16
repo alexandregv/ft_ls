@@ -14,7 +14,7 @@ NAME			= ft_ls
 CC				= gcc
 
 # Compiler & Preprocessor flags
-CFLAGS		+= -Wall -Werror -Wextra
+#CFLAGS		+= -Wall -Werror -Wextra
 CPPFLAGS	+= -I include/ -I libft/
 
 # Recompile on headers/Makefile changes

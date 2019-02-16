@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 16:54:37 by aguiot--          #+#    #+#             */
-/*   Updated: 2018/12/14 14:58:23 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/02/11 17:33:29 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@
 # include <stdlib.h>
 # include "libft.h"
 
-typedef	struct		s_file
+typedef	struct s_gnl_file t_gnl_file;
+struct			s_gnl_file
 {
-	char			*remainder;
-	char			*tmp;
-	size_t			fd;
-	struct s_file	*next;
-}					t_file;
+	char		*remainder;
+	char		*tmp;
+	size_t		fd;
+	t_gnl_file	*next;
+};
 
 int					get_next_line(const int fd, char **line);
 

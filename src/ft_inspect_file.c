@@ -40,6 +40,7 @@ static char		*get_filemodes(struct stat statb)
 	modes = ft_strnew(11);
 
 	modes[0] = S_ISDIR(mode) ? 'd' : '-';
+	modes[0] = S_ISLNK(mode) ? 'l' : '-';
 
 	modes[1] = mode & S_IRUSR ? 'r' : '-';
 	modes[2] = mode & S_IWUSR ? 'w' : '-';
@@ -118,13 +119,13 @@ static void		print_size(int size)
 	}
 }
 
-int							mmain(int ac, char **av)
+int							main(int ac, char **av)
 {
 	struct stat	statb;
 
 	if (ac != 2)
 		ft_die("Usage: ./ft_inspect_file filename", 0);
-	if (stat(av[1], &statb) < 0)
+	if (lstat(av[1], &statb) < 0)
 		ft_die("Error reading file attributes.", 1);
 
 	ft_putstr("Nom: ");
