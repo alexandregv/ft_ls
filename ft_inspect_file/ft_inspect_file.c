@@ -3,7 +3,7 @@
 #include <grp.h>
 #include <time.h>
 #include <sys/stat.h>
-#include "../libft/libft.h"
+#include "../libft/include/libft.h"
 
 #ifndef S_ISVTX
 # define S_ISVTX	 0001000

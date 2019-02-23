@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/02/23 12:34:14 by aguiot--         ###   ########.fr        #
+#    Updated: 2019/02/23 20:45:10 by sboulaao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DEPS		= libft/include/libft.h include/ft_ls.h Makefile libft/Makefile
 
 # Source files
 SRC_PATH	= src/
-SRC_NAME	= main
+SRC_NAME	= main enum
 #SRC		= $(addsuffix .c, $(SRC_NAME))
 
 # Object files

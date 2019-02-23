@@ -2,15 +2,7 @@
 #include <stdio.h>
 
 #include "../include/ft_ls.h"
-
-#define OPT_l g_options[0]
-#define OPT_R g_options[1]
-#define OPT_a g_options[2]
-#define OPT_r g_options[3]
-#define OPT_t g_options[4]
-#define OPT_U g_options[5]
-#define OPTIONS_COUNT 6
-int g_options[6];
+int	g_options = 0;
 
 int debug = 0;
 #define DEBUGstr(x) if (debug) ft_putstr(x);
@@ -33,46 +25,21 @@ int		lstcmp(const void *c1, const void *c2)
 	//return (ft_strcmp(((t_file *)c1)->path, ((t_file *)c2)->path));
 }
 
-int		parse_g_options(int ac, char **av, int *g_options)
+void				debug_g_options(int i)
 {
-	int				i;
-
-	i = 0;
-	while (i < OPTIONS_COUNT)
-		g_options[i++] = 0;
-	i = 1;
-	while (i < ac && av[i][0] == '-')
-	{
-		++av[i];
-		while (*av[i])
-		{
-			OPT_l = (*av[i] == 'l') ? 1 : OPT_l;
-			OPT_R = (*av[i] == 'R') ? 1 : OPT_R;
-			OPT_a = (*av[i] == 'a') ? 1 : OPT_a;
-			OPT_r = (*av[i] == 'r') ? 1 : OPT_r;
-			OPT_t = (*av[i] == 't') ? 1 : OPT_t;
-			OPT_U = (*av[i] == 'U') ? 1 : OPT_U;
-			++av[i];
-		}
-		++i;
-	}
-	return (i);
-}
-
-void				debug_g_options(int *g_options, int i)
-{
+	//g_options |= OPT_R;
 	ft_putstr(" R:");
-	ft_putnbr(OPT_R);
+	ft_putnbr(g_options & OPT_R);
 	ft_putstr(" l:");
-	ft_putnbr(OPT_l);
+	ft_putnbr(g_options & OPT_l);
 	ft_putstr(" a:");
-	ft_putnbr(OPT_a);
+	ft_putnbr(g_options & OPT_a);
 	ft_putstr(" r:");
-	ft_putnbr(OPT_r);
+	ft_putnbr(g_options & OPT_r);
 	ft_putstr(" t:");
-	ft_putnbr(OPT_t);
+	ft_putnbr(g_options & OPT_t);
 	ft_putstr(" U:");
-	ft_putnbr(OPT_U);
+	ft_putnbr(g_options & OPT_U);
 	ft_putchar('\n');
 	ft_putstr(" i:");
 
@@ -81,7 +48,7 @@ void				debug_g_options(int *g_options, int i)
 	ft_putchar('\n');
 }
 
-int			count_dirs(char *path, int *g_options)
+int			count_dirs(char *path)
 {
 	int			count;
 	DIR			*dirp;
@@ -90,7 +57,7 @@ int			count_dirs(char *path, int *g_options)
 	count = 0;
 	dirp = opendir(path);
 	while ((direntp = readdir(dirp)))
-		if (OPT_a || (!OPT_a && direntp->d_name[0] != '.'))
+		if (g_options & OPT_a || (!(g_options & OPT_a) && direntp->d_name[0] != '.'))
 			++count;
 	(void)g_options;
 	return (count);
@@ -101,7 +68,7 @@ void	print_dir(t_list *node)
 	DEBUGstr("[");
 	DEBUGstr((char const *)(((t_file *)node->content))->name);
 	DEBUGendl("]");
-	if (OPT_R && S_ISDIR(((t_file *)node->content)->stat.st_mode))
+	if ((g_options & OPT_R) && S_ISDIR(((t_file *)node->content)->stat.st_mode))
 	{
 		ft_putendl((char const *)(((t_file *)node->content))->name);
 		ft_putchar('\n');
@@ -111,7 +78,7 @@ void	print_dir(t_list *node)
 	}
 	else
 		ft_putendl((char const *)(((t_file *)node->content))->name);
-	//if (OPT_R && node->next != NULL && S_ISDIR(((t_file *)node->next->content)->stat.st_mode))
+	//if (g_options & OPT_R && node->next != NULL && S_ISDIR(((t_file *)node->next->content)->stat.st_mode))
 	//	ft_putchar('\n');
 }
 
@@ -147,7 +114,7 @@ char	*ft_get_path(char *filename)
 	}
 }
 
-t_list	*ft_while(t_list *list, char *path, int *g_options)
+t_list	*ft_while(t_list *list, char *path)
 {
 	DIR			*dirp;
 	t_dirent	*direntp;
@@ -179,19 +146,19 @@ t_list	*ft_while(t_list *list, char *path, int *g_options)
 		DEBUGstr(" (path=");
 		DEBUGstr(path);
 		DEBUGstr(")");
-		if (OPT_a || direntp->d_name[0] != '.')
+		if ((g_options & OPT_a) || direntp->d_name[0] != '.')
 		{
 			DEBUGendl("");
 			tmppath = ft_strjoin(path, "/");
 			tmppath = ft_strjoin(tmppath, direntp->d_name);
-			if (OPT_R && direntp->d_type == DT_DIR)
+			if ((g_options & OPT_R) && direntp->d_type == DT_DIR)
 			{
 				DEBUGstr("-> Found subdirectory ");
 				DEBUGstr(direntp->d_name);
 				DEBUGstr(", launching ft_while on it (path=");
 				DEBUGstr(tmppath);
 				DEBUGendl(")");
-				list = ft_while(list, tmppath, g_options);
+				list = ft_while(list, tmppath);
 				DEBUGstr("<- Quitting ft_while on ");
 				DEBUGendl(direntp->d_name);
 			}
@@ -250,7 +217,7 @@ t_list	*sort_fv(char **fv)
 		}
 		++i;
 	}
-	if (!OPT_U)
+	if (!(g_options & OPT_U))
 	{
 		if (files != NULL)
 			ft_list_sort(&files, (int (*)(const void *, const void *))ft_strcmp);
@@ -270,7 +237,7 @@ t_list	*sort_fv(char **fv)
 	}
 }
 
-int		ls(int fc, char **fv, int *g_options)
+int		ls(int fc, char **fv)
 {
 	int			i;
 	char		*path;
@@ -286,7 +253,7 @@ int		ls(int fc, char **fv, int *g_options)
 	i = 0;
 	while (i < fc && args)
 	{
-		if (fc >= 2 || OPT_R)
+		if (fc >= 2 || (g_options & OPT_R))
 		{
 			if (S_ISDIR(args->content_size))
 			{
@@ -299,11 +266,11 @@ int		ls(int fc, char **fv, int *g_options)
 		path = ft_get_path(args->content);
 		DEBUGstr("Starting path = ");
 		DEBUGendl(path);
-		list = ft_while(list, args->content, g_options);
-		if (!OPT_U)
+		list = ft_while(list, args->content);
+		if (!(g_options & OPT_U))
 		{
 			ft_list_sort(&list, &lstcmp);
-			if (OPT_r)
+			if (g_options & OPT_r)
 				ft_list_rev(&list); //TODO: remplacer par un sort < 0 ?
 		}
 		DEBUGendl("----------------------------");
@@ -322,8 +289,9 @@ int		main(int ac, char **av)
 	int			i;
 	//int		g_options[5];
 
-	i = parse_g_options(ac, av, g_options);
-	//debug_g_options(g_options, i);
+	i = parse_g_options(ac, av);
+	debug_g_options(i);
+	exit(0);
 	//ft_putendl(ft_get_path(av[1]));
-	return (ls(ac - i, av + i, g_options));
+	return (ls(ac - i, av + i));
 }
