@@ -1,5 +1,5 @@
-#ifndef FTLS_H
-# define FTLS_H
+#ifndef FT_LS_H
+# define FT_LS_H
 
 # include <dirent.h>
 # include <sys/types.h>
@@ -11,9 +11,10 @@
 # include <errno.h>
 # include "../libft/include/libft.h"
 
-typedef struct timespec t_timespec;
-typedef struct stat t_stat;
-typedef struct s_file t_file;
+typedef struct timespec	t_timespec;
+typedef struct stat		t_stat;
+typedef struct dirent	t_dirent;
+typedef struct s_file	t_file;
 
 struct			s_file
 {
