@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/02/23 11:55:56 by aguiot           ###   ########.fr        #
+#    Updated: 2019/02/23 12:34:14 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,8 @@ ifeq ($(shell uname),Linux)
 	ECHO	+= -e
 endif
 
+GREP		= grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}
+
 all: $(NAME)
 
 $(NAME): $(LIB_FILE) $(OBJ)
@@ -87,4 +89,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all re
+norm:
+	@norminette | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1
+
+.PHONY: clean fclean all re norm
