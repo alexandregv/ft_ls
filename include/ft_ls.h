@@ -9,7 +9,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
-# include "../libft/libft.h"
+# include "../libft/include/libft.h"
 
 typedef struct timespec t_timespec;
 typedef struct stat t_stat;

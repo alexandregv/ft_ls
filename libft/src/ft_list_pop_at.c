@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_die.c                                           :+:      :+:    :+:   */
+/*   ft_list_pop_at.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/17 13:53:03 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/01/17 13:54:57 by aguiot--         ###   ########.fr       */
+/*   Created: 2019/02/16 18:07:26 by aguiot--          #+#    #+#             */
+/*   Updated: 2019/02/18 17:05:39 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-void  ft_die(char *msg, int status)
+t_list	*ft_list_pop_at(t_list **head, size_t index)
 {
-  ft_putendl_fd(msg, status == 0 ? 1 : 2);
-  exit(status);
+	t_list	*temp;
+	t_list	*poped;
+
+	if (index == 0)
+	{
+		poped = *head;
+		*head = (*head)->next;
+		poped->next = NULL;
+		return (poped);
+	}
+	else
+	{
+		temp = *head;
+		while (--index > 0 && temp->next)
+			temp = temp->next;
+		poped = temp->next;
+		temp->next = poped->next;
+		poped->next = NULL;
+	}
+	return (poped);
 }

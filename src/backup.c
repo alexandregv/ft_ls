@@ -16,24 +16,81 @@ int debug = 1;
 #define DEBUGendl(x) if (debug) ft_putendl(x);
 int options[5];
 
-int		lstcmp(const void *c1, const void *c2) 
+static void				ft_lstsort_swap(t_list *l1, t_list *l2)
 {
-	char	*tmppath1;
-	char	*tmppath2;
-	
-	tmppath1 = ft_strjoin(((t_file *)c1)->path, ((t_file *)c1)->name);
-	tmppath2 = ft_strjoin(((t_file *)c2)->path, ((t_file *)c2)->name);
+	void				*tmp;
+	size_t				size;
 
-	DEBUGstr(" => soooorting ");
-	DEBUGstr(tmppath1);
-	DEBUGstr(" | ");
-	DEBUGendl(tmppath2);
-	return (ft_strcmp(tmppath1, tmppath2));
-	//return (ft_strcmp(((t_file *)c1)->name, ((t_file *)c2)->name));
-	//return (ft_strcmp(((t_file *)c1)->path, ((t_file *)c2)->path));
+	tmp = l1->content;
+	l1->content = l2->content;
+	l2->content = tmp;
+	size = l1->content_size;
+	l1->content_size = l2->content_size;
+	l2->content_size = size;
 }
 
-int		parse_options(int ac, char **av, int *options)
+static inline t_list	*ft_lstsort_sorting(t_list *low, t_list *high, int (*f)(const void *, const void *))
+{
+	t_list				*tmp;
+	t_list				*arrow;
+	void				*median;
+
+	tmp = low->next;
+	arrow = low;
+	median = low->content;
+	while (tmp != high)
+	{
+		if (f((char *)tmp->content, (char *)median) < 0)
+		{
+			arrow = arrow->next;
+			ft_lstsort_swap(tmp, arrow);
+		}
+		tmp = tmp->next;
+	}
+	ft_lstsort_swap(low, arrow);
+	return (arrow);
+}
+
+static void				ft_lstsort_rec(t_list *low, t_list *high, int (*f)(const void *, const void *))
+{
+	t_list				*median;
+
+	if (high == low)
+		return ;
+	median = ft_lstsort_sorting(low, high, f);
+	ft_lstsort_rec(low, median, f);
+	ft_lstsort_rec(median->next, high, f);
+}
+
+void					ft_lstsort(t_list *lst, int (*f)(const void *, const void *))
+{
+	ft_lstsort_rec(lst, NULL, f);
+}
+
+int	ft_lstcmp(const void *c1, const void *c2) 
+{
+	return (ft_strcmp(((t_file *)c1)->name, ((t_file *)c2)->name));
+}
+
+void		ft_lstrev(t_list **alst)
+{
+	t_list	*prev;
+	t_list	*cur;
+	t_list	*next;
+
+	prev = NULL;
+	cur = *alst;
+	while (cur != NULL)
+	{
+		next = cur->next;
+		cur->next = prev;
+		prev = cur;
+		cur = next;
+	}
+	*alst = prev;
+}
+
+int					 parse_options(int ac, char **av, int *options)
 {
 	int				i;
 
@@ -98,6 +155,7 @@ int			count_dirs(char *path, int *options)
 
 void	print_dir(t_list *node)
 {
+
 	DEBUGstr("[");
 	DEBUGstr((char const *)(((t_file *)node->content))->name);
 	DEBUGendl("]");
@@ -111,15 +169,14 @@ void	print_dir(t_list *node)
 	}
 	else
 		ft_putendl((char const *)(((t_file *)node->content))->name);
-	//if (OPT_R && node->next != NULL && S_ISDIR(((t_file *)node->next->content)->stat.st_mode))
-	//	ft_putchar('\n');
+	if (OPT_R && node->next != NULL && S_ISDIR(((t_file *)node->next->content)->stat.st_mode))
+		ft_putchar('\n');
 }
 
 void	del_node(void *file, size_t size)
 {
 	free((t_file *)file);
 	file = NULL;
-	(void)size;
 }
 
 char	*ft_get_path(char *filename)
@@ -153,19 +210,8 @@ t_list	*ft_while(t_list *list, char *path, int *options)
 	struct dirent	*direntp;
 	t_file 			*new;
 	char			*tmppath;
-	struct stat		statb;
 
-	stat(path, &statb);
-  	if (!S_ISDIR(statb.st_mode))
-	{
-		new = (t_file *)malloc(sizeof(t_file));
-		ft_strcpy(new->name, path);
-		if (!list)
-			list = ft_lstnew(new, sizeof(*new));
-		else
-			ft_list_push_back(list, ft_list_new(new, sizeof(*new)));
-		return (list);
-	}
+	
 	dirp = opendir(path);	
 	//if (dirp == NULL)
 	//{
@@ -199,11 +245,12 @@ t_list	*ft_while(t_list *list, char *path, int *options)
 			ft_strcpy(new->name, direntp->d_name);
 			ft_strcpy(new->path, path);
 			ft_strcat(new->path, "/");
+			struct stat st;
 			lstat(tmppath, &new->stat); //add protect
 			if (!list)
 				list = ft_lstnew(new, sizeof(*new));
 			else
-				ft_list_push_back(list, ft_list_new(new, sizeof(*new)));
+				ft_lstadd(&list, ft_lstnew(new, sizeof(*new)));
 		}
 		else
 			DEBUGendl("	(SKIP)");
@@ -212,69 +259,11 @@ t_list	*ft_while(t_list *list, char *path, int *options)
 	return (list);
 }
 
-static void	print_node(t_list *node)
-{
-	return ;
-	write(1, " => ", 4);
-	write(1, (char *)node->content, ft_strlen(node->content));
-	write(1, "\n", 1);
-}
-
-t_list	*sort_fv(char **fv) //TODO: passer options pour meme pas register les ignores (genre .*)
-{
-	t_list	*files;
-	t_list	*dirs;
-	struct stat	statb;
-	size_t	i;
-
-	files = NULL;
-	dirs = NULL;
-	i = 0;
-	while (fv[i])
-	{
-		stat(fv[i], &statb);
-		if (S_ISDIR(statb.st_mode))
-		{
-			if (dirs == NULL)
-				dirs = ft_list_new(ft_strdup(fv[i]), statb.st_mode);
-			else
-				ft_list_push_back(dirs, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
-		}
-		else
-		{
-			if (files == NULL)
-				files = ft_list_new(ft_strdup(fv[i]), statb.st_mode);
-			else
-				ft_list_push_back(files, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
-		}
-		++i;
-	}
-	if (!OPT_U)
-	{
-		if (files != NULL)
-			ft_list_sort(&files, (int (*)(const void *, const void *))ft_strcmp);
-		if (dirs != NULL)
-			ft_list_sort(&dirs, (int (*)(const void *, const void *))ft_strcmp);
-	}
-	if (files != NULL)
-	{
-		ft_list_get_at(files, ft_list_size(files) - 1)->next = dirs;
-		ft_list_iter(files, print_node); //TODO: this is debug
-		return (files);
-	}
-	else
-	{
-		ft_list_iter(dirs, print_node); //TODO: this is debug
-		return (dirs);
-	}
-}
-
-
-int		ls(int fc, char **fv, int *options)
+int				ls(int fc, char **fv, int *options)
 {
 	int			i;
 	char		*path;
-	t_list		*args;
+	DIR			*dirp;
 	t_list		*list = NULL;
 
 	if (fc == 0)
@@ -282,42 +271,35 @@ int		ls(int fc, char **fv, int *options)
 		fc = 1;
 		fv[0] = ".";
 	}
-	args = sort_fv(fv);
 	i = 0;
-	while (i < fc && args)
+	while (i < fc)
 	{
 		if (fc >= 2 || OPT_R)
 		{
-			if (S_ISDIR(args->content_size))
-			{
-				if (i != 0)
-					ft_putchar('\n');
-				ft_putstr(args->content);
-				ft_putendl(":");
-			}
+			if (i != 0)
+				ft_putchar('\n');
+			ft_putstr(fv[i]);
+			ft_putendl(":");
 		}
-		path = ft_get_path(args->content);
+		path = ft_get_path(fv[i]);
 		DEBUGstr("Starting path = ");
 		DEBUGendl(path);
-		list = ft_while(list, args->content, options);
+		list = ft_while(list, fv[i], options);
+		ft_lstrev(&list);
 		if (!OPT_U)
-		{
-			ft_list_sort(&list, &lstcmp);
-			if (OPT_r)
-				ft_list_rev(&list); //TODO: remplacer par un sort < 0 ?
-		}
+			ft_lstsort(list, &ft_lstcmp);
 		DEBUGendl("----------------------------");
 		//ft_putstr("total");ft_putnrr(42);
-		ft_list_iter(list, print_dir);
+		ft_lstiter(list, print_dir);
 		++i;
-		ft_list_del(&list, NULL);
-		args = args->next;
+		ft_lstdel(&list, del_node);
+		//list = NULL;
 	}
 	(void)options;
 	return (EXIT_SUCCESS);
 }
 
-int		main(int ac, char **av)
+int					main(int ac, char **av)
 {
 	int	 i;
 	//int				options[5];

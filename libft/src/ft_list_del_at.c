@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_list_del_at.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/20 16:54:37 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/11 17:33:29 by aguiot           ###   ########.fr       */
+/*   Created: 2019/02/16 18:09:09 by aguiot--          #+#    #+#             */
+/*   Updated: 2019/02/16 18:09:16 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE 130
-
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "libft.h"
-
-typedef	struct s_gnl_file t_gnl_file;
-struct			s_gnl_file
+void	ft_list_del_at(t_list **head, void (*del)(void *, size_t), size_t index)
 {
-	char		*remainder;
-	char		*tmp;
-	size_t		fd;
-	t_gnl_file	*next;
-};
+	t_list	*node;
 
-int					get_next_line(const int fd, char **line);
-
-#endif
+	node = ft_list_get_at(*head, index);
+	ft_list_del_node(&node, del);
+}

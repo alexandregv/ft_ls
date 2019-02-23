@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_list_del.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/13 17:10:27 by aguiot--          #+#    #+#             */
-/*   Updated: 2018/11/13 17:15:08 by aguiot--         ###   ########.fr       */
+/*   Created: 2019/02/16 18:09:25 by aguiot--          #+#    #+#             */
+/*   Updated: 2019/02/16 18:09:33 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd(t_list **alst, t_list *new)
+void	ft_list_del(t_list **list, void (*del)(void *, size_t))
 {
-	new->next = *alst;
-	*alst = new;
+	t_list	*next;
+	t_list	*temp;
+
+	temp = *list;
+	while (temp)
+	{
+		next = temp->next;
+		ft_list_del_node(&temp, del);
+		temp = next;
+	}
+	*list = NULL;
 }

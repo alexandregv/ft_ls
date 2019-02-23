@@ -6,29 +6,29 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/01/18 16:51:52 by aguiot--         ###   ########.fr        #
+#    Updated: 2019/02/19 15:01:21 by aguiot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= ft_ls
-CC				= gcc
+NAME		= ft_ls
+CC			= gcc
 
 # Compiler & Preprocessor flags
-#CFLAGS		+= -Wall -Werror -Wextra
-CPPFLAGS	+= -I include/ -I libft/
+CFLAGS		+= -Wall -Werror -Wextra
+CPPFLAGS	+= -I include/ -I libft/include/
 
 # Recompile on headers/Makefile changes
-DEPS			= libft/libft.h include/ft_ls.h Makefile
+DEPS		= libft/include/libft.h include/ft_ls.h Makefile libft/Makefile
 
 # Source files
 SRC_PATH	= src/
 SRC_NAME	= main
-SRC				= $(addsuffix .c, $(SRC_NAME))
+#SRC		= $(addsuffix .c, $(SRC_NAME))
 
 # Object files
 OBJ_PATH	= obj/
 OBJ_NAME	= $(addsuffix .o, $(SRC_NAME))
-OBJ				= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+OBJ			= $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 # Library
 LIB_PATH	= libft
@@ -43,16 +43,16 @@ C_SUCCESS	= \033[0;32m
 
 # Escape Sequences (ANSI/VT100)
 ES_ERASE	= "\033[A\033[K\033[A"
-ERASE			= $(ECHO) $(ES_ERASE)
+ERASE		= $(ECHO) $(ES_ERASE)
 
 # Hide STD/ERR and prevent Make from returning non-zero code
 HIDE_STD	= > /dev/null
 HIDE_ERR	= 2> /dev/null || true
 
 # Multi platforms 
-ECHO 			= echo
+ECHO 		= echo
 ifeq ($(shell uname),Linux)
-	ECHO		+= -e
+	ECHO	+= -e
 endif
 
 all: $(NAME)

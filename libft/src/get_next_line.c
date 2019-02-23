@@ -6,13 +6,13 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/16 18:51:58 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/11 17:31:50 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/02/16 10:34:06 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static t_gnl_file		*get_fd_file(t_gnl_file **files, int fd)
+static t_gnl_file	*get_fd_file(t_gnl_file **files, int fd)
 {
 	t_gnl_file			*file;
 
@@ -42,8 +42,8 @@ static int			check_errors(int fd, char **line, char *buff)
 
 static void			read_line(int *ret, int fd, char *buff, t_gnl_file **file)
 {
-	char			*tmp;
-	int				time;
+	char				*tmp;
+	int					time;
 
 	time = 1;
 	while ((*ret = read(fd, buff, BUFF_SIZE)))
@@ -63,9 +63,9 @@ int					get_next_line(const int fd, char **line)
 {
 	static t_gnl_file	*files;
 	t_gnl_file			*file;
-	char			buff[BUFF_SIZE + 1];
-	int				ret;
-	size_t			offset;
+	char				buff[BUFF_SIZE + 1];
+	int					ret;
+	size_t				offset;
 
 	if (check_errors(fd, line, buff) == -1)
 		return (-1);
