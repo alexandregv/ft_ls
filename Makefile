@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/02/19 15:01:21 by aguiot           ###   ########.fr        #
+#    Updated: 2019/02/23 11:55:56 by aguiot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC			= gcc
 # Compiler & Preprocessor flags
 CFLAGS		+= -Wall -Werror -Wextra
 CPPFLAGS	+= -I include/ -I libft/include/
+MAKEFLAGS	+= --no-print-directory
 
 # Recompile on headers/Makefile changes
 DEPS		= libft/include/libft.h include/ft_ls.h Makefile libft/Makefile
