@@ -11,6 +11,8 @@
 # include <errno.h>
 # include "libft.h"
 
+# include "debug.h"
+
 typedef struct timespec	t_timespec;
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
@@ -33,5 +35,7 @@ struct {
 } g_flags;
 
 int		parse_flags(int ac, char **av);
+t_list	*sort_args(char **fv);
+int		lstcmp(const void *c1, const void *c2);
 
 #endif

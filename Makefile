@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/02/24 05:30:12 by aguiot           ###   ########.fr        #
+#    Updated: 2019/02/25 02:46:21 by aguiot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,12 @@ CPPFLAGS	+= -I include/ -I libft/include/
 MAKEFLAGS	+= --no-print-directory
 
 # Recompile on headers/Makefile changes
-DEPS		= libft/include/libft.h include/ft_ls.h Makefile libft/Makefile
+HEADERS		= include/ft_ls.h libft/include/libft.h include/debug.h
+DEPS		= $(HEADERS) Makefile libft/Makefile
 
 # Source files
 SRC_PATH	= src/
-SRC_NAME	= main flags
+SRC_NAME	= main flags args utils debug
 #SRC		= $(addsuffix .c, $(SRC_NAME))
 
 # Object files
