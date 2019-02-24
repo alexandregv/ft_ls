@@ -1,8 +1,6 @@
 #include <string.h>
 #include <stdio.h>
-
-#include "../include/ft_ls.h"
-int	g_options = 0;
+#include "ft_ls.h"
 
 int debug = 0;
 #define DEBUGstr(x) if (debug) ft_putstr(x);
@@ -25,21 +23,20 @@ int		lstcmp(const void *c1, const void *c2)
 	//return (ft_strcmp(((t_file *)c1)->path, ((t_file *)c2)->path));
 }
 
-void				debug_g_options(int i)
+void				debug_flags(int i)
 {
-	//g_options |= OPT_R;
 	ft_putstr(" R:");
-	ft_putnbr(g_options & OPT_R);
+	ft_putnbr(g_flags.R);
 	ft_putstr(" l:");
-	ft_putnbr(g_options & OPT_l);
+	ft_putnbr(g_flags.l);
 	ft_putstr(" a:");
-	ft_putnbr(g_options & OPT_a);
+	ft_putnbr(g_flags.a);
 	ft_putstr(" r:");
-	ft_putnbr(g_options & OPT_r);
+	ft_putnbr(g_flags.r);
 	ft_putstr(" t:");
-	ft_putnbr(g_options & OPT_t);
+	ft_putnbr(g_flags.t);
 	ft_putstr(" U:");
-	ft_putnbr(g_options & OPT_U);
+	ft_putnbr(g_flags.U);
 	ft_putchar('\n');
 	ft_putstr(" i:");
 
@@ -57,9 +54,8 @@ int			count_dirs(char *path)
 	count = 0;
 	dirp = opendir(path);
 	while ((direntp = readdir(dirp)))
-		if (g_options & OPT_a || (!(g_options & OPT_a) && direntp->d_name[0] != '.'))
+		if (g_flags.a || (!g_flags.a && direntp->d_name[0] != '.'))
 			++count;
-	(void)g_options;
 	return (count);
 }
 
@@ -68,7 +64,7 @@ void	print_dir(t_list *node)
 	DEBUGstr("[");
 	DEBUGstr((char const *)(((t_file *)node->content))->name);
 	DEBUGendl("]");
-	if ((g_options & OPT_R) && S_ISDIR(((t_file *)node->content)->stat.st_mode))
+	if ((g_flags.R) && S_ISDIR(((t_file *)node->content)->stat.st_mode))
 	{
 		ft_putendl((char const *)(((t_file *)node->content))->name);
 		ft_putchar('\n');
@@ -78,7 +74,7 @@ void	print_dir(t_list *node)
 	}
 	else
 		ft_putendl((char const *)(((t_file *)node->content))->name);
-	//if (g_options & OPT_R && node->next != NULL && S_ISDIR(((t_file *)node->next->content)->stat.st_mode))
+	//if (g_flags.R && node->next != NULL && S_ISDIR(((t_file *)node->next->content)->stat.st_mode))
 	//	ft_putchar('\n');
 }
 
@@ -146,12 +142,12 @@ t_list	*ft_while(t_list *list, char *path)
 		DEBUGstr(" (path=");
 		DEBUGstr(path);
 		DEBUGstr(")");
-		if ((g_options & OPT_a) || direntp->d_name[0] != '.')
+		if ((g_flags.a) || direntp->d_name[0] != '.')
 		{
 			DEBUGendl("");
 			tmppath = ft_strjoin(path, "/");
 			tmppath = ft_strjoin(tmppath, direntp->d_name);
-			if ((g_options & OPT_R) && direntp->d_type == DT_DIR)
+			if ((g_flags.R) && direntp->d_type == DT_DIR)
 			{
 				DEBUGstr("-> Found subdirectory ");
 				DEBUGstr(direntp->d_name);
@@ -187,7 +183,7 @@ static void	print_node(t_list *node)
 	write(1, "\n", 1);
 }
 
-//TODO: passer g_options pour meme pas register les ignores (genre .*)
+//TODO: check les flags pour ne pas register inutilement les ignores (genre .*)
 t_list	*sort_fv(char **fv)
 {
 	t_list		*files;
@@ -217,7 +213,7 @@ t_list	*sort_fv(char **fv)
 		}
 		++i;
 	}
-	if (!(g_options & OPT_U))
+	if (!g_flags.U)
 	{
 		if (files != NULL)
 			ft_list_sort(&files, (int (*)(const void *, const void *))ft_strcmp);
@@ -253,7 +249,7 @@ int		ls(int fc, char **fv)
 	i = 0;
 	while (i < fc && args)
 	{
-		if (fc >= 2 || (g_options & OPT_R))
+		if (fc >= 2 || (g_flags.R))
 		{
 			if (S_ISDIR(args->content_size))
 			{
@@ -267,10 +263,10 @@ int		ls(int fc, char **fv)
 		DEBUGstr("Starting path = ");
 		DEBUGendl(path);
 		list = ft_while(list, args->content);
-		if (!(g_options & OPT_U))
+		if (!g_flags.U)
 		{
 			ft_list_sort(&list, &lstcmp);
-			if (g_options & OPT_r)
+			if (g_flags.r)
 				ft_list_rev(&list); //TODO: remplacer par un sort < 0 ?
 		}
 		DEBUGendl("----------------------------");
@@ -280,17 +276,15 @@ int		ls(int fc, char **fv)
 		ft_list_del(&list, NULL);
 		args = args->next;
 	}
-	(void)g_options;
 	return (EXIT_SUCCESS);
 }
 
 int		main(int ac, char **av)
 {
 	int			i;
-	//int		g_options[5];
 
-	i = parse_g_options(ac, av);
-	debug_g_options(i);
+	i = parse_flags(ac, av);
+	debug_flags(i);
 	exit(0);
 	//ft_putendl(ft_get_path(av[1]));
 	return (ls(ac - i, av + i));
