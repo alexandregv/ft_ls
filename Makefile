@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/02/25 02:46:21 by aguiot           ###   ########.fr        #
+#    Updated: 2019/02/26 17:26:12 by aguiot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ DEPS		= $(HEADERS) Makefile libft/Makefile
 
 # Source files
 SRC_PATH	= src/
-SRC_NAME	= main flags args utils debug
+SRC_NAME	= main flags args utils sort debug
 #SRC		= $(addsuffix .c, $(SRC_NAME))
 
 # Object files

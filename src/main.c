@@ -116,7 +116,8 @@ int		ls(int fc, char **fv)
 		{
 			if (!g_flags.U)
 			{
-				ft_list_sort(&list, &lstcmp);
+				//ft_list_sort(&list, &lstcmp);
+				ft_list_msort(&list);
 				if (g_flags.r)
 					ft_list_rev(&list); //TODO: remplacer par un sort < 0
 			}

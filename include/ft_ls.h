@@ -36,6 +36,7 @@ struct {
 
 int		parse_flags(int ac, char **av);
 t_list	*sort_args(char **fv);
-int		lstcmp(const void *c1, const void *c2);
+int		lstcmp(const t_list *node1, const t_list *node2);
+void	ft_list_msort(t_list **head);
 
 #endif
