@@ -93,14 +93,9 @@ int		ls(int fc, char **fv)
 	if (fc == 0)
 	{
 		fc = 1;
-		fv = (char **)malloc(sizeof(char *) * 2);
-		fv[0] = ".";
-		fv[1] = NULL;
-		args = sort_args(fv);
-		free(fv);
+		fv = (char *[]) {".", NULL};
 	}
-	else
-		args = sort_args(fv);
+	args = sort_args(fv);
 	i = 0;
 	while (i < fc && args)
 	{
