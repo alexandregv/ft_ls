@@ -34,7 +34,7 @@ t_list	*ft_while(t_list *list, char *path)
 		if (!list)
 			list = ft_lstnew(new, sizeof(*new));
 		else
-			ft_list_push_back(list, ft_list_new(new, sizeof(*new)));
+			ft_list_push_back(&list, ft_list_new(new, sizeof(*new)));
 		return (list);
 	}
 	dirp = opendir(path);
@@ -73,7 +73,7 @@ t_list	*ft_while(t_list *list, char *path)
 			if (!list)
 				list = ft_lstnew(new, sizeof(*new));
 			else
-				ft_list_push_back(list, ft_list_new(new, sizeof(*new)));
+				ft_list_push_back(&list, ft_list_new(new, sizeof(*new)));
 		}
 		else
 			DEBUGendl("	(SKIP)");

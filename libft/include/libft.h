@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:36:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/18 17:58:41 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/02/25 20:45:56 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ void				ft_die(char *msg, int status);
 char				**ft_sort_table(char **table, size_t size);
 
 t_list				*ft_list_new(const void *content, size_t content_size);
-t_list				*ft_list_push_back(t_list *node, t_list *new);
-t_list				*ft_list_push_front(t_list *head, t_list *new);
+t_list				*ft_list_push_back(t_list **node, t_list *new);
+t_list				*ft_list_push_front(t_list **head, t_list *new);
 t_list				*ft_list_get_at(t_list *head, size_t index);
-t_list				*ft_list_push_at(t_list *head, t_list *node, size_t index);
+t_list				*ft_list_push_at(t_list **head, t_list *node, size_t index);
 t_list				*ft_list_map(t_list *head, t_list *(*f)(t_list *node));
 t_list				*ft_list_pop_at(t_list **head, size_t index);
 t_list				*ft_list_pop_front(t_list **head);

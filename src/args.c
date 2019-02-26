@@ -15,19 +15,9 @@ t_list	*sort_args(char **fv)
 	{
 		stat(fv[i], &statb); //TODO: add protect
 		if (S_ISDIR(statb.st_mode))
-		{
-			if (dirs == NULL)
-				dirs = ft_list_new(ft_strdup(fv[i]), statb.st_mode);
-			else
-				ft_list_push_back(dirs, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
-		}
+			ft_list_push_back(&dirs, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
 		else
-		{
-			if (files == NULL)
-				files = ft_list_new(ft_strdup(fv[i]), statb.st_mode);
-			else
-				ft_list_push_back(files, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
-		}
+			ft_list_push_back(&files, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
 		++i;
 	}
 	if (!g_flags.U)
