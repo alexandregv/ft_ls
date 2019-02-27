@@ -22,3 +22,16 @@ void	del_node(void *file, size_t size)
 	file = NULL;
 	(void)size;
 }
+
+size_t	count_blocks(const t_list *head)
+{
+	size_t	blocks;
+
+	blocks = 0;
+	while (head)
+	{
+		blocks += ((t_file *)head->content)->stat.st_blocks; //TODO: support blocksize other than 512 ?
+		head = head->next;
+	}
+	return (blocks);
+}
