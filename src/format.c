@@ -5,22 +5,31 @@
 #include <sys/stat.h>
 #include "ft_ls.h"
 
-#ifndef S_ISVTX
-# define S_ISVTX	 0001000
-#endif
-#ifndef S_ISTXT
-# define S_ISTXT	 0001000
+#ifdef _DARWIN_FEATURE_64_BIT_INODE
+# define ST_MTIME st_mtimespec.tv_sec
+#else
+# define ST_MTIME st_mtime
+# define S_ISTXT S_ISVTX
 #endif
 
-static char	*get_filemodes(struct stat statb)
+static void	print_filemodes(struct stat statb) //TODO: ACL + extended attr
 {
 	mode_t			mode;
-	char			*modes;
+	char			modes[10];
 
 	mode = statb.st_mode;
-	modes = ft_strnew(11);
+	ft_memset(modes, '-', 10);
 
-	modes[0] = S_ISDIR(mode) ? 'd' : '-'; //TODO: other types
+	if (S_ISDIR(mode))
+		modes[0] = 'd';
+	else if (S_ISCHR(mode))
+		modes[0] = 'c';
+	else if (S_ISLNK(mode))
+		modes[0] = 'l';
+	else if (S_ISSOCK(mode))
+		modes[0] = 's';
+	else if (S_ISFIFO(mode))
+		modes[0] = 'p';
 
 	modes[1] = mode & S_IRUSR ? 'r' : '-';
 	modes[2] = mode & S_IWUSR ? 'w' : '-';
@@ -38,43 +47,34 @@ static char	*get_filemodes(struct stat statb)
 		modes[9] = 'T';
 	else if ((mode & S_IXOTH) && (mode & S_ISTXT))
 		modes[9] = 't';
-	else
-		modes[9] = '-';
-	return (modes);
+	ft_putstr(modes);
 }
 
-static char	*get_fileowner(struct stat statb)
+static void	print_fileowner(struct stat statb)
 {
 	struct passwd	*pw;
 
 	pw = getpwuid(statb.st_uid);
 	if (pw != 0)
-		return (pw->pw_name);
-	return (NULL);
+		ft_putstr(pw->pw_name);
 }
 
-static char	*get_filegroup(struct stat statb)
+static void	print_filegroup(struct stat statb)
 {
 	struct group	*gr;
 
 	gr = getgrgid(statb.st_gid);
 	if (gr != 0)
-		return (gr->gr_name);
-	return (NULL);
+		ft_putstr(gr->gr_name);
 }
 
-static char	*get_mtime(struct stat statb)
+static void	print_time(struct stat statb) //TODO: Fix +/- 6 months
 {
-#ifdef _DARWIN_FEATURE_64_BIT_INODE
-	return(ctime(&statb.st_mtimespec.tv_sec));
-#else
-	return(ctime(&statb.st_mtime));
-#endif
-}
+	char	*time;
 
-static void	print_time(char *time) //TODO: Fix +/- 6 months
-{
+	time = ctime(&statb.ST_MTIME);
 	time += 4;
+	//ft_putstr(time);
 	write(1, time, 12);
 }
 
@@ -95,17 +95,17 @@ void	print_file(t_list *node)
 {
 	if (g_flags.l) //TODO: padding
 	{
-		ft_putstr(get_filemodes(((t_file *)node->content)->stat));
+		print_filemodes(((t_file *)node->content)->stat); //TODO: ACL + extended attr
 		ft_putchar(' ');
 		ft_putnbr(((t_file *)node->content)->stat.st_nlink);
 		ft_putchar(' ');
-		ft_putstr(get_fileowner(((t_file *)node->content)->stat));
+		print_fileowner(((t_file *)node->content)->stat);
 		ft_putchar(' ');
-		ft_putstr(get_filegroup(((t_file *)node->content)->stat));
+		print_filegroup(((t_file *)node->content)->stat);
 		ft_putchar(' ');
 		print_size(((t_file *)node->content)->stat.st_size); //TODO: Fix (rounds and units)
 		ft_putchar(' ');
-		print_time(get_mtime(((t_file *)node->content)->stat)); //TODO: Fix +/- 6 months
+		print_time(((t_file *)node->content)->stat); //TODO: Fix +/- 6 months
 		ft_putchar(' ');
 	}
 	ft_putendl(((t_file *)node->content)->name);
