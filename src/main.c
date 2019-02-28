@@ -132,7 +132,7 @@ int		ls(int fc, char **fv)
 				ft_strcpy(db->name, "");
 				ft_list_push_front(&list, ft_list_new(db, sizeof(t_file)));
 			//DEBUG(ft_list_iter(list, print_node));
-			print_all(list);
+			print_all(list, fc);
 			++i;
 			ft_list_del(&list, NULL);
 		}

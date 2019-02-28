@@ -14,28 +14,31 @@ static void	print_summary(t_list *list)
 	}
 }
 
-static void	print_dirs(t_list *list)
+static void	print_dirs(t_list *list, int files_count)
 {
 	list = list->next;
 	while (list)
 	{
 		if (S_ISDIR(((t_file *)list->content)->stat.st_mode))
-			if (print_all(list))
+			if (print_all(list, files_count))
 				return ;
 		list = list->next;
 	}
 }
 
-int	print_all(t_list *list)
+int	print_all(t_list *list, int files_count)
 {
 	t_list *ptr;
 	ptr = list;
 
 	if (*((t_file *)list->content)->name)
 		ft_putchar('\n');
-	ft_putstr(((t_file *)list->content)->path);
-	ft_putstr(((t_file *)list->content)->name);
-	ft_putendl(":");
+	if (g_flags.R || files_count > 1)
+	{
+		ft_putstr(((t_file *)list->content)->path);
+		ft_putstr(((t_file *)list->content)->name);
+		ft_putendl(":");
+	}
 	if (g_flags.l)
 	{
 		ft_putstr("total ");
@@ -44,7 +47,7 @@ int	print_all(t_list *list)
 	}
 	print_summary(list);
 	if (g_flags.R)
-		print_dirs(list);
+		print_dirs(list, files_count);
 	if (list == ptr)
 		return (1);
 	return (0);

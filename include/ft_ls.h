@@ -47,7 +47,7 @@ t_list	*sort_args(char **fv);
 int		lstcmp(const t_list *node1, const t_list *node2);
 void	ft_list_msort(t_list **head);
 size_t	count_blocks(const t_list *head);
-int		print_all(t_list *list);
+int		print_all(t_list *list, int files_count);
 void	print_file(t_list *node);
 
 #endif
