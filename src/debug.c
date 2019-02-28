@@ -10,6 +10,8 @@ void	debug_flags(int i)
 	ft_putnbr(g_flags.l);
 	ft_putstr(" a:");
 	ft_putnbr(g_flags.a);
+	ft_putstr(" A:");
+	ft_putnbr(g_flags.A);
 	ft_putstr(" r:");
 	ft_putnbr(g_flags.r);
 	ft_putstr(" t:");

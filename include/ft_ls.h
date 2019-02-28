@@ -29,6 +29,7 @@ struct {
 	unsigned int l : 1;
 	unsigned int R : 1;
 	unsigned int a : 1;
+	unsigned int A : 1;
 	unsigned int r : 1;
 	unsigned int t : 1;
 	unsigned int U : 1;

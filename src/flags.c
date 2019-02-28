@@ -15,7 +15,15 @@ int		parse_flags(int ac, char **av)
 			else if (*av[i] == 'R')
 				g_flags.R = 1;
 			else if (*av[i] == 'a')
+			{
+				g_flags.A = 0;
 				g_flags.a = 1;
+			}
+			else if (*av[i] == 'A')
+			{
+				g_flags.a = 0;
+				g_flags.A = 1;
+			}
 			else if (*av[i] == 'r')
 				g_flags.r = 1;
 			else if (*av[i] == 't')

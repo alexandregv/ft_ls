@@ -49,7 +49,10 @@ t_list	*ft_while(t_list *list, char *path)
 		DEBUGstr(" (path=");
 		DEBUGstr(path);
 		DEBUGstr(")");
-		if ((g_flags.a) || direntp->d_name[0] != '.')
+		if ((g_flags.a)
+			|| direntp->d_name[0] != '.'
+			|| ((g_flags.A && ft_strcmp(direntp->d_name, ".")) != 0
+				&& (g_flags.A && ft_strcmp(direntp->d_name, "..") != 0)))
 		{
 			DEBUGendl("");
 			fullpath = ft_strjoin(path, "/");
