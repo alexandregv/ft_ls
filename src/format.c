@@ -5,13 +5,6 @@
 #include <sys/stat.h>
 #include "ft_ls.h"
 
-#ifdef _DARWIN_FEATURE_64_BIT_INODE
-# define ST_MTIME st_mtimespec.tv_sec
-#else
-# define ST_MTIME st_mtime
-# define S_ISTXT S_ISVTX
-#endif
-
 static void	print_filemodes(struct stat statb) //TODO: ACL + extended attr
 {
 	mode_t			mode;

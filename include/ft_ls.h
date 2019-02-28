@@ -13,6 +13,13 @@
 
 # include "debug.h"
 
+# ifdef _DARWIN_FEATURE_64_BIT_INODE
+#  define ST_MTIME st_mtimespec.tv_sec
+# else
+#  define ST_MTIME st_mtime
+#  define S_ISTXT S_ISVTX
+# endif
+
 typedef struct timespec	t_timespec;
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
