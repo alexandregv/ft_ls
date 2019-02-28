@@ -6,14 +6,14 @@ void	print_dir(t_list *node)
 {
 	if ((g_flags.R) && S_ISDIR(((t_file *)node->content)->stat.st_mode))
 	{
-		ft_putendl((char const *)(((t_file *)node->content))->name);
+		ft_putendl(((t_file *)node->content)->name);
 		ft_putchar('\n');
-		ft_putstr((char const *)(((t_file *)node->content))->path);
-		ft_putstr((char const *)(((t_file *)node->content))->name);
+		ft_putstr(((t_file *)node->content)->path);
+		ft_putstr(((t_file *)node->content)->name);
 		ft_putendl(":");
 	}
 	else
-		ft_putendl((char const *)(((t_file *)node->content))->name);
+		ft_putendl(((t_file *)node->content)->name);
 	//if (g_flags.R && node->next != NULL && S_ISDIR(((t_file *)node->next->content)->stat.st_mode))
 	//	ft_putchar('\n');
 }
@@ -105,8 +105,8 @@ int		ls(int fc, char **fv)
 			{
 				if (i != 0)
 					ft_putchar('\n');
-				ft_putstr(args->content);
-				ft_putendl(":");
+				//ft_putstr(args->content);
+				//ft_putendl(":");
 			}
 		}
 		DEBUGstr("Starting path = ");
@@ -128,7 +128,14 @@ int		ls(int fc, char **fv)
 				ft_putnbr(count_blocks(list));
 				ft_putchar('\n');
 			}
-			ft_list_iter(list, print_dir);
+			//ft_list_iter(list, print_dir);
+				//???
+				t_file *db = (t_file *)malloc(sizeof(t_file));
+				ft_strcpy(db->path, (char *)args->content);
+				ft_strcpy(db->name, "");
+				ft_list_push_front(&list, ft_list_new(db, sizeof(t_file)));
+			//DEBUG(ft_list_iter(list, print_node));
+			print_all(list);
 			++i;
 			ft_list_del(&list, NULL);
 		}

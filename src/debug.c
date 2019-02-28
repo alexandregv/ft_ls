@@ -26,5 +26,7 @@ void	debug_flags(int i)
 void	print_node(t_list *node)
 {
 	ft_putstr(" => ");
-	ft_putendl((char *)node->content);
+	//ft_putendl((char *)node->content);
+	ft_putstr(((t_file *)node->content)->path);
+	ft_putendl(((t_file *)node->content)->name);
 }

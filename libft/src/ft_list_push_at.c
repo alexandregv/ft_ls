@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:07:26 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/26 01:37:51 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/02/28 00:44:41 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ t_list *ft_list_push_at(t_list **head, t_list *node, size_t index)
 		if (*head == NULL)
 			*head = node;
 		else
+		{
 			node->next = *head;
+			*head = node;
+		}
 	}
 	else
 	{
