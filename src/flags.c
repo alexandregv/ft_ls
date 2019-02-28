@@ -5,7 +5,7 @@ int		parse_flags(int ac, char **av)
 	int	i;
 
 	i = 1;
-	while (i < ac && av[i][0] == '-')
+	while (i < ac && av[i][0] == '-' && av[i][1] != '\0' && av[i][1] != '-')
 	{
 		++av[i];
 		while (*av[i])
@@ -41,5 +41,7 @@ int		parse_flags(int ac, char **av)
 		}
 		++i;
 	}
+	if (av[i] && !ft_strcmp(av[i], "--"))
+		++i;
 	return (i);
 }
