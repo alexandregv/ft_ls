@@ -27,6 +27,13 @@ t_list	*sort_args(char **fv)
 		if (dirs != NULL)
 			ft_list_sort(&dirs, (int (*)(const void *, const void *))ft_strcmp);
 	}
+	if (!g_flags.U && g_flags.r)
+	{
+		if (files != NULL)
+			ft_list_rev(&files);
+		if (dirs != NULL)
+			ft_list_rev(&dirs);
+	}
 	if (files != NULL)
 	{
 		ft_list_get_at(files, ft_list_size(files) - 1)->next = dirs;
