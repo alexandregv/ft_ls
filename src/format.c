@@ -77,9 +77,11 @@ static void	print_size(struct stat statb) //TODO: Fix (rounds and units)
 
 	if (S_ISCHR(statb.st_mode))
 	{
-		ft_putnbr(major(statb.st_rdev));
+		//ft_putnbr(major(statb.st_rdev));
+		ft_putnbr(statb.st_rdev >> 8);
 		ft_putstr(", ");
-		ft_putnbr(minor(statb.st_rdev));
+		//ft_putnbr(minor(statb.st_rdev));
+		ft_putnbr(statb.st_rdev & ((1U << 8) - 1));
 		return ;
 	}
 
