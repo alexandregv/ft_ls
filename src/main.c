@@ -146,6 +146,8 @@ int		main(int ac, char **av)
 	int			flags_count;
 
 	flags_count = parse_flags(ac, av);
+	if (flags_count == -1)
+		return (0);
 	DEBUG(debug_flags(flags_count));
 	return (ls(ac - flags_count, av + flags_count));
 }
