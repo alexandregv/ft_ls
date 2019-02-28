@@ -122,12 +122,6 @@ int		ls(int fc, char **fv)
 					ft_list_rev(&list); //TODO: remplacer par un sort < 0
 			}
 			DEBUGendl("----------------------------");
-			if (g_flags.l)
-			{
-				ft_putstr("total ");
-				ft_putnbr(count_blocks(list));
-				ft_putchar('\n');
-			}
 			//ft_list_iter(list, print_dir);
 				//???
 				t_file *db = (t_file *)malloc(sizeof(t_file));

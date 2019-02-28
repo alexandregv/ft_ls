@@ -37,6 +37,12 @@ int	print_all(t_list *list)
 	ft_putstr(((t_file *)list->content)->path);
 	ft_putstr(((t_file *)list->content)->name);
 	ft_putendl(":");
+	if (g_flags.l)
+	{
+		ft_putstr("total ");
+		ft_putnbr(count_blocks(list->next));
+		ft_putchar('\n');
+	}
 	print_summary(list);
 	if (g_flags.R)
 		print_dirs(list);
