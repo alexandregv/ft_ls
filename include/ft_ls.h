@@ -5,6 +5,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/dir.h>
+# include <sys/sysmacros.h>
 # include <limits.h>
 # include <unistd.h>
 # include <stdlib.h>

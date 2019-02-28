@@ -71,8 +71,19 @@ static void	print_time(struct stat statb) //TODO: Fix +/- 6 months
 	write(1, time, 12);
 }
 
-static void	print_size(int size) //TODO: Fix (rounds and units)
+static void	print_size(struct stat statb) //TODO: Fix (rounds and units)
 {
+	off_t	size;
+
+	if (S_ISCHR(statb.st_mode))
+	{
+		ft_putnbr(major(statb.st_rdev));
+		ft_putstr(", ");
+		ft_putnbr(minor(statb.st_rdev));
+		return ;
+	}
+
+	size = statb.st_size;
 	if (size < 1000)
 		ft_putnbr(size);
 	else
@@ -96,7 +107,7 @@ void	print_file(t_list *node)
 		ft_putchar(' ');
 		print_filegroup(((t_file *)node->content)->stat);
 		ft_putchar(' ');
-		print_size(((t_file *)node->content)->stat.st_size); //TODO: Fix (rounds and units)
+		print_size(((t_file *)node->content)->stat); //TODO: Fix (rounds and units)
 		ft_putchar(' ');
 		print_time(((t_file *)node->content)->stat); //TODO: Fix +/- 6 months
 		ft_putchar(' ');
