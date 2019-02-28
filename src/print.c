@@ -4,13 +4,12 @@ static void	print_summary(t_list *list)
 {
 	char	*dirpath;
 
-	//dirpath = ((t_file *)list->content)->path;
 	dirpath = ft_strjoin(((t_file *)list->content)->path, ((t_file *)list->content)->name);
 	dirpath = ft_strjoin(dirpath, "/");
 	while (list)
 	{
 		if (!ft_strcmp(dirpath, ((t_file *)list->content)->path))
-			ft_putendl(((t_file *)list->content)->name);
+			print_file(list);
 		list = list->next;
 	}
 }
