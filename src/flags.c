@@ -30,6 +30,8 @@ int		parse_flags(int ac, char **av)
 				g_flags.t = 1;
 			else if (*av[i] == 'U')
 				g_flags.U = 1;
+			else if (*av[i] == 'G')
+				g_flags.G = 1;
 			else
 			{
 				ft_putstr("ft_ls: invalid option -- '");

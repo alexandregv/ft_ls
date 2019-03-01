@@ -13,6 +13,24 @@
 
 # include "debug.h"
 
+# define COLOR_RESET       "\e[0m"
+# define COLOR_BOLD_BLUE   "\e[1;94m"
+# define COLOR_CYAN        "\e[36m"
+# define COLOR_YELLOW      "\e[33m"
+# define COLOR_MAGENTA     "\e[35m"
+# define COLOR_BOLD_YELLOW "\e[1;33m"
+# define COLOR_BOLD_GREEN  "\e[1;32m"
+# define COLOR_RED         "\e[36m"
+
+# define COLOR_DIR  COLOR_BOLD_BLUE
+# define COLOR_LNK  COLOR_CYAN
+# define COLOR_FIFO COLOR_YELLOW
+# define COLOR_SOCK COLOR_MAGENTA
+# define COLOR_BLK  COLOR_BOLD_YELLOW
+# define COLOR_CHR  COLOR_BOLD_YELLOW
+# define COLOR_EXEC COLOR_BOLD_GREEN
+# define COLOR_OLNK COLOR_RED
+
 # ifdef _DARWIN_FEATURE_64_BIT_INODE
 #  define ST_MTIME st_mtimespec.tv_sec
 # else
@@ -40,6 +58,7 @@ struct {
 	unsigned int r : 1;
 	unsigned int t : 1;
 	unsigned int U : 1;
+	unsigned int G : 1;
 } g_flags;
 
 int		parse_flags(int ac, char **av);
@@ -49,5 +68,6 @@ void	ft_list_msort(t_list **head);
 size_t	count_blocks(const t_list *head);
 int		print_all(t_list *list, int files_count);
 void	print_file(t_list *node);
+void	print_filename(t_file *file);
 
 #endif

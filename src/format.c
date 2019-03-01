@@ -114,5 +114,5 @@ void	print_file(t_list *node)
 		print_time(((t_file *)node->content)->stat); //TODO: Fix +/- 6 months
 		ft_putchar(' ');
 	}
-	ft_putendl(((t_file *)node->content)->name);
+	print_filename((t_file *)node->content);
 }
