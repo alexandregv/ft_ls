@@ -31,10 +31,10 @@ t_list	*ft_while(t_list *list, char *path)
 	{
 		new = (t_file *)malloc(sizeof(t_file));
 		ft_strcpy(new->name, path);
-		if (!list)
-			list = ft_lstnew(new, sizeof(*new));
-		else
-			ft_list_push_back(&list, ft_list_new(new, sizeof(*new)));
+		ft_strcpy(new->path, path);
+		ft_strcat(new->path, "/");
+		lstat(path, &new->stat); //TODO: add protect
+		ft_list_push_back(&list, ft_list_new(new, sizeof(t_file)));
 		return (list);
 	}
 	dirp = opendir(path);
