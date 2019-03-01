@@ -5,53 +5,21 @@ void		print_filename(t_file *file)
 	if (g_flags.G)
 	{
 		if (S_ISDIR(file->stat.st_mode))
-		{
-			ft_putstr(COLOR_BOLD_BLUE);
-			ft_putstr(file->name);
-			ft_putendl(COLOR_RESET);
-		}
+			ft_putstr(COLOR_DIR);
 		else if (S_ISLNK(file->stat.st_mode))
-		{
 			ft_putstr(COLOR_LNK);
-			ft_putstr(file->name);
-			ft_putendl(COLOR_RESET);
-		}
-		else if (S_ISSOCK(file->stat.st_mode))
-		{
-			ft_putstr(COLOR_SOCK);
-			ft_putstr(file->name);
-			ft_putendl(COLOR_RESET);
-
-		}
 		else if (S_ISFIFO(file->stat.st_mode))
-		{
 			ft_putstr(COLOR_FIFO);
-			ft_putstr(file->name);
-			ft_putendl(COLOR_RESET);
-
-		}
+		else if (S_ISSOCK(file->stat.st_mode))
+			ft_putstr(COLOR_SOCK);
 		else if (S_ISBLK(file->stat.st_mode))
-		{
 			ft_putstr(COLOR_BLK);
-			ft_putstr(file->name);
-			ft_putendl(COLOR_RESET);
-
-		}
 		else if (S_ISCHR(file->stat.st_mode))
-		{
 			ft_putstr(COLOR_CHR);
-			ft_putstr(file->name);
-			ft_putendl(COLOR_RESET);
-
-		}
 		else if (S_ISREG(file->stat.st_mode) && file->stat.st_mode & S_IXUSR)
-		{
 			ft_putstr(COLOR_EXEC);
-			ft_putstr(file->name);
-			ft_putendl(COLOR_RESET);
-		}
-		else
-			ft_putendl(file->name);
+		ft_putstr(file->name);
+		ft_putendl(COLOR_RESET);
 	}
 	else
 		ft_putendl(file->name);
