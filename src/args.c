@@ -13,11 +13,14 @@ t_list	*sort_args(char **fv)
 	i = 0;
 	while (fv[i])
 	{
-		stat(fv[i], &statb); //TODO: add protect
-		if (S_ISDIR(statb.st_mode))
-			ft_list_push_back(&dirs, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
+		if (stat(fv[i], &statb) != -1)
+			ft_list_push_back(S_ISDIR(statb.st_mode) ? &dirs : &files, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
 		else
-			ft_list_push_back(&files, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
+		{
+			ft_putstr("ft_ls: cannot access '");
+			ft_putstr(fv[i]);
+			ft_putendl("': No such file or directory");
+		}
 		++i;
 	}
 	if (!g_flags.U)
