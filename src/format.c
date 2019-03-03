@@ -129,7 +129,7 @@ int		*len_max(t_list *node)
 void	print_file(t_list *node)
 {
 	nlink_t	nlink;
-	//int *tab;
+	int *tab;
 
 	nlink = ((t_file *)node->content)->stat.st_nlink;
 	if (g_flags.l) //TODO: padding
