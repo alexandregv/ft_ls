@@ -8,10 +8,10 @@
 static void	print_filemodes(struct stat statb) //TODO: ACL + extended attr
 {
 	mode_t			mode;
-	char			modes[10];
+	char			modes[11];
 
 	mode = statb.st_mode;
-	ft_memset(modes, '-', 10);
+	ft_memset(modes, '-', 11);
 
 	if (S_ISDIR(mode))
 		modes[0] = 'd';
@@ -42,6 +42,7 @@ static void	print_filemodes(struct stat statb) //TODO: ACL + extended attr
 		modes[9] = 'T';
 	else if ((mode & S_IXOTH) && (mode & S_ISVTX))
 		modes[9] = 't';
+	modes[10] = '\0';
 	ft_putstr(modes);
 }
 
@@ -88,7 +89,7 @@ static void	print_size(struct stat statb) //TODO: Fix (rounds and units)
 	}
 
 	size = statb.st_size;
-	if (size < 1000)
+	if (size < 100000)
 		ft_putnbr(size);
 	else
 	{
@@ -99,13 +100,44 @@ static void	print_size(struct stat statb) //TODO: Fix (rounds and units)
 	}
 }
 
+#include <stdio.h>
+
+int		*len_max(t_list *node)
+{
+	int	*tab;
+
+	if(!(tab = malloc(sizeof(int) * 2)))
+		return (NULL);
+
+	while (node)
+	{
+		printf("link before: %d\n", tab[0]);
+		printf("size before: %d\n", tab[1]);
+		printf("link node: %d\n", (((t_file *)node->content)->stat.st_nlink));
+		printf("size node: %lld\n", (((t_file *)node->content)->stat.st_size));
+		if ((((t_file *)node->content)->stat.st_nlink) >= tab[0])
+			tab[0] = ((t_file *)node->content)->stat.st_nlink;
+		if ((((t_file *)node->content)->stat.st_size) >= tab[1])
+			tab[1] = ((t_file *)node->content)->stat.st_size;
+		printf("link inside: %d\n", tab[0]);
+		printf("size inside: %d\n\n", tab[1]);
+		node = node->next;
+	}
+	return (tab);
+}
+
 void	print_file(t_list *node)
 {
+	nlink_t	nlink;
+	//int *tab;
+
+	nlink = ((t_file *)node->content)->stat.st_nlink;
 	if (g_flags.l) //TODO: padding
 	{
+		tab = len_max(node);
 		print_filemodes(((t_file *)node->content)->stat); //TODO: ACL + extended attr
 		ft_putchar(' ');
-		ft_putnbr(((t_file *)node->content)->stat.st_nlink);
+		ft_putnbr(nlink);
 		ft_putchar(' ');
 		print_fileowner(((t_file *)node->content)->stat);
 		ft_putchar(' ');
