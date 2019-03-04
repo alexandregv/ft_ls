@@ -38,12 +38,12 @@ static void	print_filemodes(t_stat statb) //TODO: ACL + extended attr
 	modes[1] = mode & S_IRUSR ? 'r' : '-';
 	modes[2] = mode & S_IWUSR ? 'w' : '-';
 	modes[3] = mode & S_IXUSR ? 'x' : '-';
-	modes[3] = mode & S_ISUID ? 's' : '-';
+	modes[3] = mode & S_ISUID ? 's' : modes[3];
 
 	modes[4] = mode & S_IRGRP ? 'r' : '-';
 	modes[5] = mode & S_IWGRP ? 'w' : '-';
 	modes[6] = mode & S_IXGRP ? 'x' : '-';
-	modes[6] = mode & S_ISGID ? 's' : '-';
+	modes[6] = mode & S_ISGID ? 's' : modes[6];
 
 	modes[7] = mode & S_IROTH ? 'r' : '-';
 	modes[8] = mode & S_IWOTH ? 'w' : '-';
