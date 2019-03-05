@@ -3,6 +3,7 @@
 #include <grp.h>
 #include <time.h>
 #include <sys/stat.h>
+#include <sys/xattr.h>
 #include "ft_ls.h"
 
 static void align(char *str, size_t max)
@@ -14,13 +15,16 @@ static void align(char *str, size_t max)
 		ft_putchar(' ');
 }
 
-static void	print_filemodes(t_stat statb) //TODO: ACL + extended attr
+static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL + extended attr
 {
 	mode_t			mode;
-	char			modes[11];
+	char			modes[12];
+	char			*fullpath;
 
-	mode = statb.st_mode;
+	fullpath =ft_strjoin(((t_file *)node->content)->path, ((t_file *)node->content)->name);
+	mode = ((t_file *)node->content)->stat.st_mode;
 	ft_memset(modes, '-', 10);
+	modes[10] = xattr ? ' ' : '\0';
 	modes[11] = '\0';
 
 	if (S_ISDIR(mode))
@@ -54,7 +58,10 @@ static void	print_filemodes(t_stat statb) //TODO: ACL + extended attr
 		modes[9] = 'T';
 	else if ((mode & S_IXOTH) && (mode & S_ISVTX))
 		modes[9] = 't';
+	if (listxattr(fullpath, NULL, 0) != 0) //TODO: protect
+		modes[10] = '+';
 	ft_putstr(modes);
+	free(fullpath);
 }
 
 static void	print_fileowner(t_stat statb, size_t max)
@@ -125,9 +132,7 @@ void	print_file(t_list *node, size_t *tab)
 {
 	if (g_flags.l)
 	{
-		//ft_putnbr(tab[5]);
-
-		print_filemodes(((t_file *)node->content)->stat); //TODO: ACL + extended attr
+		print_filemodes(node, tab[6]); //TODO: ACL
 		align(ft_itoa(((t_file *)node->content)->stat.st_nlink), tab[1]);
 		ft_putchar(' ');
 		ft_putnbr(((t_file *)node->content)->stat.st_nlink);

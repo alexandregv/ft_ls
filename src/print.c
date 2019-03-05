@@ -54,12 +54,14 @@ static void	print_dirs(t_list *list, int files_count)
 #include <pwd.h>
 #include <grp.h>
 #include <sys/sysmacros.h>
+#include <sys/xattr.h>
 size_t	*len_max(t_list *node)
 {
 	size_t	*tab;
 	char	*dirpath;
+	ssize_t	xattr;
 
-	if(!(tab = malloc(sizeof(size_t) * 6)))
+	if(!(tab = malloc(sizeof(size_t) * 7)))
 		return (NULL);
 	//ft_memset(tab, 0, 6);
 	tab[0] = 0;
@@ -68,7 +70,8 @@ size_t	*len_max(t_list *node)
 	tab[3] = 0;
 	tab[4] = 0;
 	tab[5] = 0;
-	dirpath = ft_strjoin(((t_file *)node->content)->path, ((t_file *)node->content)->name);
+	tab[6] = 0;
+	dirpath = ft_strjoin(((t_file *)node->content)->path, ((t_file *)node->content)->name); //TODO: leaks
 	dirpath = ft_strjoin(dirpath, "/");
 
 	while (node)
@@ -99,6 +102,12 @@ size_t	*len_max(t_list *node)
 			else
 				if (ft_strlen(ft_itoa(((t_file *)node->content)->stat.st_size)) > tab[4])
 					tab[4] = ft_strlen(ft_itoa(((t_file *)node->content)->stat.st_size));
+			if (!tab[6])
+			{
+				xattr = listxattr(ft_strjoin(((t_file *)node->content)->path, ((t_file *)node->content)->name), NULL, 0); //TODO: protect + leaks
+				if (xattr >= 1)
+					tab[6] = 1;
+			}
 		}
 		node = node->next;
 	}
