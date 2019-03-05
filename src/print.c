@@ -2,6 +2,8 @@
 
 void		print_filename(t_file *file)
 {
+	char	buf[PATH_MAX + NAME_MAX];
+
 	if (g_flags.G)
 	{
 		if (S_ISDIR(file->stat.st_mode))
@@ -18,11 +20,16 @@ void		print_filename(t_file *file)
 			ft_putstr(COLOR_CHR);
 		else if (S_ISREG(file->stat.st_mode) && file->stat.st_mode & S_IXUSR)
 			ft_putstr(COLOR_EXEC);
-		ft_putstr(file->name);
-		ft_putendl(COLOR_RESET);
 	}
-	else
-		ft_putendl(file->name);
+	ft_putstr(file->name);
+	if (g_flags.G)
+		ft_putstr(COLOR_RESET);
+	if (S_ISLNK(file->stat.st_mode))
+	{
+		ft_putstr(" -> ");
+		write(1, buf, readlink(ft_strjoin(file->path, file->name), buf, PATH_MAX + NAME_MAX)); //TODO: protect + leak
+	}
+	ft_putchar('\n');
 }
 
 static void	print_summary(t_list *list, size_t *tab)
