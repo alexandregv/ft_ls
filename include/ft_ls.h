@@ -1,14 +1,21 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
-# include <dirent.h>
+# ifndef _DARWIN_FEATURE_64_BIT_INODE
+#  include <sys/sysmacros.h>
+# endif
 # include <sys/types.h>
+# include <sys/xattr.h>
 # include <sys/stat.h>
 # include <sys/dir.h>
+# include <dirent.h>
 # include <limits.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <time.h>
+# include <pwd.h>
+# include <grp.h>
 # include "libft.h"
 
 # include "debug.h"

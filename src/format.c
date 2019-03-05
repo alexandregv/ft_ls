@@ -1,9 +1,3 @@
-#include <dirent.h>
-#include <pwd.h>
-#include <grp.h>
-#include <time.h>
-#include <sys/stat.h>
-#include <sys/xattr.h>
 #include "ft_ls.h"
 
 static void align(char *str, size_t max)

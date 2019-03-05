@@ -58,10 +58,6 @@ static void	print_dirs(t_list *list, int files_count)
 	}
 }
 
-#include <pwd.h>
-#include <grp.h>
-#include <sys/sysmacros.h>
-#include <sys/xattr.h>
 size_t	*len_max(t_list *node)
 {
 	size_t	*tab;
