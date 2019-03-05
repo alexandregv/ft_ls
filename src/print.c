@@ -53,18 +53,21 @@ static void	print_dirs(t_list *list, int files_count)
 
 #include <pwd.h>
 #include <grp.h>
+#include <sys/sysmacros.h>
 size_t	*len_max(t_list *node)
 {
 	size_t	*tab;
 	char	*dirpath;
 
-	if(!(tab = malloc(sizeof(size_t) * 5)))
+	if(!(tab = malloc(sizeof(size_t) * 6)))
 		return (NULL);
+	//ft_memset(tab, 0, 6);
 	tab[0] = 0;
 	tab[1] = 0;
 	tab[2] = 0;
 	tab[3] = 0;
 	tab[4] = 0;
+	tab[5] = 0;
 	dirpath = ft_strjoin(((t_file *)node->content)->path, ((t_file *)node->content)->name);
 	dirpath = ft_strjoin(dirpath, "/");
 
@@ -76,7 +79,7 @@ size_t	*len_max(t_list *node)
 			struct group	*gr;
 
 			pw = getpwuid(((t_file *)node->content)->stat.st_uid);
-			gr = getgrgid(((t_file *)node->content)->stat.st_uid);
+			gr = getgrgid(((t_file *)node->content)->stat.st_gid);
 			if (pw == 0 || gr == 0)
 				return (NULL); //TODO: protect
 			//TODO: tab[0] pour les perms
@@ -85,9 +88,17 @@ size_t	*len_max(t_list *node)
 			if (ft_strlen(pw->pw_name) > tab[2])
 				tab[2] = ft_strlen(pw->pw_name);
 			if (ft_strlen(gr->gr_name) > tab[3])
-				tab[3] = ft_strlen(pw->pw_name);
-			if (ft_strlen(ft_itoa(((t_file *)node->content)->stat.st_size)) > tab[4])
-				tab[4] = ft_strlen(ft_itoa(((t_file *)node->content)->stat.st_size));
+				tab[3] = ft_strlen(gr->gr_name);
+			if (S_ISCHR(((t_file *)node->content)->stat.st_mode) || S_ISBLK(((t_file *)node->content)->stat.st_mode))
+			{
+				if (ft_strlen(ft_itoa(major(((t_file *)node->content)->stat.st_rdev))) > tab[4])
+					tab[4] = ft_strlen(ft_itoa(major(((t_file *)node->content)->stat.st_rdev)));
+				if (ft_strlen(ft_itoa(minor(((t_file *)node->content)->stat.st_rdev))) > tab[5])
+					tab[5] = ft_strlen(ft_itoa(minor(((t_file *)node->content)->stat.st_rdev)));
+			}
+			else
+				if (ft_strlen(ft_itoa(((t_file *)node->content)->stat.st_size)) > tab[4])
+					tab[4] = ft_strlen(ft_itoa(((t_file *)node->content)->stat.st_size));
 		}
 		node = node->next;
 	}
