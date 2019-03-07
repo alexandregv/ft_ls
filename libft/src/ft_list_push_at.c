@@ -6,15 +6,15 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:07:26 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/07 15:59:22 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/07 17:14:51 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list *ft_list_push_at(t_list **head, t_list *node, size_t index)
+t_list	*ft_list_push_at(t_list **head, t_list *node, size_t index)
 {
-	t_list  *temp;
+	t_list	*temp;
 
 	if (index == 0)
 	{
