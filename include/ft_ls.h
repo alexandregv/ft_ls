@@ -49,22 +49,23 @@ typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct s_file	t_file;
 
-struct			s_file
+struct	s_file
 {
-	char		name[NAME_MAX + 1];
-	char		path[PATH_MAX];
-	t_stat		stat;
+	char	name[NAME_MAX + 1];
+	char	path[PATH_MAX];
+	t_stat	stat;
 };
 
-struct {
-	unsigned int l : 1;
-	unsigned int R : 1;
-	unsigned int a : 1;
-	unsigned int A : 1;
-	unsigned int r : 1;
-	unsigned int t : 1;
-	unsigned int U : 1;
-	unsigned int G : 1;
+struct
+{
+	uint8_t l		: 1;
+	uint8_t r_up	: 1;
+	uint8_t a		: 1;
+	uint8_t a_up	: 1;
+	uint8_t r		: 1;
+	uint8_t t		: 1;
+	uint8_t u_up	: 1;
+	uint8_t g_up	: 1;
 } g_flags;
 
 int		parse_flags(int ac, char **av);
@@ -75,5 +76,6 @@ size_t	count_blocks(const t_list *head);
 int		print_all(t_list *list, int files_count);
 void	print_file(t_list *node, size_t *tab);
 void	print_filename(t_file *file);
+size_t	*len_max(t_list *node);
 
 #endif

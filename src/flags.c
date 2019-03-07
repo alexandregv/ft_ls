@@ -1,6 +1,35 @@
 #include "ft_ls.h"
 
-int		parse_flags(int ac, char **av)
+static int	check_flags_chars(char **av, int i)
+{
+	g_flags.l = (*av[i] == 'l' ? 1 : g_flags.l);
+	g_flags.r_up = (*av[i] == 'R' ? 1 : g_flags.r_up);
+	g_flags.r = (*av[i] == 'r' ? 1 : g_flags.r);
+	g_flags.t = (*av[i] == 't' ? 1 : g_flags.t);
+	g_flags.u_up = (*av[i] == 'U' ? 1 : g_flags.u_up);
+	g_flags.g_up = (*av[i] == 'G' ? 1 : g_flags.g_up);
+	if (*av[i] == 'a')
+	{
+		g_flags.a_up = 0;
+		g_flags.a = 1;
+	}
+	else if (*av[i] == 'A')
+	{
+		g_flags.a = 0;
+		g_flags.a_up = 1;
+	}
+	else if (*av[i] != 'l' && *av[i] != 'R' && *av[i] != 'r' && *av[i] != 't'
+			&& *av[i] != 'U' && *av[i] != 'G')
+	{
+		ft_putstr("ft_ls: invalid option -- '");
+		ft_putchar(*av[i]);
+		ft_putendl("'");
+		return (-1);
+	}
+	return (0);
+}
+
+int			parse_flags(int ac, char **av)
 {
 	int	i;
 
@@ -10,35 +39,8 @@ int		parse_flags(int ac, char **av)
 		++av[i];
 		while (*av[i])
 		{
-			if (*av[i] == 'l')
-				g_flags.l = 1;
-			else if (*av[i] == 'R')
-				g_flags.R = 1;
-			else if (*av[i] == 'a')
-			{
-				g_flags.A = 0;
-				g_flags.a = 1;
-			}
-			else if (*av[i] == 'A')
-			{
-				g_flags.a = 0;
-				g_flags.A = 1;
-			}
-			else if (*av[i] == 'r')
-				g_flags.r = 1;
-			else if (*av[i] == 't')
-				g_flags.t = 1;
-			else if (*av[i] == 'U')
-				g_flags.U = 1;
-			else if (*av[i] == 'G')
-				g_flags.G = 1;
-			else
-			{
-				ft_putstr("ft_ls: invalid option -- '");
-				ft_putchar(*av[i]);
-				ft_putendl("'");
+			if (check_flags_chars(av, i) == -1)
 				return (-1);
-			}
 			++av[i];
 		}
 		++i;

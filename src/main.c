@@ -4,7 +4,7 @@
 
 void	print_dir(t_list *node)
 {
-	if ((g_flags.R) && S_ISDIR(((t_file *)node->content)->stat.st_mode))
+	if ((g_flags.r_up) && S_ISDIR(((t_file *)node->content)->stat.st_mode))
 	{
 		ft_putendl(((t_file *)node->content)->name);
 		ft_putchar('\n');
@@ -14,8 +14,6 @@ void	print_dir(t_list *node)
 	}
 	else
 		ft_putendl(((t_file *)node->content)->name);
-	//if (g_flags.R && node->next != NULL && S_ISDIR(((t_file *)node->next->content)->stat.st_mode))
-	//	ft_putchar('\n');
 }
 
 t_list	*ft_while(t_list *list, char *path)
@@ -52,13 +50,13 @@ t_list	*ft_while(t_list *list, char *path)
 		DEBUGstr(")");
 		if ((g_flags.a)
 			|| direntp->d_name[0] != '.'
-			|| ((g_flags.A && ft_strcmp(direntp->d_name, ".")) != 0
-				&& (g_flags.A && ft_strcmp(direntp->d_name, "..") != 0)))
+			|| ((g_flags.a_up && ft_strcmp(direntp->d_name, ".")) != 0
+				&& (g_flags.a_up && ft_strcmp(direntp->d_name, "..") != 0)))
 		{
 			DEBUGendl("");
 			fullpath = ft_strjoin(path, "/");
 			fullpath = ft_strjoin(fullpath, direntp->d_name);
-			if ((g_flags.R) && direntp->d_type == DT_DIR)
+			if ((g_flags.r_up) && direntp->d_type == DT_DIR)
 			{
 				DEBUGstr("-> Found subdirectory ");
 				DEBUGstr(direntp->d_name);
@@ -103,7 +101,7 @@ int		ls(int fc, char **fv)
 	i = 0;
 	while (i < fc && args)
 	{
-		if (fc >= 2 || (g_flags.R))
+		if (fc >= 2 || (g_flags.r_up))
 		{
 			if (S_ISDIR(args->content_size))
 			{
@@ -118,9 +116,8 @@ int		ls(int fc, char **fv)
 		list = ft_while(list, args->content);
 		if (list)
 		{
-			if (!g_flags.U)
+			if (!g_flags.u_up)
 			{
-				//ft_list_sort(&list, &lstcmp);
 				ft_list_msort(&list);
 				if (g_flags.r)
 					ft_list_rev(&list); //TODO: remplacer par un sort < 0

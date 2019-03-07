@@ -1,21 +1,22 @@
 #include "ft_ls.h"
 
-static void align(char *str, size_t max)
+static void	align(char *str, size_t max)
 {
-	int	spaces;
+	int				spaces;
 
 	spaces = max - ft_strlen(str);
 	while (spaces-- > 0)
 		ft_putchar(' ');
 }
 
-static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL + extended attr
+static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL
 {
 	mode_t			mode;
 	char			modes[12];
 	char			*fullpath;
 
-	fullpath =ft_strjoin(((t_file *)node->content)->path, ((t_file *)node->content)->name);
+	fullpath = ft_strjoin(((t_file *)node->content)->path
+				, ((t_file *)node->content)->name);
 	mode = ((t_file *)node->content)->stat.st_mode;
 	ft_memset(modes, '-', 10);
 	modes[10] = xattr ? ' ' : '\0';
@@ -33,17 +34,14 @@ static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL + extended a
 		modes[0] = 's';
 	else if (S_ISFIFO(mode))
 		modes[0] = 'p';
-
 	modes[1] = mode & S_IRUSR ? 'r' : '-';
 	modes[2] = mode & S_IWUSR ? 'w' : '-';
 	modes[3] = mode & S_IXUSR ? 'x' : '-';
 	modes[3] = mode & S_ISUID ? 's' : modes[3];
-
 	modes[4] = mode & S_IRGRP ? 'r' : '-';
 	modes[5] = mode & S_IWGRP ? 'w' : '-';
 	modes[6] = mode & S_IXGRP ? 'x' : '-';
 	modes[6] = mode & S_ISGID ? 's' : modes[6];
-
 	modes[7] = mode & S_IROTH ? 'r' : '-';
 	modes[8] = mode & S_IWOTH ? 'w' : '-';
 	if ((mode & S_IXOTH) && !(mode & S_ISVTX))
@@ -82,40 +80,30 @@ static void	print_filegroup(t_stat statb, size_t max)
 	}
 }
 
-static void	print_time(t_stat statb) //TODO: Fix +/- 6 months
+static void		print_time(t_stat statb) //TODO: Fix +/- 6 months
 {
 	char	*time;
 
 	time = ctime(&statb.ST_MTIME);
 	time += 4;
-	//ft_putstr(time);
 	write(1, time, 12);
 }
 
 static void	print_size(t_stat statb, size_t max1, size_t max2) //TODO: Fix (rounds and units)
 {
-	char	*size;
+	char			*size;
 
 	if (S_ISCHR(statb.st_mode) || S_ISBLK(statb.st_mode))
 	{
-		//align(ft_itoa(statb.st_rdev >> 8), max1);
 		align(ft_itoa(major(statb.st_rdev)), max1 - 1);
-
-		//ft_putnbr(statb.st_rdev >> 8);
 		ft_putnbr(major(statb.st_rdev));
-
 		ft_putstr(", ");
-
-		//align(ft_itoa(statb.st_rdev & ((1U << 8) - 1)), max2);
 		align(ft_itoa(minor(statb.st_rdev)), max2);
-
-		//ft_putnbr(statb.st_rdev & ((1U << 8) - 1));
 		ft_putnbr(minor(statb.st_rdev));
 	}
 	else
 	{
 		size = ft_itoa(statb.st_size);
-		//align(size, max1);
 		align(size, max1 + max2 + (max2 == 0 ? 0 : 1));
 		ft_putstr(size);
 	}

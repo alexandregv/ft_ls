@@ -1,36 +1,15 @@
 #include "ft_ls.h"
 
-//TODO: check les flags pour ne pas register inutilement les ignores (genre .*)
-t_list	*sort_args(char **fv)
+static t_list	*norm_lol(t_list *files, t_list *dirs)
 {
-	t_list		*files;
-	t_list		*dirs;
-	t_stat		statb;
-	size_t		i;
-
-	files = NULL;
-	dirs = NULL;
-	i = 0;
-	while (fv[i])
-	{
-		if (stat(fv[i], &statb) != -1)
-			ft_list_push_back(S_ISDIR(statb.st_mode) ? &dirs : &files, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
-		else
-		{
-			ft_putstr("ft_ls: cannot access '");
-			ft_putstr(fv[i]);
-			ft_putendl("': No such file or directory");
-		}
-		++i;
-	}
-	if (!g_flags.U)
+	if (!g_flags.u_up)
 	{
 		if (files != NULL)
-			ft_list_sort(&files, (int (*)(const void *, const void *))ft_strcmp);
+			ft_list_sort(&files, (int (*)(const void*, const void*))ft_strcmp);
 		if (dirs != NULL)
-			ft_list_sort(&dirs, (int (*)(const void *, const void *))ft_strcmp);
+			ft_list_sort(&dirs, (int (*)(const void*, const void*))ft_strcmp);
 	}
-	if (!g_flags.U && g_flags.r)
+	if (!g_flags.u_up && g_flags.r)
 	{
 		if (files != NULL)
 			ft_list_rev(&files);
@@ -50,4 +29,29 @@ t_list	*sort_args(char **fv)
 	}
 }
 
+//TODO: check les flags pour ne pas register inutilement les ignores (genre .*)
+t_list			*sort_args(char **fv)
+{
+	t_list	*files;
+	t_list	*dirs;
+	t_stat	statb;
+	size_t	i;
 
+	files = NULL;
+	dirs = NULL;
+	i = 0;
+	while (fv[i])
+	{
+		if (stat(fv[i], &statb) != -1)
+			ft_list_push_back(S_ISDIR(statb.st_mode) ?
+				&dirs : &files, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
+		else
+		{
+			ft_putstr("ft_ls: cannot access '");
+			ft_putstr(fv[i]);
+			ft_putendl("': No such file or directory");
+		}
+		++i;
+	}
+	return (norm_lol(files, dirs));
+}
