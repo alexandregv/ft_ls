@@ -41,7 +41,8 @@ t_list	*ft_while(t_list *list, char *path)
 	if (dirp == NULL)
 	{
 		perror("ft_ls");
-		exit(EXIT_FAILURE);
+		//exit(EXIT_FAILURE);
+		return (list);
 	}
 	while ((direntp = readdir(dirp)))
 	{

@@ -107,7 +107,7 @@ size_t	*len_max(t_list *node)
 					tab[4] = ft_strlen(ft_itoa(((t_file *)node->content)->stat.st_size));
 			if (!tab[6])
 			{
-				xattr = listxattr(ft_strjoin(((t_file *)node->content)->path, ((t_file *)node->content)->name), NULL, 0); //TODO: protect + leaks
+				xattr = listxattr(ft_strjoin(((t_file *)node->content)->path, ((t_file *)node->content)->name), NULL, 0, XATTR_NOFOLLOW); //TODO: protect + leaks
 				if (xattr >= 1)
 					tab[6] = 1;
 			}
@@ -123,6 +123,7 @@ int	print_all(t_list *list, int files_count)
 	size_t	*tab;
 
 	ptr = list;
+	tab = NULL;
 	if (*((t_file *)list->content)->name)
 		ft_putchar('\n');
 	if (g_flags.R || files_count > 1)

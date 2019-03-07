@@ -1,7 +1,7 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
-# ifndef _DARWIN_FEATURE_64_BIT_INODE
+# ifndef __APPLE__
 #  include <sys/sysmacros.h>
 # endif
 # include <sys/types.h>
@@ -38,7 +38,7 @@
 # define COLOR_EXEC COLOR_BOLD_GREEN
 # define COLOR_OLNK COLOR_RED
 
-# ifdef _DARWIN_FEATURE_64_BIT_INODE
+# ifdef __APPLE__
 #  define ST_MTIME st_mtimespec.tv_sec
 # else
 #  define ST_MTIME st_mtime

@@ -52,7 +52,7 @@ static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL + extended a
 		modes[9] = 'T';
 	else if ((mode & S_IXOTH) && (mode & S_ISVTX))
 		modes[9] = 't';
-	if (listxattr(fullpath, NULL, 0) != 0) //TODO: protect
+	if (listxattr(fullpath, NULL, 0, XATTR_NOFOLLOW) != 0) //TODO: protect
 		modes[10] = '+';
 	ft_putstr(modes);
 	free(fullpath);
@@ -92,7 +92,6 @@ static void	print_time(t_stat statb) //TODO: Fix +/- 6 months
 	write(1, time, 12);
 }
 
-#include <sys/sysmacros.h>
 static void	print_size(t_stat statb, size_t max1, size_t max2) //TODO: Fix (rounds and units)
 {
 	char	*size;
