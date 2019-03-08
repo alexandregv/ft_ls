@@ -16,6 +16,7 @@
 # include <time.h>
 # include <pwd.h>
 # include <grp.h>
+# include <sys/acl.h>
 # include "libft.h"
 
 # include "debug.h"
