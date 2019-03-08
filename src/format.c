@@ -62,6 +62,9 @@ static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL
 		modes[9] = 't';
 	if (listxattr(fullpath, NULL, FT_XATTR_NOFOLLOW) > 0)
 		modes[10] = '@';
+	if (acl_get_file(fullpath, ACL_TYPE_EXTENDED))
+		modes[10] = '+';
+
 	ft_putstr(modes);
 	free(fullpath);
 }
