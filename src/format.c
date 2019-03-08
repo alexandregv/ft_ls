@@ -15,11 +15,21 @@ static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL
 	char			modes[12];
 	char			*fullpath;
 
-	fullpath = ft_strjoin(((t_file *)node->content)->path
-				, ((t_file *)node->content)->name);
+	if (!ft_strncmp(((t_file *)node->content)->path
+				, ((t_file *)node->content)->name
+				, ft_strlen(((t_file *)node->content)->path) - 1))
+		fullpath = ft_strdup(((t_file *)node->content)->name);
+	else
+		fullpath = ft_strjoin(((t_file *)node->content)->path
+					, ((t_file *)node->content)->name);
 	mode = ((t_file *)node->content)->stat.st_mode;
 	ft_memset(modes, '-', 10);
+#ifdef __APPLE__
+	modes[10] = ' ';
+	(void)xattr;
+#else
 	modes[10] = xattr ? ' ' : '\0';
+#endif
 	modes[11] = '\0';
 
 	if (S_ISDIR(mode))
@@ -50,8 +60,8 @@ static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL
 		modes[9] = 'T';
 	else if ((mode & S_IXOTH) && (mode & S_ISVTX))
 		modes[9] = 't';
-	if (listxattr(fullpath, NULL, 0, XATTR_NOFOLLOW) != 0) //TODO: protect
-		modes[10] = '+';
+	if (listxattr(fullpath, NULL, FT_XATTR_NOFOLLOW) > 0)
+		modes[10] = '@';
 	ft_putstr(modes);
 	free(fullpath);
 }
@@ -104,7 +114,8 @@ static void	print_size(t_stat statb, size_t max1, size_t max2) //TODO: Fix (roun
 	else
 	{
 		size = ft_itoa(statb.st_size);
-		align(size, max1 + max2 + (max2 == 0 ? 0 : 1));
+		//align(size, max1 + max2 + (max2 == 0 ? 0 : 1));
+		align(size, max1 + max2 + (max2 == 0 ? DATE_SEPARATOR : 1));
 		ft_putstr(size);
 	}
 }
@@ -119,7 +130,7 @@ void	print_file(t_list *node, size_t *tab)
 		ft_putnbr(((t_file *)node->content)->stat.st_nlink);
 		ft_putchar(' ');
 		print_fileowner(((t_file *)node->content)->stat, tab[2]);
-		ft_putchar(' ');
+		ft_putstr(OWNER_GROUP_SEPARATOR);
 		print_filegroup(((t_file *)node->content)->stat, tab[3]);
 		ft_putchar(' ');
 		print_size(((t_file *)node->content)->stat, tab[4], tab[5]); //TODO: Fix (rounds and units)

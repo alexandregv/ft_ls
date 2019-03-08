@@ -94,6 +94,7 @@ size_t	*len_max(t_list *node)
 			}
 			else if (ft_strlen(ft_itoa(((t_file *)node->content)->stat.st_size)) > tab[4])
 				tab[4] = ft_strlen(ft_itoa(((t_file *)node->content)->stat.st_size));
+#ifndef __APPLE__
 			if (!tab[6])
 			{
 				xattr = listxattr(ft_strjoin(((t_file *)node->content)->path
@@ -102,6 +103,8 @@ size_t	*len_max(t_list *node)
 				if (xattr >= 1)
 					tab[6] = 1;
 			}
+#endif
+			(void)xattr;
 		}
 		node = node->next;
 	}
