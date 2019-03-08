@@ -92,11 +92,23 @@ static void	print_filegroup(t_stat statb, size_t max)
 
 static void		print_time(t_stat statb) //TODO: Fix +/- 6 months
 {
-	char	*time;
+	char	*temps;
+	time_t	now;
 
-	time = ctime(&statb.ST_MTIME);
-	time += 4;
-	write(1, time, 12);
+	temps = ctime(&statb.ST_MTIME);
+	time(&now);
+	if ((now - statb.ST_MTIME) >= 15552000)
+	{
+		temps += 4;
+		write(1, temps, 7);
+		write(1, " ", 1);
+		temps += 16;
+		write(1, temps, 4);
+	}
+	else {
+		temps += 4;
+		write(1, temps, 12);
+	}
 }
 
 static void	print_size(t_stat statb, size_t max1, size_t max2) //TODO: Fix (rounds and units)
