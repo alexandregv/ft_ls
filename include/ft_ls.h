@@ -23,21 +23,32 @@
 
 # define COLOR_RESET       "\e[0m"
 # define COLOR_BOLD_BLUE   "\e[1;94m"
-# define COLOR_CYAN        "\e[36m"
+# define COLOR_CYAN        "\e[1;36m"
 # define COLOR_YELLOW      "\e[33m"
 # define COLOR_MAGENTA     "\e[35m"
 # define COLOR_BOLD_YELLOW "\e[1;33m"
 # define COLOR_BOLD_GREEN  "\e[1;32m"
-# define COLOR_RED         "\e[36m"
+# define COLOR_RED         "\e[31m"
 
-# define COLOR_DIR  COLOR_BOLD_BLUE
-# define COLOR_LNK  COLOR_CYAN
+# ifndef __APPLE__
+# define COLOR_DIR  COLOR_CYAN
+# define COLOR_LNK  COLOR_BOLD_BLUE
 # define COLOR_FIFO COLOR_YELLOW
 # define COLOR_SOCK COLOR_MAGENTA
 # define COLOR_BLK  COLOR_BOLD_YELLOW
 # define COLOR_CHR  COLOR_BOLD_YELLOW
-# define COLOR_EXEC COLOR_BOLD_GREEN
-# define COLOR_OLNK COLOR_RED
+# define COLOR_EXEC COLOR_RED
+# define COLOR_OLNK COLOR_BOLD_GREEN
+# endif
+
+# define COLOR_DIR  COLOR_CYAN
+# define COLOR_LNK  COLOR_MAGENTA
+# define COLOR_FIFO COLOR_YELLOW
+# define COLOR_SOCK COLOR_MAGENTA
+# define COLOR_BLK  COLOR_BOLD_YELLOW
+# define COLOR_CHR  COLOR_BOLD_YELLOW
+# define COLOR_EXEC COLOR_RED
+# define COLOR_OLNK COLOR_BOLD_GREEN
 
 # ifdef __APPLE__
 #  define ST_MTIME st_mtimespec.tv_sec
