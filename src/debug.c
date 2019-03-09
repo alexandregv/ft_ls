@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-int	g_debug = 0;
+int	g_debug = 1;
 
 void	debug_flags(int i)
 {

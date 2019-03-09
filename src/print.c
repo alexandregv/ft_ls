@@ -18,7 +18,12 @@ static void	color_modes(t_file *file)
 	else if (S_ISCHR(file->stat.st_mode))
 		ft_putstr(COLOR_CHR);
 	else if (S_ISREG(file->stat.st_mode) && file->stat.st_mode & S_IXUSR)
-		ft_putstr(COLOR_EXEC);
+	{
+		if (file->stat.st_mode == 36349)
+			ft_putstr(COLOR_REGS);
+		else
+			ft_putstr(COLOR_EXEC);
+	}
 }
 
 void		print_filename(t_file *file)
@@ -72,9 +77,9 @@ int	print_all(t_list *list, int files_count)
 
 	ptr = list;
 	tab = g_flags.l ? len_max(list) : NULL; //TODO: add protect ?
-	if (*((t_file *)list->content)->name)
+	if (*((t_file *)list->content)->name && (ft_strcmp(((t_file *)list->content)->name,".") != 0 && ft_strcmp(((t_file *)list->content)->name,"..") != 0))
 		ft_putchar('\n');
-	if (g_flags.r_up || files_count > 1)
+	if ((g_flags.r_up || files_count > 1) && (ft_strcmp(((t_file *)list->content)->name,".") != 0 && ft_strcmp(((t_file *)list->content)->name,"..") != 0))
 	{
 		ft_putstr(((t_file *)list->content)->path);
 		ft_putstr(((t_file *)list->content)->name);

@@ -56,7 +56,7 @@ t_list	*ft_while(t_list *list, char *path)
 			DEBUGendl("");
 			fullpath = ft_strjoin(path, "/");
 			fullpath = ft_strjoin(fullpath, direntp->d_name);
-			if ((g_flags.r_up) && direntp->d_type == DT_DIR)
+			if ((g_flags.r_up) && direntp->d_type == DT_DIR && ft_strcmp(direntp->d_name,".") != 0 && ft_strcmp(direntp->d_name,"..") != 0)
 			{
 				DEBUGstr("-> Found subdirectory ");
 				DEBUGstr(direntp->d_name);

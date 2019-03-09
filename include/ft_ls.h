@@ -30,6 +30,7 @@
 # define COLOR_BOLD_GREEN  "\e[1;32m"
 # define COLOR_BG_GREEN    "\e[30;42m"
 # define COLOR_RED         "\e[31m"
+# define COLOR_BG_RED      "\e[30;41m"
 
 # ifndef __APPLE__
 #  define COLOR_DIR  COLOR_CYAN
@@ -41,6 +42,7 @@
 #  define COLOR_CHR  COLOR_BOLD_YELLOW
 #  define COLOR_EXEC COLOR_RED
 #  define COLOR_OLNK COLOR_BOLD_GREEN
+#  define COLOR_REGS COLOR_BG_RED
 # else
 #  define COLOR_DIR  COLOR_CYAN
 #  define COLOR_DIRT COLOR_BG_GREEN
@@ -51,6 +53,7 @@
 #  define COLOR_CHR  COLOR_BOLD_YELLOW
 #  define COLOR_EXEC COLOR_RED
 #  define COLOR_OLNK COLOR_BOLD_GREEN
+#  define COLOR_REGS COLOR_BG_RED
 # endif
 
 # ifdef __APPLE__
