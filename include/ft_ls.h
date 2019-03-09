@@ -31,24 +31,24 @@
 # define COLOR_RED         "\e[31m"
 
 # ifndef __APPLE__
-# define COLOR_DIR  COLOR_CYAN
-# define COLOR_LNK  COLOR_BOLD_BLUE
-# define COLOR_FIFO COLOR_YELLOW
-# define COLOR_SOCK COLOR_MAGENTA
-# define COLOR_BLK  COLOR_BOLD_YELLOW
-# define COLOR_CHR  COLOR_BOLD_YELLOW
-# define COLOR_EXEC COLOR_RED
-# define COLOR_OLNK COLOR_BOLD_GREEN
+#  define COLOR_DIR  COLOR_CYAN
+#  define COLOR_LNK  COLOR_BOLD_BLUE
+#  define COLOR_FIFO COLOR_YELLOW
+#  define COLOR_SOCK COLOR_MAGENTA
+#  define COLOR_BLK  COLOR_BOLD_YELLOW
+#  define COLOR_CHR  COLOR_BOLD_YELLOW
+#  define COLOR_EXEC COLOR_RED
+#  define COLOR_OLNK COLOR_BOLD_GREEN
+# else
+#  define COLOR_DIR  COLOR_CYAN
+#  define COLOR_LNK  COLOR_MAGENTA
+#  define COLOR_FIFO COLOR_YELLOW
+#  define COLOR_SOCK COLOR_MAGENTA
+#  define COLOR_BLK  COLOR_BOLD_YELLOW
+#  define COLOR_CHR  COLOR_BOLD_YELLOW
+#  define COLOR_EXEC COLOR_RED
+#  define COLOR_OLNK COLOR_BOLD_GREEN
 # endif
-
-# define COLOR_DIR  COLOR_CYAN
-# define COLOR_LNK  COLOR_MAGENTA
-# define COLOR_FIFO COLOR_YELLOW
-# define COLOR_SOCK COLOR_MAGENTA
-# define COLOR_BLK  COLOR_BOLD_YELLOW
-# define COLOR_CHR  COLOR_BOLD_YELLOW
-# define COLOR_EXEC COLOR_RED
-# define COLOR_OLNK COLOR_BOLD_GREEN
 
 # ifdef __APPLE__
 #  define ST_MTIME st_mtimespec.tv_sec
@@ -76,14 +76,14 @@ struct	s_file
 
 struct
 {
-	uint8_t l		: 1;
-	uint8_t r_up	: 1;
-	uint8_t a		: 1;
-	uint8_t a_up	: 1;
-	uint8_t r		: 1;
-	uint8_t t		: 1;
-	uint8_t u_up	: 1;
-	uint8_t g_up	: 1;
+	unsigned int l		: 1;
+	unsigned int r_up	: 1;
+	unsigned int a		: 1;
+	unsigned int a_up	: 1;
+	unsigned int r		: 1;
+	unsigned int t		: 1;
+	unsigned int u_up	: 1;
+	unsigned int g_up	: 1;
 } g_flags;
 
 int		parse_flags(int ac, char **av);

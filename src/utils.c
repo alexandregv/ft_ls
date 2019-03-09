@@ -98,8 +98,7 @@ size_t	*len_max(t_list *node)
 			if (!tab[6])
 			{
 				xattr = listxattr(ft_strjoin(((t_file *)node->content)->path
-							, ((t_file *)node->content)->name), NULL, 0
-						, XATTR_NOFOLLOW); //TODO: protect + leaks
+							, ((t_file *)node->content)->name), NULL, 0); //TODO: protect + leaks
 				if (xattr >= 1)
 					tab[6] = 1;
 			}
