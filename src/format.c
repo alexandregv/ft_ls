@@ -61,10 +61,10 @@ static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL
 	else if ((mode & S_IXOTH) && (mode & S_ISVTX))
 		modes[9] = 't';
 #ifdef __APPLE__
-	if (listxattr(fullpath, NULL, 0, XATTR_NOFOLLOW) > 0)
-		modes[10] = '@';
 	if (acl_get_file(fullpath, ACL_TYPE_EXTENDED))
 		modes[10] = '+';
+	if (listxattr(fullpath, NULL, 0, XATTR_NOFOLLOW) > 0)
+		modes[10] = '@';
 #else
 	if (listxattr(fullpath, NULL, 0) > 0)
 		modes[10] = '+';

@@ -3,7 +3,10 @@
 static void	color_modes(t_file *file)
 {
 	if (S_ISDIR(file->stat.st_mode))
-		ft_putstr(COLOR_DIR);
+		if (file->stat.st_mode == 17407)
+			ft_putstr(COLOR_DIRT);
+		else
+			ft_putstr(COLOR_DIR);
 	else if (S_ISLNK(file->stat.st_mode))
 		ft_putstr(COLOR_LNK);
 	else if (S_ISFIFO(file->stat.st_mode))

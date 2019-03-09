@@ -28,10 +28,12 @@
 # define COLOR_MAGENTA     "\e[35m"
 # define COLOR_BOLD_YELLOW "\e[1;33m"
 # define COLOR_BOLD_GREEN  "\e[1;32m"
+# define COLOR_BG_GREEN    "\e[30;42m"
 # define COLOR_RED         "\e[31m"
 
 # ifndef __APPLE__
 #  define COLOR_DIR  COLOR_CYAN
+#  define COLOR_DIRT COLOR_BG_GREEN
 #  define COLOR_LNK  COLOR_BOLD_BLUE
 #  define COLOR_FIFO COLOR_YELLOW
 #  define COLOR_SOCK COLOR_MAGENTA
@@ -41,6 +43,7 @@
 #  define COLOR_OLNK COLOR_BOLD_GREEN
 # else
 #  define COLOR_DIR  COLOR_CYAN
+#  define COLOR_DIRT COLOR_BG_GREEN
 #  define COLOR_LNK  COLOR_MAGENTA
 #  define COLOR_FIFO COLOR_YELLOW
 #  define COLOR_SOCK COLOR_MAGENTA
