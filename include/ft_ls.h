@@ -57,12 +57,12 @@
 #  define ST_MTIME st_mtimespec.tv_sec
 #  define FT_XATTR_NOFOLLOW 0, XATTR_NOFOLLOW
 #  define OWNER_GROUP_SEPARATOR "  "
-#  define DATE_SEPARATOR 1
+#  define SIZE_SEPARATOR 1
 # else
 #  define ST_MTIME st_mtime
 #  define FT_XATTR_NOFOLLOW 0
 #  define OWNER_GROUP_SEPARATOR " "
-#  define DATE_SEPARATOR 0
+#  define SIZE_SEPARATOR 0
 # endif
 
 typedef struct timespec	t_timespec;

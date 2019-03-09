@@ -125,7 +125,7 @@ static void	print_size(t_stat statb, size_t max1, size_t max2) //TODO: Fix (roun
 
 	if (S_ISCHR(statb.st_mode) || S_ISBLK(statb.st_mode))
 	{
-		align(ft_itoa(major(statb.st_rdev)), max1 - 1);
+		align(ft_itoa(major(statb.st_rdev)), max1);
 		ft_putnbr(major(statb.st_rdev));
 		ft_putstr(", ");
 		align(ft_itoa(minor(statb.st_rdev)), max2);
@@ -134,8 +134,7 @@ static void	print_size(t_stat statb, size_t max1, size_t max2) //TODO: Fix (roun
 	else
 	{
 		size = ft_itoa(statb.st_size);
-		//align(size, max1 + max2 + (max2 == 0 ? 0 : 1));
-		align(size, max1 + max2 + (max2 == 0 ? DATE_SEPARATOR : 1));
+		align(size, max1 + max2 + (max2 == 0 ? SIZE_SEPARATOR : 1));
 		ft_putstr(size);
 	}
 }
