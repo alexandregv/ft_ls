@@ -71,14 +71,14 @@
 typedef struct timespec	t_timespec;
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
-typedef struct s_file	t_file;
 
-struct	s_file
+typedef struct			s_file
 {
-	char	name[NAME_MAX + 1];
-	char	path[PATH_MAX];
-	t_stat	stat;
-};
+	char		name[NAME_MAX + 1];
+	char		path[PATH_MAX];
+	char		full_path[NAME_MAX + PATH_MAX + 1];
+	t_stat		stat;
+}						t_file;
 
 struct
 {
@@ -101,5 +101,6 @@ int		print_all(t_list *list, int files_count);
 void	print_file(t_list *node, size_t *tab);
 void	print_filename(t_file *file);
 size_t	*len_max(t_list *node);
+t_file	*f(t_list *node);
 
 #endif

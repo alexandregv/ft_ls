@@ -20,6 +20,7 @@ static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL
 				, ft_strlen(((t_file *)node->content)->path) - 1))
 		fullpath = ft_strdup(((t_file *)node->content)->name);
 	else
+		//fullpath = ((t_file *)node->content)->full_path;
 		fullpath = ft_strjoin(((t_file *)node->content)->path
 					, ((t_file *)node->content)->name);
 	mode = ((t_file *)node->content)->stat.st_mode;

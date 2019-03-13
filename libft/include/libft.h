@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:36:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/25 20:45:56 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/13 14:39:44 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,7 @@ void				ft_list_sort(t_list **head, int (*cmp)(const void *
 					, const void *));
 void				ft_list_del_at(t_list **head, void (*del)(void*, size_t)
 					, size_t index);
+size_t				*ft_sizet_tab(int size);
+int					*ft_int_tab(int size);
 
 #endif
