@@ -85,7 +85,7 @@ int	print_all(t_list *list, int files_count)
 		ft_putstr(((t_file *)list->content)->name);
 		ft_putendl(":");
 	}
-	if (g_flags.l)
+	if (g_flags.l && (ft_strcmp(((t_file *)list->content)->name,".") != 0 && ft_strcmp(((t_file *)list->content)->name,"..") != 0))
 	{
 		ft_putstr("total ");
 		ft_putnbr(count_blocks(list->next));
