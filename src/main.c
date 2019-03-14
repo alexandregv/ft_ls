@@ -15,7 +15,6 @@ void	print_dir(t_list *node)
 			, node->next ? ((t_file *)node->next->content)->name : "FIN"
 	);
 	*/
-
 	printf("%s%s\n", ((t_file *)node->content)->path, ((t_file *)node->content)->name);
 }
 
@@ -41,7 +40,6 @@ t_list	*ft_while(t_list *list, char *path)
 	if (dirp == NULL)
 	{
 		perror("ft_ls");
-		//exit(EXIT_FAILURE);
 		return (list);
 	}
 	while ((direntp = readdir(dirp)))
@@ -88,72 +86,6 @@ t_list	*ft_while(t_list *list, char *path)
 	return (list);
 }
 
-/*
-void	fix_reverse_dirs(t_list **head)
-{
-	t_list	*node;
-	t_list	*ref;
-	char	*dirpath;
-
-	node = *head;
-	ref = NULL;
-	dirpath = ((t_file *)node->content)->path;
-	while (node->next && !ft_strcmp(dirpath, ((t_file *)node->next->content)->path))
-		node = node->next;
-
-	while (node)
-	{
-		ref = node;
-		DEBUGstr("> DEBUG ref: ");
-		DEBUGstr(((t_file *)node->content)->path);
-		DEBUGstr(" ");
-		DEBUGendl(((t_file *)node->content)->name);
-
-		node = node->next;
-		if (!node)
-			return ;
-		dirpath = ft_strdup(((t_file *)node->content)->path);
-		dirpath[ft_strlen(dirpath) - 1] = '\0';
-		while (node->next && ft_strcmp(dirpath, ft_strjoin(((t_file *)node->next->content)->path, ((t_file *)node->next->content)->name)) != 0)
-			node = node->next;
-
-		DEBUGstr("> DEBUG node: ");
-		DEBUGstr(((t_file *)node->content)->path);
-		DEBUGstr(" ");
-		DEBUGendl(((t_file *)node->content)->name);
-
-		t_list *to_move;
-		//if (node->next)
-		//{
-		//	to_move = node->next;
-		//	DEBUGstr("> DEBUG dir to move: ");
-		//	DEBUGstr(((t_file *)to_move->content)->path);
-		//	DEBUGstr(" ");
-		//	DEBUGendl(((t_file *)to_move->content)->name);
-
-		//	node->next = to_move->next;
-		//	to_move->next = ref->next;
-		//	ref->next = to_move;
-		//}
-		//else
-		//{
-		//	to_move = node;
-		//}
-		to_move = node->next;
-		DEBUGstr("> DEBUG dir to move: ");
-		DEBUGstr(((t_file *)to_move->content)->path);
-		DEBUGstr(" ");
-		DEBUGendl(((t_file *)to_move->content)->name);
-
-		node->next = to_move->next;
-		to_move->next = ref->next;
-		ref->next = to_move;
-
-		DEBUG(ft_list_iter(*head, print_dir, 0));
-	}
-}
-*/
-
 #include <stdio.h>
 t_list	*fix_reverse_dirs(t_list *head)
 {
@@ -166,13 +98,12 @@ t_list	*fix_reverse_dirs(t_list *head)
 		if (S_ISDIR(((t_file *)node->content)->stat.st_mode))
 		{
 			DEBUG(printf("> DEBUG dir to move: %s%s\n", ((t_file *)node->content)->path, ((t_file *)node->content)->name));
-			char *fullpath = ft_strjoin(((t_file *)node->content)->path, ((t_file *)node->content)->name);
-			DEBUG(printf("> DEBUG fullpath = [%s]\n", fullpath));
+			DEBUG(printf("> DEBUG fullpath = [%s]\n", f(node)->full_path));
 			temp = node;
 			while (temp->prev)
 			{
 				temp = temp->prev;
-				if (ft_strncmp(fullpath, ((t_file *)temp->content)->path, ft_strlen(fullpath)) != 0)
+				if (ft_strncmp(f(node)->full_path, ((t_file *)temp->content)->path, ft_strlen(f(node)->full_path)) != 0)
 					break ;
 			}
 			DEBUG(printf("> DEBUG dir a inserer apres ce node: %s%s\n", ((t_file *)temp->content)->path, ((t_file *)temp->content)->name));
@@ -228,16 +159,23 @@ int		ls(int fc, char **fv)
 				ft_list_push_back(&list, ft_list_new((t_file *)malloc(sizeof(t_file)), sizeof(t_file)));
 				ft_strcpy(((t_file *)ft_list_get_at(list, ft_list_size(list) - 1)->content)->path, (char *)args->content);
 				ft_strcpy(((t_file *)ft_list_get_at(list, ft_list_size(list) - 1)->content)->name, "");
+				ft_strcpy(((t_file *)ft_list_get_at(list, ft_list_size(list) - 1)->content)->full_path, (char *)args->content);
+				ft_strcat(((t_file *)ft_list_get_at(list, ft_list_size(list) - 1)->content)->full_path, "");
 				DEBUG(ft_list_iter(list, print_dir, 0))
 
-				DEBUGendl("-----------Fixdirs-----------------");
-				list = fix_reverse_dirs(list);
-				DEBUGendl("-----------List after fixdirs-----------------");
-				DEBUG(ft_list_iter(list, print_dir, 0));
-
-				DEBUGendl("-----------List after YOLO-----------------");
-				ft_list_push_front(&list, ft_list_pop_back(&list));
-				DEBUG(ft_list_iter(list, print_dir, 0));
+					if (g_flags.r_up)
+					{
+						DEBUGendl("-----------Fixdirs-----------------");
+						list = fix_reverse_dirs(list);
+						DEBUGendl("-----------List after fixdirs-----------------");
+						DEBUG(ft_list_iter(list, print_dir, 0));
+					}
+				//TODO : degager ca ?
+				/**
+				 * DEBUGendl("-----------List after YOLO-----------------");
+				 * ft_list_push_front(&list, ft_list_pop_back(&list));
+				 * DEBUG(ft_list_iter(list, print_dir, 0));
+				 */
 			}
 			else
 			{
@@ -245,6 +183,8 @@ int		ls(int fc, char **fv)
 				ft_list_push_front(&list, ft_list_new((t_file *)malloc(sizeof(t_file)), sizeof(t_file)));
 				ft_strcpy(((t_file *)list->content)->path, (char *)args->content);
 				ft_strcpy(((t_file *)list->content)->name, "");
+				ft_strcpy(((t_file *)list->content)->full_path, (char *)args->content);
+				ft_strcpy(((t_file *)list->content)->full_path, "");
 				DEBUG(ft_list_iter(list, print_dir, 0));
 			}
 			t_file *db = (t_file *)malloc(sizeof(t_file));
