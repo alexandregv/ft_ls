@@ -19,12 +19,12 @@ static t_list	*norm_lol(t_list *files, t_list *dirs)
 	if (files != NULL)
 	{
 		ft_list_get_at(files, ft_list_size(files) - 1)->next = dirs;
-		DEBUG(ft_list_iter(files, print_node));
+		DEBUG(ft_list_iter(files, print_node, 0));
 		return (files);
 	}
 	else
 	{
-		DEBUG(ft_list_iter(dirs, print_node));
+		DEBUG(ft_list_iter(dirs, print_node, 0));
 		return (dirs);
 	}
 }

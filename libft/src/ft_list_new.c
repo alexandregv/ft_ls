@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:05:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/16 18:06:05 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/11 13:10:06 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ t_list	*ft_list_new(const void *content, size_t content_size)
 		list->content_size = content_size;
 	}
 	list->next = NULL;
+	list->prev = NULL;
 	return (list);
 }

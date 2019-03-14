@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:36:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/02/25 20:45:56 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/13 21:06:20 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef	struct		s_list
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
+	struct s_list	*prev;
 }					t_list;
 
 void				ft_putchar_fd(char c, int fd);
@@ -121,11 +122,14 @@ ssize_t				ft_list_get_index(t_list *head, t_list *node);
 size_t				ft_list_size(t_list *head);
 void				ft_list_del_node(t_list **node, void (*del)(void*, size_t));
 void				ft_list_del(t_list **list, void (*del)(void *, size_t));
-void				ft_list_iter(t_list *head, void (*f)(t_list *node));
+void				ft_list_iter(t_list *head, void (*f)(t_list *node), int rev);
+t_list				*ft_list_last(t_list *head);
 void				ft_list_rev(t_list **head);
+void				ft_dlist_rev(t_list **head);
 void				ft_list_sort(t_list **head, int (*cmp)(const void *
 					, const void *));
 void				ft_list_del_at(t_list **head, void (*del)(void*, size_t)
 					, size_t index);
+t_list				*ft_dlist_msort(t_list *head, int (*cmp)(t_list *, t_list *));
 
 #endif

@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_iter.c                                     :+:      :+:    :+:   */
+/*   ft_list_iterr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:09:41 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/13 17:30:44 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:56:31 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_list_iter(t_list *head, void (*f)(t_list *elem), int rev)
+void	ft_list_iterr(t_list *tail, void (*f)(t_list *elem))
 {
 	t_list	*node;
 
-	node = head;
+	node = tail;
 	while (node)
 	{
 		f(node);
-		if (rev)
-			node = node->prev;
-		else
-			node = node->next;
+		node = node->prev;
 	}
 }

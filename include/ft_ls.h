@@ -94,8 +94,7 @@ struct
 
 int		parse_flags(int ac, char **av);
 t_list	*sort_args(char **fv);
-int		lstcmp(const t_list *node1, const t_list *node2);
-void	ft_list_msort(t_list **head);
+int		lstcmp(t_list *node1, t_list *node2);
 size_t	count_blocks(const t_list *head);
 int		print_all(t_list *list, int files_count);
 void	print_file(t_list *node, size_t *tab);

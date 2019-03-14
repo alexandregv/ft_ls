@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/02/18 17:41:09 by aguiot           ###   ########.fr        #
+#    Updated: 2019/03/13 21:06:36 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ SRC_NAME	= \
 			ft_list_map			ft_list_new			ft_list_size		\
 			ft_list_push_at		ft_list_push_back	ft_list_push_front	\
 			ft_list_pop_at		ft_list_pop_back	ft_list_pop_front	\
-			ft_list_sort
+			ft_list_sort		ft_list_last		ft_dlist_msort		\
+			ft_dlist_rev
 			
 # Object files
 OBJ_PATH	= obj/

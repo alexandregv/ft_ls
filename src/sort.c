@@ -1,68 +1,25 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 #include "ft_ls.h"
 
-static t_list
-	*ft_list_sorted_merge(t_list *part1, t_list *part2)
+int		lstcmp(t_list *node1, t_list *node2)
 {
-	t_list	*result;
+	char		*fullpath1;
+	char		*fullpath2;
 
-	if (part1 == NULL)
-		return (part2);
-	if (part2 == NULL)
-		return (part1);
-	result = NULL;
-	if (lstcmp(part1, part2))
-	{
-		result = part1;
-		result->next = ft_list_sorted_merge(part1->next, part2);
-	}
+	//TODO: handle -r
+	if (g_flags.t)
+		return (((t_file *)node1->content)->stat.ST_MTIME
+				> ((t_file *)node2->content)->stat.ST_MTIME);
+	//else if (!g_flags.u_up && g_flags.r)
 	else
 	{
-		result = part2;
-		result->next = ft_list_sorted_merge(part1, part2->next);
+		fullpath1 = ft_strjoin(((t_file *)node1->content)->path, ((t_file *)node1->content)->name);
+		fullpath2 = ft_strjoin(((t_file *)node2->content)->path, ((t_file *)node2->content)->name);
+		DEBUGstr(" => sorting ");
+		DEBUGstr(fullpath1);
+		DEBUGstr("	|	");
+		DEBUGendl(fullpath2);
+		//TODO: lol leaks
+		return (ft_strcmp(fullpath1, fullpath2) < 0);
 	}
-	return (result);
-}
-
-static void
-	ft_list_split(t_list *source, t_list **front_ref, t_list **back_ref)
-{
-	t_list	*slow;
-	t_list	*fast;
-
-	if (source == NULL || source->next == NULL)
-	{
-		*front_ref = source;
-		*back_ref = NULL;
-		return ;
-	}
-	slow = source;
-	fast = source->next;
-	while (fast != NULL)
-	{
-		fast = fast->next;
-		if (fast != NULL)
-		{
-			slow = slow->next;
-			fast = fast->next;
-		}
-	}
-	*front_ref = source;
-	*back_ref = slow->next;
-	slow->next = NULL;
-}
-
-void
-	ft_list_msort(t_list **head)
-{
-	t_list	*part1;
-	t_list	*part2;
-
-	if (*head == NULL || (*head)->next == NULL)
-		return ;
-	ft_list_split(*head, &part1, &part2);
-	ft_list_msort(&part1);
-	ft_list_msort(&part2);
-	*head = ft_list_sorted_merge(part1, part2);
 }
