@@ -11,15 +11,20 @@ void		del_node(void *file, size_t size)
 	file = NULL;
 	(void)size;
 }
-
+#include <stdio.h>
 size_t		count_blocks(const t_list *head)
 {
 	size_t			blocks;
+	char			*path;
 
 	blocks = 0;
+	path = ((t_file *)head->content)->path;
 	while (head)
 	{ //TODO: support blocksize other than 512 ?
 		blocks += ((t_file *)head->content)->stat.st_blocks;
+		//printf("blocks : %zu, st_blocks : %lld, size: %lld, nom: %s\n", blocks, ((t_file *)head->content)->stat.st_blocks, ((t_file *)head->content)->stat.st_size, ((t_file *)head->content)->name);
+		if (ft_strcmp(path, ((t_file *)head->content)->path) != 0)
+ 			return (blocks);
 		head = head->next;
 	}
 	return (blocks);
