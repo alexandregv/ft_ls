@@ -2,19 +2,18 @@
 #include <stdio.h>
 #include "ft_ls.h"
 
-#include <stdio.h>
 void	print_dir(t_list *node)
 {
 	/*
-	printf("prev: %s%s | curr: %s%s | next: %s%s\n"
-			, node->prev ? ((t_file *)node->prev->content)->path : "DEBUT"
-			, node->prev ? ((t_file *)node->prev->content)->name : ""
-			, ((t_file *)node->content)->path
-			, ((t_file *)node->content)->name
-			, node->next ? ((t_file *)node->next->content)->path : ""
-			, node->next ? ((t_file *)node->next->content)->name : "FIN"
-	);
-	*/
+	   printf("prev: %s%s | curr: %s%s | next: %s%s\n"
+	   , node->prev ? ((t_file *)node->prev->content)->path : "DEBUT"
+	   , node->prev ? ((t_file *)node->prev->content)->name : ""
+	   , ((t_file *)node->content)->path
+	   , ((t_file *)node->content)->name
+	   , node->next ? ((t_file *)node->next->content)->path : ""
+	   , node->next ? ((t_file *)node->next->content)->name : "FIN"
+	   );
+	   */
 	printf("%s%s\n", ((t_file *)node->content)->path, ((t_file *)node->content)->name);
 }
 
@@ -49,9 +48,9 @@ t_list	*ft_while(t_list *list, char *path)
 		DEBUGstr(path);
 		DEBUGstr(")");
 		if ((g_flags.a)
-			|| direntp->d_name[0] != '.'
-			|| ((g_flags.a_up && ft_strcmp(direntp->d_name, ".")) != 0
-				&& (g_flags.a_up && ft_strcmp(direntp->d_name, "..") != 0)))
+				|| direntp->d_name[0] != '.'
+				|| ((g_flags.a_up && ft_strcmp(direntp->d_name, ".")) != 0
+					&& (g_flags.a_up && ft_strcmp(direntp->d_name, "..") != 0)))
 		{
 
 			DEBUGendl("");
@@ -86,7 +85,6 @@ t_list	*ft_while(t_list *list, char *path)
 	return (list);
 }
 
-#include <stdio.h>
 t_list	*fix_reverse_dirs(t_list *head)
 {
 	t_list	*node;
@@ -124,6 +122,7 @@ int		ls(int fc, char **fv)
 	int			i;
 	t_list		*args;
 	t_list		*list;
+	t_list		*first;
 
 	list = NULL;
 	if (fc == 0)
@@ -161,21 +160,14 @@ int		ls(int fc, char **fv)
 				ft_strcpy(((t_file *)ft_list_get_at(list, ft_list_size(list) - 1)->content)->name, "");
 				ft_strcpy(((t_file *)ft_list_get_at(list, ft_list_size(list) - 1)->content)->full_path, (char *)args->content);
 				ft_strcat(((t_file *)ft_list_get_at(list, ft_list_size(list) - 1)->content)->full_path, "");
-				DEBUG(ft_list_iter(list, print_dir, 0))
-
-					if (g_flags.r_up)
-					{
-						DEBUGendl("-----------Fixdirs-----------------");
-						list = fix_reverse_dirs(list);
-						DEBUGendl("-----------List after fixdirs-----------------");
-						DEBUG(ft_list_iter(list, print_dir, 0));
-					}
-				//TODO : degager ca ?
-				/**
-				 * DEBUGendl("-----------List after YOLO-----------------");
-				 * ft_list_push_front(&list, ft_list_pop_back(&list));
-				 * DEBUG(ft_list_iter(list, print_dir, 0));
-				 */
+				DEBUG(ft_list_iter(list, print_dir, 0));
+				if (g_flags.r_up)
+				{
+					DEBUGendl("-----------Fixdirs-----------------");
+					list = fix_reverse_dirs(list);
+					DEBUGendl("-----------List after fixdirs-----------------");
+					DEBUG(ft_list_iter(list, print_dir, 0));
+				}
 			}
 			else
 			{
@@ -187,12 +179,12 @@ int		ls(int fc, char **fv)
 				ft_strcpy(((t_file *)list->content)->full_path, "");
 				DEBUG(ft_list_iter(list, print_dir, 0));
 			}
-			t_file *db = (t_file *)malloc(sizeof(t_file));
-			ft_strcpy(db->path, (char *)args->content);
-			ft_strcpy(db->name, "");
-			ft_strcpy(db->full_path, (char *)args->content);
-			ft_strcat(db->full_path, "");
-			ft_list_push_front(&list, ft_list_new(db, sizeof(t_file)));
+			first = (t_file *)malloc(sizeof(t_file));
+			ft_strcpy(first->path, (char *)args->content);
+			ft_strcpy(first->name, "");
+			ft_strcpy(first->full_path, (char *)args->content);
+			ft_strcat(first->full_path, "");
+			ft_list_push_front(&list, ft_list_new(first, sizeof(t_file)));
 			DEBUGendl("------------Print all----------------");
 			print_all(list, fc);
 			++i;
