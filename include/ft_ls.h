@@ -92,14 +92,18 @@ struct
 	unsigned int g_up	: 1;
 } g_flags;
 
-int		parse_flags(int ac, char **av);
-t_list	*sort_args(char **fv);
-int		lstcmp(t_list *node1, t_list *node2);
-size_t	count_blocks(const t_list *head);
-int		print_all(t_list *list, int files_count);
-void	print_file(t_list *node, size_t *tab);
-void	print_filename(t_file *file);
-size_t	*len_max(t_list *node);
-t_file	*f(t_list *node);
+int			parse_flags(int ac, char **av);
+t_list		*sort_args(char **fv);
+int			lstcmp(t_list *node1, t_list *node2);
+size_t		count_blocks(const t_list *head);
+int			print_all(t_list *list, int files_count);
+void		print_file(t_list *node, size_t *tab);
+void		print_filename(t_file *file);
+size_t		*len_max(t_list *node);
+t_file		*f(t_list *node);
+void		print_fileowner(t_stat statb, size_t max);
+void		print_filegroup(t_stat statb, size_t max);
+void		print_filemodes(t_list *node);
+void		align(char *str, size_t max);
 
 #endif

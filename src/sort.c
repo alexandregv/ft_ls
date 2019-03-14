@@ -3,8 +3,6 @@
 
 int		lstcmp(t_list *node1, t_list *node2)
 {
-
-	//TODO: handle -r
 	if (g_flags.t)
 	{
 		if (g_flags.r)

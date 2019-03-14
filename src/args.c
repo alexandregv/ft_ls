@@ -29,7 +29,6 @@ static t_list	*norm_lol(t_list *files, t_list *dirs)
 	}
 }
 
-//TODO: check les flags pour ne pas register inutilement les ignores (genre .*)
 t_list			*sort_args(char **fv)
 {
 	t_list	*files;

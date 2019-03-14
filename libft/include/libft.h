@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:36:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/14 14:45:00 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:05:05 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ char				*ft_strnjoin(char const *s1, char const *s2, size_t n);
 int					get_next_line(const int fd, char **line);
 void				ft_die(char *msg, int status);
 char				**ft_sort_table(char **table, size_t size);
-
 t_list				*ft_list_new(const void *content, size_t content_size);
 t_list				*ft_list_push_back(t_list **node, t_list *new);
 t_list				*ft_list_push_front(t_list **head, t_list *new);
@@ -122,7 +121,8 @@ ssize_t				ft_list_get_index(t_list *head, t_list *node);
 size_t				ft_list_size(t_list *head);
 void				ft_list_del_node(t_list **node, void (*del)(void*, size_t));
 void				ft_list_del(t_list **list, void (*del)(void *, size_t));
-void				ft_list_iter(t_list *head, void (*f)(t_list *node), int rev);
+void				ft_list_iter(t_list *head, void (*f)(t_list *node)
+					, int rev);
 t_list				*ft_list_last(t_list *head);
 void				ft_list_rev(t_list **head);
 void				ft_dlist_rev(t_list **head);
@@ -130,7 +130,8 @@ void				ft_list_sort(t_list **head, int (*cmp)(const void *
 					, const void *));
 void				ft_list_del_at(t_list **head, void (*del)(void*, size_t)
 					, size_t index);
-t_list				*ft_dlist_msort(t_list *head, int (*cmp)(t_list *, t_list *));
+t_list				*ft_dlist_msort(t_list *head, int (*cmp)(t_list *
+					, t_list *));
 size_t				*ft_sizet_tab(int size);
 int					*ft_int_tab(int size);
 
