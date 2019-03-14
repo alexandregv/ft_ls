@@ -3,23 +3,22 @@
 
 int		lstcmp(t_list *node1, t_list *node2)
 {
-	char		*fullpath1;
-	char		*fullpath2;
 
 	//TODO: handle -r
 	if (g_flags.t)
-		return (((t_file *)node1->content)->stat.ST_MTIME
-				> ((t_file *)node2->content)->stat.ST_MTIME);
-	//else if (!g_flags.u_up && g_flags.r)
+	{
+		if (g_flags.r)
+			return (f(node1)->stat.ST_MTIME < f(node2)->stat.ST_MTIME);
+		if (f(node1)->stat.ST_MTIME == f(node2)->stat.ST_MTIME)
+			return (ft_strcmp(f(node1)->full_path, f(node2)->full_path) < 0);
+		return (f(node1)->stat.ST_MTIME > f(node2)->stat.ST_MTIME);
+	}
 	else
 	{
-		fullpath1 = ft_strjoin(((t_file *)node1->content)->path, ((t_file *)node1->content)->name);
-		fullpath2 = ft_strjoin(((t_file *)node2->content)->path, ((t_file *)node2->content)->name);
 		DEBUGstr(" => sorting ");
-		DEBUGstr(fullpath1);
+		DEBUGstr(f(node1)->full_path);
 		DEBUGstr("	|	");
-		DEBUGendl(fullpath2);
-		//TODO: lol leaks
-		return (ft_strcmp(fullpath1, fullpath2) < 0);
+		DEBUGstr(f(node2)->full_path);
+		return (ft_strcmp(f(node1)->full_path, f(node2)->full_path) < 0);
 	}
 }
