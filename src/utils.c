@@ -66,9 +66,7 @@ size_t		*len_max(t_list *node)
 
 	if (!(tab = ft_sizet_tab(7)))
 		return (NULL);
-	dirpath = ft_strjoin(f(node)->path
-			, f(node)->name); //TODO: leaks
-	dirpath = ft_strjoin(dirpath, "/");
+	dirpath = ft_strjoin(f(node)->full_path, "/");
 	while (node)
 	{
 		if (!ft_strcmp(dirpath, f(node)->path))
