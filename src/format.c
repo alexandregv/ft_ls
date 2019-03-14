@@ -1,158 +1,15 @@
 #include "ft_ls.h"
 
-static void	align(char *str, size_t max)
+void		align(char *str, size_t max)
 {
-	int				spaces;
+	int		spaces;
 
 	spaces = max - ft_strlen(str);
 	while (spaces-- > 0)
 		ft_putchar(' ');
 }
 
-char		*get_filemodes(char *modes, mode_t mode, char *fullpath)
-{
-	modes[10] = ' ';
-	modes[11] = '\0';
-	modes[1] = mode & S_IRUSR ? 'r' : '-';
-	modes[2] = mode & S_IWUSR ? 'w' : '-';
-	modes[3] = mode & S_IXUSR ? 'x' : '-';
-	modes[3] = mode & S_ISUID ? 's' : modes[3];
-	modes[4] = mode & S_IRGRP ? 'r' : '-';
-	modes[5] = mode & S_IWGRP ? 'w' : '-';
-	modes[6] = mode & S_IXGRP ? 'x' : '-';
-	modes[6] = mode & S_ISGID ? 's' : modes[6];
-	modes[7] = mode & S_IROTH ? 'r' : '-';
-	modes[8] = mode & S_IWOTH ? 'w' : '-';
-	if ((mode & S_IXOTH) && !(mode & S_ISVTX))
-		modes[9] = 'x';
-	else if (!(mode & S_IXOTH) && (mode & S_ISVTX))
-		modes[9] = 'T';
-	else if ((mode & S_IXOTH) && (mode & S_ISVTX))
-		modes[9] = 't';
-	if (acl_get_file(fullpath, ACL_TYPE_EXTENDED))
-		modes[10] = '+';
-	if (listxattr(fullpath, NULL, 0, XATTR_NOFOLLOW) > 0)
-		modes[10] = '@';
-	return (modes);
-}
-
-static void	print_filemodes(t_list *node) //TODO: ACL
-{
-	mode_t			mode;
-	char			modes[12];
-	char			*fullpath;
-
-	if (!ft_strncmp(f(node)->path, f(node)->name, ft_strlen(f(node)->path) - 1))
-		fullpath = ft_strdup(f(node)->name);
-	else
-		fullpath = ft_strjoin(f(node)->path, f(node)->name);
-	mode = f(node)->stat.st_mode;
-	ft_memset(modes, '-', 10);
-	if (S_ISDIR(mode))
-		modes[0] = 'd';
-	else if (S_ISCHR(mode))
-		modes[0] = 'c';
-	else if (S_ISBLK(mode))
-		modes[0] = 'b';
-	else if (S_ISLNK(mode))
-		modes[0] = 'l';
-	else if (S_ISSOCK(mode))
-		modes[0] = 's';
-	else if (S_ISFIFO(mode))
-		modes[0] = 'p';
-	get_filemodes(modes, mode, fullpath);
-	ft_putstr(modes);
-	free(fullpath);
-}
-
-/*
-static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL
-{
-	mode_t			mode;
-	char			modes[12];
-	char			*fullpath;
-
-	if (!ft_strncmp(f(node)->path, f(node)->name, ft_strlen(f(node)->path) - 1))
-		fullpath = ft_strdup(f(node)->name);
-	else
-		fullpath = ft_strjoin(f(node)->path, f(node)->name);
-	mode = f(node)->stat.st_mode;
-	ft_memset(modes, '-', 10);
-#ifdef __APPLE__
-	modes[10] = ' ';
-	(void)xattr;
-#else
-	modes[10] = xattr ? ' ' : '\0';
-#endif
-	modes[11] = '\0';
-
-	if (S_ISDIR(mode))
-		modes[0] = 'd';
-	else if (S_ISCHR(mode))
-		modes[0] = 'c';
-	else if (S_ISBLK(mode))
-		modes[0] = 'b';
-	else if (S_ISLNK(mode))
-		modes[0] = 'l';
-	else if (S_ISSOCK(mode))
-		modes[0] = 's';
-	else if (S_ISFIFO(mode))
-		modes[0] = 'p';
-	modes[1] = mode & S_IRUSR ? 'r' : '-';
-	modes[2] = mode & S_IWUSR ? 'w' : '-';
-	modes[3] = mode & S_IXUSR ? 'x' : '-';
-	modes[3] = mode & S_ISUID ? 's' : modes[3];
-	modes[4] = mode & S_IRGRP ? 'r' : '-';
-	modes[5] = mode & S_IWGRP ? 'w' : '-';
-	modes[6] = mode & S_IXGRP ? 'x' : '-';
-	modes[6] = mode & S_ISGID ? 's' : modes[6];
-	modes[7] = mode & S_IROTH ? 'r' : '-';
-	modes[8] = mode & S_IWOTH ? 'w' : '-';
-	if ((mode & S_IXOTH) && !(mode & S_ISVTX))
-		modes[9] = 'x';
-	else if (!(mode & S_IXOTH) && (mode & S_ISVTX))
-		modes[9] = 'T';
-	else if ((mode & S_IXOTH) && (mode & S_ISVTX))
-		modes[9] = 't';
-#ifdef __APPLE__
-	if (acl_get_file(fullpath, ACL_TYPE_EXTENDED))
-		modes[10] = '+';
-	if (listxattr(fullpath, NULL, 0, XATTR_NOFOLLOW) > 0)
-		modes[10] = '@';
-#else
-	if (listxattr(fullpath, NULL, 0) > 0)
-		modes[10] = '+';
-#endif
-
-	ft_putstr(modes);
-	free(fullpath);
-}
-*/
-static void	print_fileowner(t_stat statb, size_t max)
-{
-	struct passwd	*pw;
-
-	pw = getpwuid(statb.st_uid);
-	if (pw != 0)
-	{
-		ft_putstr(pw->pw_name);
-		align(pw->pw_name, max);
-	}
-}
-
-static void	print_filegroup(t_stat statb, size_t max)
-{
-	struct group	*gr;
-
-	gr = getgrgid(statb.st_gid);
-	if (gr != 0)
-	{
-		ft_putstr(gr->gr_name);
-		align(gr->gr_name, max);
-	}
-}
-
-static void		print_time(t_stat statb) //TODO: Fix +/- 6 months
+static void	print_time(t_stat statb)
 {
 	char	*temps;
 	time_t	now;
@@ -167,15 +24,16 @@ static void		print_time(t_stat statb) //TODO: Fix +/- 6 months
 		temps += 16;
 		write(1, temps, 4);
 	}
-	else {
+	else
+	{
 		temps += 4;
 		write(1, temps, 12);
 	}
 }
 
-static void	print_size(t_stat statb, size_t max1, size_t max2) //TODO: Fix (rounds and units)
+static void	print_size(t_stat statb, size_t max1, size_t max2)
 {
-	char			*size;
+	char	*size;
 
 	if (S_ISCHR(statb.st_mode) || S_ISBLK(statb.st_mode))
 	{
@@ -193,11 +51,10 @@ static void	print_size(t_stat statb, size_t max1, size_t max2) //TODO: Fix (roun
 	}
 }
 
-void	print_file(t_list *node, size_t *tab)
+void		print_file(t_list *node, size_t *tab)
 {
 	if (g_flags.l)
 	{
-		//print_filemodes(node, tab[6]); //TODO: ACL
 		print_filemodes(node);
 		align(ft_itoa(f(node)->stat.st_nlink), tab[1]);
 		ft_putchar(' ');
@@ -207,9 +64,9 @@ void	print_file(t_list *node, size_t *tab)
 		ft_putstr(OWNER_GROUP_SEPARATOR);
 		print_filegroup(f(node)->stat, tab[3]);
 		ft_putchar(' ');
-		print_size(f(node)->stat, tab[4], tab[5]); //TODO: Fix (rounds and units)
+		print_size(f(node)->stat, tab[4], tab[5]);
 		ft_putchar(' ');
-		print_time(f(node)->stat); //TODO: Fix +/- 6 months
+		print_time(f(node)->stat);
 		ft_putchar(' ');
 	}
 	print_filename(f(node));

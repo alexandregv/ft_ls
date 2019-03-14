@@ -1,12 +1,12 @@
 #include "libft.h"
 
-static t_list	*merge(t_list *first, t_list *second, int (*cmp)(t_list *, t_list *))
+static t_list
+	*merge(t_list *first, t_list *second, int (*cmp)(t_list *, t_list *))
 {
 	if (!first)
 		return (second);
 	if (!second)
 		return (first);
-
 	if (cmp(first, second))
 	{
 		first->next = merge(first->next, second, cmp);
@@ -23,7 +23,8 @@ static t_list	*merge(t_list *first, t_list *second, int (*cmp)(t_list *, t_list 
 	}
 }
 
-static t_list	*split(t_list *head)
+static t_list
+	*split(t_list *head)
 {
 	t_list *fast;
 	t_list *slow;
@@ -41,13 +42,13 @@ static t_list	*split(t_list *head)
 	return (temp);
 }
 
-
-t_list			*ft_dlist_msort(t_list *head, int (*cmp)(t_list *, t_list *))
+t_list
+	*ft_dlist_msort(t_list *head, int (*cmp)(t_list *, t_list *))
 {
 	t_list	*second;
 
 	if (!head || !head->next)
-		return head;
+		return (head);
 	second = split(head);
 	head = ft_dlist_msort(head, cmp);
 	second = ft_dlist_msort(second, cmp);
