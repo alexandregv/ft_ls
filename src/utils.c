@@ -5,14 +5,14 @@ t_file	*f(t_list *node)
 	return ((t_file *)node->content);
 }
 
-void		del_node(void *file, size_t size)
+void	del_node(void *file, size_t size)
 {
 	free((t_file *)file);
 	file = NULL;
 	(void)size;
 }
-#include <stdio.h>
-size_t		count_blocks(const t_list *head)
+
+size_t	count_blocks(const t_list *head)
 {
 	size_t			blocks;
 	char			*path;
@@ -20,25 +20,28 @@ size_t		count_blocks(const t_list *head)
 	blocks = 0;
 	path = ((t_file *)head->content)->path;
 	while (head)
-	{ 
+	{
 		blocks += ((t_file *)head->content)->stat.st_blocks;
-		//printf("blocks : %zu, st_blocks : %lld, size: %lld, nom: %s\n", blocks, ((t_file *)head->content)->stat.st_blocks, ((t_file *)head->content)->stat.st_size, ((t_file *)head->content)->name);
+		//printf("blocks : %zu, st_blocks : %lld, size: %lld, nom: %s\n"
+		//		, blocks, ((t_file *)head->content)->stat.st_blocks
+		//		, ((t_file *)head->content)->stat.st_size
+		//		, ((t_file *)head->content)->name);
 		if (ft_strcmp(path, ((t_file *)head->content)->path) != 0)
- 			return (blocks);
+			return (blocks);
 		head = head->next;
 	}
 	return (blocks);
 }
 
-size_t		*tab_to_max(size_t *tab, t_list *node)
+size_t	*tab_to_max(size_t *tab, t_list *node)
 {
 	struct passwd	*pw;
 	struct group	*gr;
 
 	pw = getpwuid(f(node)->stat.st_uid);
 	gr = getgrgid(f(node)->stat.st_gid);
-	if (pw == 0 || gr == 0)  //TODO: protect
-		return (NULL);	//TODO: tab[0] pour les perms
+	if (pw == 0 || gr == 0)
+		return (NULL);
 	if (ft_strlen(ft_itoa(f(node)->stat.st_nlink)) > tab[1])
 		tab[1] = ft_strlen(ft_itoa((f(node)->stat.st_nlink)));
 	if (ft_strlen(pw->pw_name) > tab[2])
@@ -58,7 +61,7 @@ size_t		*tab_to_max(size_t *tab, t_list *node)
 	return (tab);
 }
 
-size_t		*len_max(t_list *node)
+size_t	*len_max(t_list *node)
 {
 	size_t			*tab;
 	char			*dirpath;
@@ -75,8 +78,7 @@ size_t		*len_max(t_list *node)
 #ifndef __APPLE__
 			if (!tab[6])
 			{
-				xattr = listxattr(ft_strjoin(f(node)->path
-							, f(node)->name), NULL, 0); //TODO: protect + leaks
+				xattr = listxattr(f(node)->full_path, NULL, 0);
 				if (xattr >= 1)
 					tab[6] = 1;
 			}

@@ -105,5 +105,11 @@ void		print_fileowner(t_stat statb, size_t max);
 void		print_filegroup(t_stat statb, size_t max);
 void		print_filemodes(t_list *node);
 void		align(char *str, size_t max);
+void		print_dir(t_list *node);
+void		manual_add(t_list **list, t_list *args, int mode);
+void		add_first_file(t_list **list, t_list *args);
+t_list		*fix_reverse_dirs(t_list *head);
+void		handle_r(t_list **list, t_list *args);
+t_list		*ft_while(t_list *list, char *path);
 
 #endif

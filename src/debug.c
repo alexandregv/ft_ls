@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "ft_ls.h"
 
 int	g_debug = 0;
@@ -30,4 +31,19 @@ void	print_node(t_list *node)
 	ft_putstr(" => ");
 	ft_putstr(((t_file *)node->content)->path);
 	ft_putendl(((t_file *)node->content)->name);
+}
+
+void	print_dir(t_list *node)
+{
+	/*
+	   printf("prev: %s%s | curr: %s%s | next: %s%s\n"
+	   , node->prev ? ((t_file *)node->prev->content)->path : "DEBUT"
+	   , node->prev ? ((t_file *)node->prev->content)->name : ""
+	   , ((t_file *)node->content)->path
+	   , ((t_file *)node->content)->name
+	   , node->next ? ((t_file *)node->next->content)->path : ""
+	   , node->next ? ((t_file *)node->next->content)->name : "FIN"
+	   );
+	   */
+	printf("%s%s\n", f(node)->path, f(node)->name);
 }
