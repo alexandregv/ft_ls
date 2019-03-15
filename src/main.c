@@ -170,5 +170,7 @@ int				main(int ac, char **av)
 	nums[2] = 0;
 	while (nums[2] < nums[1] && args)
 		ls_each(nums[1], &nums[2], &list, args);
+	ft_smartfree();
+	//while(1);
 	return (EXIT_SUCCESS);
 }

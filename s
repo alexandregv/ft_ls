@@ -1,0 +1,901 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:__si_module_static_mdns_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_mdns
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:__si_module_static_file_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_file
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:__si_module_static_cache_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_cache
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+   fun:si_module_with_name
+   fun:getpwuid
+   fun:tab_to_max
+   fun:len_max
+   fun:print_all
+   fun:ls_each
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+   fun:si_module_with_name
+   fun:getpwuid
+   fun:tab_to_max
+   fun:len_max
+   fun:print_all
+   fun:ls_each
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+   fun:si_module_with_name
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL27_fetchInitializingClassListb
+   fun:_class_initialize
+   fun:_class_initialize
+   fun:_class_initialize
+   fun:_class_initialize
+   fun:lookUpImpOrForward
+   fun:_objc_msgSend_uncached
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcii
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_insert_type
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_insert_64
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_insert_type
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_insert_64
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_insert_type
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_insert_64
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_insert_type
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_insert_64
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_table_insert_type
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:notify_register_tz
+   fun:tzsetwall_basic
+   fun:localtime
+   fun:ctime
+   fun:print_time
+   fun:print_file
+   fun:print_summary
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcii
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcii
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcii
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcii
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+   fun:si_module_with_name
+   fun:getpwuid
+   fun:tab_to_max
+   fun:len_max
+   fun:print_all
+   fun:ls_each
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL27_fetchInitializingClassListb
+   fun:_class_initialize
+   fun:_class_initialize
+   fun:_class_initialize
+   fun:_class_initialize
+   fun:lookUpImpOrForward
+   fun:_objc_msgSend_uncached
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_object_remove_assocations
+   fun:objc_destructInstance
+   fun:object_dispose
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+   fun:___notify_lib_init_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:_notify_lib_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_calloc
+   fun:_NXHashRehashToCapacity
+   fun:NXHashInsert
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcii
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_objc_fetch_pthread_data
+   fun:_ZL27_fetchInitializingClassListb
+   fun:_class_initialize
+   fun:_class_initialize
+   fun:_class_initialize
+   fun:_class_initialize
+   fun:lookUpImpOrForward
+   fun:_objc_msgSend_uncached
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_Z15allocateBucketsj
+   fun:_ZN7cache_t10reallocateEjj
+   fun:cache_fill
+   fun:lookUpImpOrForward
+   fun:_objc_msgSend_uncached
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+   fun:___notify_lib_init_block_invoke
+   fun:_dispatch_client_callout
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_Z15allocateBucketsj
+   fun:_ZN7cache_t10reallocateEjj
+   fun:cache_fill
+   fun:lookUpImpOrForward
+   fun:_objc_msgSend_uncached
+   fun:_xpc_serializer_dispose
+   fun:_xpc_dispose
+   fun:xpc_pipe_routine
+   fun:_xpc_interface_routine
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_Z15allocateBucketsj
+   fun:_ZN7cache_t10reallocateEjj
+   fun:cache_fill
+   fun:lookUpImpOrForward
+   fun:_objc_msgSend_uncached
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+   fun:___notify_lib_init_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:_notify_lib_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_Z15allocateBucketsj
+   fun:_ZN7cache_t10reallocateEjj
+   fun:cache_fill
+   fun:lookUpImpOrForward
+   fun:_objc_msgSend_uncached
+   fun:_xpc_dictionary_node_free
+   fun:_xpc_dictionary_dispose
+   fun:_xpc_dispose
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+   fun:___notify_lib_init_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:__si_module_static_file_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_file
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+   fun:si_module_with_name
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_Z15allocateBucketsj
+   fun:_ZN7cache_t10reallocateEjj
+   fun:cache_fill
+   fun:lookUpImpOrForward
+   fun:_objc_msgSend_uncached
+   fun:_xpc_dictionary_dispose
+   fun:_xpc_dispose
+   fun:_ds_item
+   fun:ds_group_bygid
+   fun:search_group_bygid
+   fun:getgrgid
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:_xpc_pipe_create
+   fun:xpc_pipe_create
+   fun:_od_xpc_pipe
+   fun:_od_running
+   fun:ds_user_byuid
+   fun:search_user_byuid
+   fun:getpwuid
+   fun:tab_to_max
+   fun:len_max
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:name_node_for_name
+   fun:client_registration_create
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_Z15allocateBucketsj
+   fun:_ZN7cache_t10reallocateEjj
+   fun:cache_fill
+   fun:lookUpImpOrForward
+   fun:_objc_msgSend_uncached
+   fun:_xpc_dictionary_node_free
+   fun:_xpc_dictionary_dispose
+   fun:_xpc_dispose
+   fun:bootstrap_look_up3
+   fun:bootstrap_look_up2
+   fun:___notify_lib_init_block_invoke
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_table_new
+   fun:_notify_init_globals
+   fun:_os_once
+   fun:_os_alloc_once
+   fun:notify_register_check
+   fun:__si_module_static_ds_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_ds
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:__si_module_static_cache_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_cache
+   fun:si_module_with_name
+   fun:si_module_config_modules_for_category
+   fun:__si_module_static_search_block_invoke
+   fun:_dispatch_client_callout
+   fun:dispatch_once_f
+   fun:si_module_static_search
+   fun:si_module_with_name
+}

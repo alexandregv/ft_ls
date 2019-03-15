@@ -55,6 +55,7 @@ static void		print_summary(t_list *list, size_t *tab)
 			print_file(list, tab);
 		list = list->next;
 	}
+	free(dirpath);
 }
 
 static void		print_dirs(t_list *list, int files_count)
@@ -82,7 +83,10 @@ int				print_all(t_list *list, int files_count)
 		if (*f(list)->name)
 			ft_putchar('\n');
 		if (g_flags.r_up || files_count > 1)
-			ft_putendl(ft_strjoin(f(list)->full_path, ":"));
+		{
+			ft_putstr(f(list)->full_path);
+			ft_putendl(":");
+		}
 		if (g_flags.l)
 		{
 			ft_putstr("total ");

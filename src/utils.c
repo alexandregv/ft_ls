@@ -37,13 +37,17 @@ size_t	*tab_to_max(size_t *tab, t_list *node)
 {
 	struct passwd	*pw;
 	struct group	*gr;
+	char			*itoa;
 
 	pw = getpwuid(f(node)->stat.st_uid);
 	gr = getgrgid(f(node)->stat.st_gid);
 	if (pw == 0 || gr == 0)
 		return (NULL);
-	if (ft_strlen(ft_itoa(f(node)->stat.st_nlink)) > tab[1])
-		tab[1] = ft_strlen(ft_itoa((f(node)->stat.st_nlink)));
+	if (ft_strlen(itoa = ft_itoa(f(node)->stat.st_nlink)) > tab[1])
+	{
+		tab[1] = ft_strlen(itoa);
+		free(itoa);
+	}
 	if (ft_strlen(pw->pw_name) > tab[2])
 		tab[2] = ft_strlen(pw->pw_name);
 	if (ft_strlen(gr->gr_name) > tab[3])
@@ -51,13 +55,22 @@ size_t	*tab_to_max(size_t *tab, t_list *node)
 	if (S_ISCHR(f(node)->stat.st_mode)
 			|| S_ISBLK(f(node)->stat.st_mode))
 	{
-		if (ft_strlen(ft_itoa(major(f(node)->stat.st_rdev))) > tab[4])
-			tab[4] = ft_strlen(ft_itoa(major(f(node)->stat.st_rdev)));
-		if (ft_strlen(ft_itoa(minor(f(node)->stat.st_rdev))) > tab[5])
-			tab[5] = ft_strlen(ft_itoa(minor(f(node)->stat.st_rdev)));
+		if (ft_strlen(itoa = ft_itoa(major(f(node)->stat.st_rdev))) > tab[4])
+		{
+			tab[4] = ft_strlen(itoa);
+			free(itoa);
+		}
+		if (ft_strlen(itoa = ft_itoa(minor(f(node)->stat.st_rdev))) > tab[5])
+		{
+			tab[5] = ft_strlen(itoa);
+			free(itoa);
+		}
 	}
-	else if (ft_strlen(ft_itoa(f(node)->stat.st_size)) > tab[4])
-		tab[4] = ft_strlen(ft_itoa(f(node)->stat.st_size));
+	else if (ft_strlen(itoa = ft_itoa(f(node)->stat.st_size)) > tab[4])
+	{
+		tab[4] = ft_strlen(itoa);
+		free(itoa);
+	}
 	return (tab);
 }
 
@@ -87,5 +100,6 @@ size_t	*len_max(t_list *node)
 		}
 		node = node->next;
 	}
+	free(dirpath);
 	return (tab);
 }

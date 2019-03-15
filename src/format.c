@@ -37,26 +37,34 @@ static void	print_size(t_stat statb, size_t max1, size_t max2)
 
 	if (S_ISCHR(statb.st_mode) || S_ISBLK(statb.st_mode))
 	{
-		align(ft_itoa(major(statb.st_rdev)), max1);
+		size = ft_itoa(major(statb.st_rdev));
+		align(size, max1);
 		ft_putnbr(major(statb.st_rdev));
 		ft_putstr(", ");
-		align(ft_itoa(minor(statb.st_rdev)), max2);
+		free(size);
+		size = ft_itoa(minor(statb.st_rdev));
+		align(size, max2);
 		ft_putnbr(minor(statb.st_rdev));
+		free(size);
 	}
 	else
 	{
 		size = ft_itoa(statb.st_size);
 		align(size, max1 + max2 + (max2 == 0 ? SIZE_SEPARATOR : 1));
 		ft_putstr(size);
+		free(size);
 	}
 }
 
 void		print_file(t_list *node, size_t *tab)
 {
+	char	*links;
+
 	if (g_flags.l)
 	{
+		links = ft_itoa(f(node)->stat.st_nlink);
 		print_filemodes(node);
-		align(ft_itoa(f(node)->stat.st_nlink), tab[1]);
+		align(links, tab[1]);
 		ft_putchar(' ');
 		ft_putnbr(f(node)->stat.st_nlink);
 		ft_putchar(' ');
@@ -68,6 +76,7 @@ void		print_file(t_list *node, size_t *tab)
 		ft_putchar(' ');
 		print_time(f(node)->stat);
 		ft_putchar(' ');
+		free(links);
 	}
 	print_filename(f(node));
 }
