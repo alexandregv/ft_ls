@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:05:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 20:04:19 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:20:19 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int
 {
 	if (copy)
 	{
-
 		if ((node->content = ft_memalloc(content_size)) == NULL)
 		{
 			ft_memdel((void **)&node);

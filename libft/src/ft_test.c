@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/15 14:27:03 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/15 17:00:32 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:21:09 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ size_t	g_gc_size = 0;
 void	*ft_smartalloc(size_t size)
 {
 	void		*mem;
+
 	if (!(mem = malloc(size)))
 		return (NULL);
 	if (!(g_gc = realloc(g_gc, sizeof(void *) * (g_gc_size + 1))))
