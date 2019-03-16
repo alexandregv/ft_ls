@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:27 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 20:17:35 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/16 21:22:23 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,15 @@ char		*get_filemodes(char *modes, mode_t mode, char *fullpath)
 		modes[9] = 'T';
 	else if ((mode & S_IXOTH) && (mode & S_ISVTX))
 		modes[9] = 't';
+#ifdef __APPLE__
 	if (acl_get_file(fullpath, ACL_TYPE_EXTENDED))
 		modes[10] = '+';
 	if (listxattr(fullpath, NULL, 0, XATTR_NOFOLLOW) > 0)
 		modes[10] = '@';
+#else
+	if (listxattr(fullpath, NULL, 0) > 0)
+		modes[10] = '+';
+#endif
 	return (modes);
 }
 

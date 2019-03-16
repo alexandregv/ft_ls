@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:55 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 20:17:55 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/16 21:52:32 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,16 @@ static void
 	{
 		if (ft_strlen(itoa = ft_itoa(major(f(node)->stat.st_rdev))) > tab[4])
 			tab[4] = ft_strlen(itoa);
-		free(itoa);
+		if (itoa)
+			free(itoa);
+		itoa = NULL;
 		if (ft_strlen(itoa = ft_itoa(minor(f(node)->stat.st_rdev))) > tab[5])
 			tab[5] = ft_strlen(itoa);
-		free(itoa);
 	}
 	else if (ft_strlen(itoa = ft_itoa(f(node)->stat.st_size)) > tab[4])
 		tab[4] = ft_strlen(itoa);
-	free(itoa);
+	if (itoa)
+		free(itoa);
 }
 
 size_t

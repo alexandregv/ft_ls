@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:16:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 20:31:50 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/16 21:41:38 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,7 @@
 # define COLOR_RED         "\033[31m"
 # define COLOR_BG_RED      "\033[30;41m"
 
-# ifndef __APPLE__
-#  define COLOR_DIR  COLOR_CYAN
-#  define COLOR_DIRT COLOR_BG_GREEN
-#  define COLOR_LNK  COLOR_BOLD_BLUE
-#  define COLOR_FIFO COLOR_YELLOW
-#  define COLOR_SOCK COLOR_MAGENTA
-#  define COLOR_BLK  COLOR_BOLD_YELLOW
-#  define COLOR_CHR  COLOR_BOLD_YELLOW
-#  define COLOR_EXEC COLOR_RED
-#  define COLOR_OLNK COLOR_BOLD_GREEN
-#  define COLOR_REGS COLOR_BG_RED
-# else
+# ifdef __APPLE__
 #  define COLOR_DIR  COLOR_CYAN
 #  define COLOR_DIRT COLOR_BG_GREEN
 #  define COLOR_LNK  COLOR_MAGENTA
@@ -66,6 +55,18 @@
 #  define COLOR_EXEC COLOR_RED
 #  define COLOR_OLNK COLOR_BOLD_GREEN
 #  define COLOR_REGS COLOR_BG_RED
+# else
+#  define COLOR_DIR  COLOR_BOLD_BLUE
+#  define COLOR_DIRT COLOR_BG_GREEN
+#  define COLOR_LNK  COLOR_CYAN
+#  define COLOR_FIFO COLOR_YELLOW
+#  define COLOR_SOCK COLOR_MAGENTA
+#  define COLOR_BLK  COLOR_BOLD_YELLOW
+#  define COLOR_CHR  COLOR_BOLD_YELLOW
+#  define COLOR_EXEC COLOR_BOLD_GREEN
+#  define COLOR_OLNK COLOR_BOLD_GREEN
+#  define COLOR_REGS COLOR_BG_RED
+
 # endif
 
 # ifdef __APPLE__
