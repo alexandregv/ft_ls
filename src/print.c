@@ -97,6 +97,7 @@ int				print_all(t_list *list, int files_count)
 	print_summary(list, tab);
 	if (g_flags.r_up)
 		print_dirs(list, files_count);
+	free(tab);
 	if (list == ptr)
 		return (1);
 	return (0);

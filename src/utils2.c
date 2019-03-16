@@ -22,26 +22,24 @@ int		lstcmp(t_list *node1, t_list *node2)
 
 void	manual_add(t_list **list, t_list *args, int mode)
 {
+	t_file *new;
+
 	if (mode == 1)
 	{
-		ft_list_push_back(list, ft_list_new((t_file *)malloc(sizeof(t_file))
-					, sizeof(t_file)));
-		ft_strcpy(f(ft_list_get_at(*list, ft_list_size(*list) - 1))->path
-				, (char *)args->content);
-		ft_strcpy(f(ft_list_get_at(*list, ft_list_size(*list) - 1))->name, "");
-		ft_strcpy(f(ft_list_get_at(*list, ft_list_size(*list) - 1))->full_path
-				, (char *)args->content);
-		ft_strcat(f(ft_list_get_at(*list, ft_list_size(*list) - 1))->full_path
-				, "");
+		new = (t_file *)malloc(sizeof(t_file));
+		ft_list_push_back(list, ft_list_new(new, sizeof(t_file), 0));
+		ft_strcpy(new->path, (char *)args->content);
+		ft_strcpy(new->name, "");
+		ft_strcpy(new->full_path, (char *)args->content);
+		ft_strcat(new->full_path, "");
 	}
 	else if (mode == 2)
 	{
-		ft_list_push_front(list, ft_list_new((t_file *)malloc(sizeof(t_file))
-					, sizeof(t_file)));
-		ft_strcpy(f(*list)->path, (char *)args->content);
-		ft_strcpy(f(*list)->name, "");
-		ft_strcpy(f(*list)->full_path, (char *)args->content);
-		ft_strcpy(f(*list)->full_path, "");
+		new = (t_file *)malloc(sizeof(t_file));
+		ft_list_push_front(list, ft_list_new(new, sizeof(t_file), 0));
+		ft_strcpy(new->path, (char *)args->content);
+		ft_strcpy(new->name, "");
+		ft_strcpy(new->full_path, (char *)args->content);
 	}
 }
 
@@ -54,5 +52,5 @@ void	add_first_file(t_list **list, t_list *args)
 	ft_strcpy(first->name, "");
 	ft_strcpy(first->full_path, (char *)args->content);
 	ft_strcat(first->full_path, "");
-	ft_list_push_front(list, ft_list_new(first, sizeof(t_file)));
+	ft_list_push_front(list, ft_list_new(first, sizeof(t_file), 0));
 }

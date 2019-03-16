@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:36:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/15 14:48:47 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/16 19:52:04 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ char				*ft_strnjoin(char const *s1, char const *s2, size_t n);
 int					get_next_line(const int fd, char **line);
 void				ft_die(char *msg, int status);
 char				**ft_sort_table(char **table, size_t size);
-t_list				*ft_list_new(const void *content, size_t content_size);
+t_list				*ft_list_new(const void *content, size_t content_size
+					, int copy);
 t_list				*ft_list_push_back(t_list **node, t_list *new);
 t_list				*ft_list_push_front(t_list **head, t_list *new);
 t_list				*ft_list_get_at(t_list *head, size_t index);

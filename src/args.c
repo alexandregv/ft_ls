@@ -34,6 +34,7 @@ t_list			*sort_args(char **fv)
 	t_list	*files;
 	t_list	*dirs;
 	t_stat	statb;
+	t_list	*new;
 	size_t	i;
 
 	files = NULL;
@@ -42,11 +43,15 @@ t_list			*sort_args(char **fv)
 	while (fv[i])
 	{
 		if (stat(fv[i], &statb) != -1)
-			ft_list_push_back(S_ISDIR(statb.st_mode) ?
-				&dirs : &files, ft_list_new(ft_strdup(fv[i]), statb.st_mode));
+		{
+			new = ft_list_new(NULL, 0, 0);
+			new->content = ft_strdup(fv[i]);
+			new->content_size = statb.st_mode;
+			ft_list_push_back(S_ISDIR(statb.st_mode) ? &dirs : &files, new);
+		}
 		else
 		{
-			ft_putstr("ft_ls: cannot access '");
+			ft_putstr("ft_ls: '");
 			ft_putstr(fv[i]);
 			ft_putendl("': No such file or directory");
 		}

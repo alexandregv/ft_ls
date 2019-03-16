@@ -2,74 +2,6 @@
 #include <stdio.h>
 #include "ft_ls.h"
 
-/*
-**static t_list	*ft_while(t_list *list, char *path)
-**{
-**	DIR			*dirp;
-**	t_dirent	*direntp;
-**	t_file		*new;
-**	t_stat		statb;
-**
-**	stat(path, &statb); //TODO: add protect
-**	if (!S_ISDIR(statb.st_mode))
-**	{
-**		new = (t_file *)malloc(sizeof(t_file));
-**		ft_strcpy(new->name, path);
-**		ft_strcpy(new->path, path);
-**		ft_strcat(new->path, "/");
-**		lstat(path, &new->stat); //TODO: add protect
-**		ft_list_push_back(&list, ft_list_new(new, sizeof(t_file)));
-**		return (list);
-**	}
-**	dirp = opendir(path);
-**	if (dirp == NULL)
-**	{
-**		perror("ft_ls");
-**		return (list);
-**	}
-**	while ((direntp = readdir(dirp)))
-**	{
-**		DEBUGstr(direntp->d_name);
-**		DEBUGstr(" (path=");
-**		DEBUGstr(path);
-**		DEBUGstr(")");
-**		if ((g_flags.a)
-**				|| direntp->d_name[0] != '.'
-**				|| ((g_flags.a_up && ft_strcmp(direntp->d_name, ".")) != 0
-**					&& (g_flags.a_up && ft_strcmp(direntp->d_name, "..") != 0)))
-**		{
-**			DEBUGendl("");
-**			new = (t_file *)malloc(sizeof(t_file));
-**			ft_strcpy(new->name, direntp->d_name);
-**			ft_strcpy(new->path, path);
-**			ft_strcat(new->path, "/");
-**			ft_strcpy(new->full_path, new->path);
-**			ft_strcat(new->full_path, new->name);
-**			lstat(new->full_path, &new->stat); //TODO: add protect
-**			if (g_flags.r_up && direntp->d_type == DT_DIR
-**					&& ft_strcmp(direntp->d_name, ".") != 0
-**					&& ft_strcmp(direntp->d_name, "..") != 0)
-**			{
-**				DEBUGstr("-> Found subdirectory ");
-**				DEBUGstr(direntp->d_name);
-**				DEBUGstr(", launching ft_while on it (path=");
-**				DEBUGstr(new->full_path);
-**				DEBUGendl(")");
-**				list = ft_while(list, new->full_path);
-**				DEBUGstr("<- Quitting ft_while on ");
-**				DEBUGendl(direntp->d_name);
-**			}
-**			ft_list_push_back(&list, ft_list_new(new, sizeof(*new)));
-**		}
-**		else
-**			DEBUGendl("	(SKIP)");
-**	}
-**	closedir(dirp);
-**	DEBUGendl("Closed dirp");
-**	return (list);
-**}
-*/
-
 static void		lol(t_file **new, t_list **list, t_dirent *direntp, char *path)
 {
 	if ((g_flags.a) || direntp->d_name[0] != '.'
@@ -85,7 +17,7 @@ static void		lol(t_file **new, t_list **list, t_dirent *direntp, char *path)
 				&& ft_strcmp(direntp->d_name, ".") != 0
 				&& ft_strcmp(direntp->d_name, "..") != 0)
 			*list = ft_while(*list, (*new)->full_path);
-		ft_list_push_back(list, ft_list_new((*new), sizeof(*(*new))));
+		ft_list_push_back(list, ft_list_new(*new, sizeof(**new), 0));
 	}
 }
 
@@ -103,7 +35,7 @@ t_list			*ft_while(t_list *list, char *path)
 		ft_strcpy(new->name, path);
 		ft_strcat(ft_strcpy(new->path, path), "/");
 		lstat(path, &new->stat); //TODO: add protect
-		ft_list_push_back(&list, ft_list_new(new, sizeof(t_file)));
+		ft_list_push_back(&list, ft_list_new(new, sizeof(t_file), 0));
 		return (list);
 	}
 	dirp = opendir(path);
@@ -170,7 +102,6 @@ int				main(int ac, char **av)
 	nums[2] = 0;
 	while (nums[2] < nums[1] && args)
 		ls_each(nums[1], &nums[2], &list, args);
-	ft_smartfree();
-	//while(1);
+	ft_list_del(&args, NULL);
 	return (EXIT_SUCCESS);
 }

@@ -6,34 +6,49 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 18:05:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/11 13:10:06 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/16 20:04:19 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_list_new(const void *content, size_t content_size)
+static int
+	fill_node(t_list *node, const void *content, size_t content_size, int copy)
 {
-	t_list	*list;
-
-	if ((list = (t_list *)malloc(sizeof(t_list))) == NULL)
-		return (NULL);
-	if (content == NULL)
+	if (copy)
 	{
-		list->content = NULL;
-		list->content_size = 0;
+
+		if ((node->content = ft_memalloc(content_size)) == NULL)
+		{
+			ft_memdel((void **)&node);
+			return (-1);
+		}
+		ft_memcpy(node->content, content, content_size);
+		node->content_size = content_size;
 	}
 	else
 	{
-		if ((list->content = ft_memalloc(content_size)) == NULL)
-		{
-			ft_memdel((void **)&list);
-			return (NULL);
-		}
-		ft_memcpy(list->content, content, content_size);
-		list->content_size = content_size;
+		node->content = (void *)content;
+		node->content_size = content_size;
 	}
-	list->next = NULL;
-	list->prev = NULL;
-	return (list);
+	return (0);
+}
+
+t_list
+	*ft_list_new(const void *content, size_t content_size, int copy)
+{
+	t_list	*node;
+
+	if ((node = (t_list *)malloc(sizeof(t_list))) == NULL)
+		return (NULL);
+	if (content == NULL)
+	{
+		node->content = NULL;
+		node->content_size = 0;
+	}
+	else if (fill_node(node, content, content_size, copy))
+		return (NULL);
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
 }

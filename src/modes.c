@@ -58,9 +58,9 @@ void		print_filemodes(t_list *node)
 	char			*fullpath;
 
 	if (!ft_strncmp(f(node)->path, f(node)->name, ft_strlen(f(node)->path) - 1))
-		fullpath = ft_strdup(f(node)->name);
+		fullpath = f(node)->name;
 	else
-		fullpath = ft_strjoin(f(node)->path, f(node)->name);
+		fullpath = f(node)->full_path;
 	mode = f(node)->stat.st_mode;
 	ft_memset(modes, '-', 10);
 	if (S_ISDIR(mode))
@@ -77,8 +77,8 @@ void		print_filemodes(t_list *node)
 		modes[0] = 'p';
 	get_filemodes(modes, mode, fullpath);
 	ft_putstr(modes);
-	free(fullpath);
 }
+
 /*
 static void	print_filemodes(t_list *node, size_t xattr) //TODO: ACL
 {
