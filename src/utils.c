@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:55 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 21:52:32 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/17 16:19:54 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ size_t
 	path = ((t_file *)head->content)->path;
 	while (head)
 	{
-		blocks += ((t_file *)head->content)->stat.st_blocks;
 		//printf("blocks : %zu, st_blocks : %lld, size: %lld, nom: %s\n"
 		//		, blocks, ((t_file *)head->content)->stat.st_blocks
 		//		, ((t_file *)head->content)->stat.st_size
 		//		, ((t_file *)head->content)->name);
-		if (ft_strcmp(path, ((t_file *)head->content)->path) != 0)
-			return (blocks);
+		if (!ft_strcmp(path, ((t_file *)head->content)->path))
+			blocks += ((t_file *)head->content)->stat.st_blocks;
 		head = head->next;
 	}
 	return (blocks);
