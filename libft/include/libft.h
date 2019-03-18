@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 11:36:31 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 19:52:04 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 14:51:56 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,5 @@ t_list				*ft_dlist_msort(t_list *head, int (*cmp)(t_list *
 					, t_list *));
 size_t				*ft_sizet_tab(int size);
 int					*ft_int_tab(int size);
-void				*ft_smartalloc(size_t size);
-void				ft_smartfree(void);
 
 #endif

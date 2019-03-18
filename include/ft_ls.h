@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:16:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 03:18:49 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 14:29:05 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 # include <grp.h>
 # include <sys/acl.h>
 # include "libft.h"
-
-# include "debug.h"
 
 # define COLOR_RESET       "\033[0m"
 # define COLOR_BOLD_BLUE   "\033[1;94m"
@@ -125,5 +123,10 @@ t_list				*fix_reverse_dirs(t_list *head);
 void				handle_r(t_list **list, t_list *args);
 t_list				*ft_while(t_list *list, char *path);
 void				add_to_buff(char **ptr, char *str, size_t inc, int trunc);
+void				while_slashes(t_list *head, char *path, size_t slashes
+					, size_t blocks);
+void				while_node(t_list *node, char *dirpath, size_t *tab
+					, size_t slashes);
+size_t				*tab_to_max(size_t *tab, t_list *node);
 
 #endif
