@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:19:26 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 15:49:45 by sboulaao         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:25:49 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,20 @@ void			print_filename(t_file *file, char **ptr)
 		add_to_buff(ptr, COLOR_RESET, ft_strlen(COLOR_RESET), 0);
 	if (S_ISLNK(file->stat.st_mode))
 	{
+		if (g_flags.f_up)
+			*(*ptr)++ = '@';
 		add_to_buff(ptr, " -> ", 4, 0);
 		add_to_buff(ptr, buff, readlink(file->full_path, buff
 					, PATH_MAX + NAME_MAX), 1);
 	}
+	if (g_flags.f_up && S_ISDIR(file->stat.st_mode))
+		*(*ptr)++ = '/';
+	else if (g_flags.f_up && S_ISREG(file->stat.st_mode) && file->stat.st_mode & S_IXUSR)
+		*(*ptr)++ = '*';
+	else if (g_flags.f_up && S_ISSOCK(file->stat.st_mode))
+		*(*ptr)++ = '=';
+	else if (g_flags.f_up && S_ISFIFO(file->stat.st_mode))
+		*(*ptr)++ = '|';
 	*(*ptr)++ = '\n';
 }
 

@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:19:54 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 18:53:25 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:25:04 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static int	check_flags_chars(char **av, int i)
 	g_flags.g_up = (*av[i] == 'G' ? 1 : g_flags.g_up);
 	g_flags.g = (*av[i] == 'g' ? 1 : g_flags.g);
 	g_flags.i = (*av[i] == 'i' ? 1 : g_flags.i);
+	g_flags.f_up = (*av[i] == 'F' ? 1 : g_flags.f_up);
 	if (*av[i] == 'f')
 	{
 		g_flags.f = 1;
@@ -46,7 +47,8 @@ static int	check_flags_chars(char **av, int i)
 		g_flags.a_up = 1;
 	}
 	else if (*av[i] != 'l' && *av[i] != 'R' && *av[i] != 'r' && *av[i] != 't'
-			&& *av[i] != 'f' && *av[i] != 'G' && *av[i] != 'g' && *av[i] != 'i')
+			&& *av[i] != 'f' && *av[i] != 'G' && *av[i] != 'g' && *av[i] != 'i'
+			&& *av[i] != 'F')
 		return (invalid_option(*av[i]));
 	return (0);
 }
