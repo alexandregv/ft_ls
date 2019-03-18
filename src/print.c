@@ -6,54 +6,53 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:19:26 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/17 17:23:58 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 03:39:32 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		color_modes(t_file *file)
+static void		color_modes(t_file *file, char **ptr)
 {
 	if (S_ISDIR(file->stat.st_mode))
 		if (file->stat.st_mode == 17407)
-			ft_putstr(COLOR_DIRT);
+			add_to_buff(ptr, COLOR_DIRT, ft_strlen(COLOR_DIRT), 0);
 		else
-			ft_putstr(COLOR_DIR);
+			add_to_buff(ptr, COLOR_DIR, ft_strlen(COLOR_DIR), 0);
 	else if (S_ISLNK(file->stat.st_mode))
-		ft_putstr(COLOR_LNK);
+		add_to_buff(ptr, COLOR_LNK, ft_strlen(COLOR_LNK), 0);
 	else if (S_ISFIFO(file->stat.st_mode))
-		ft_putstr(COLOR_FIFO);
+		add_to_buff(ptr, COLOR_FIFO, ft_strlen(COLOR_FIFO), 0);
 	else if (S_ISSOCK(file->stat.st_mode))
-		ft_putstr(COLOR_SOCK);
+		add_to_buff(ptr, COLOR_SOCK, ft_strlen(COLOR_SOCK), 0);
 	else if (S_ISBLK(file->stat.st_mode))
-		ft_putstr(COLOR_BLK);
+		add_to_buff(ptr, COLOR_BLK, ft_strlen(COLOR_BLK), 0);
 	else if (S_ISCHR(file->stat.st_mode))
-		ft_putstr(COLOR_CHR);
+		add_to_buff(ptr, COLOR_CHR, ft_strlen(COLOR_CHR), 0);
 	else if (S_ISREG(file->stat.st_mode) && file->stat.st_mode & S_IXUSR)
 	{
 		if (file->stat.st_mode == 36349)
-			ft_putstr(COLOR_REGS);
+			add_to_buff(ptr, COLOR_REGS, ft_strlen(COLOR_REGS), 0);
 		else
-			ft_putstr(COLOR_EXEC);
+			add_to_buff(ptr, COLOR_EXEC, ft_strlen(COLOR_EXEC), 0);
 	}
 }
 
-void			print_filename(t_file *file)
+void			print_filename(t_file *file, char **ptr)
 {
-	char	buf[PATH_MAX + NAME_MAX];
+	char	buff[PATH_MAX + NAME_MAX];
 
 	if (g_flags.g_up)
-		color_modes(file);
-	ft_putstr(file->name);
+		color_modes(file, ptr);
+	add_to_buff(ptr, file->name, ft_strlen(file->name), 0);
 	if (g_flags.g_up)
-		ft_putstr(COLOR_RESET);
+		add_to_buff(ptr, COLOR_RESET, ft_strlen(COLOR_RESET), 0);
 	if (S_ISLNK(file->stat.st_mode))
 	{
-		ft_putstr(" -> ");
-		write(1, buf, readlink(file->full_path, buf
-					, PATH_MAX + NAME_MAX)); //TODO: protect + leak
+		add_to_buff(ptr, " -> ", 4, 0);
+		add_to_buff(ptr, buff, readlink(file->full_path, buff, PATH_MAX + NAME_MAX), 1);
 	}
-	ft_putchar('\n');
+	*(*ptr)++ = '\n';
 }
 
 static void		print_summary(t_list *list, size_t *tab)
@@ -84,33 +83,41 @@ static void		print_dirs(t_list *list, int files_count)
 
 int				print_all(t_list *list, int files_count)
 {
-	t_list	*ptr;
+	t_list	*backup;
 	size_t	*tab;
+	char	*buff;
+	char	*ptr;
+	char	*itoa;
 
-	ptr = list;
-	tab = g_flags.l ? len_max(list) : NULL; //TODO: add protect ?
+	buff = ft_strnew(PATH_MAX + NAME_MAX + 255);
+	ptr = buff;
+	backup = list;
+	tab = g_flags.l ? len_max(list) : NULL;
 	if (ft_strcmp(f(list)->name, ".") != 0
 			&& ft_strcmp(f(list)->name, "..") != 0)
 	{
 		if (*f(list)->name)
-			ft_putchar('\n');
+			add_to_buff(&ptr, "\n", 1, 0);
 		if (g_flags.r_up || files_count > 1)
 		{
-			ft_putstr(f(list)->full_path);
-			ft_putendl(":");
+			add_to_buff(&ptr, f(list)->full_path, ft_strlen(f(list)->full_path), 0);
+			add_to_buff(&ptr, ":\n", 2, 0);
 		}
 		if (g_flags.l)
 		{
-			ft_putstr("total ");
-			ft_putnbr(count_blocks(list->next));
-			ft_putchar('\n');
+			add_to_buff(&ptr, "total ", 6, 0);
+			itoa = ft_itoa(count_blocks(list->next));
+			add_to_buff(&ptr, itoa, ft_strlen(itoa), 0);
+			add_to_buff(&ptr, "\n", 1, 0);
+			free(itoa);
 		}
+		ft_putstr(buff);
 	}
 	print_summary(list, tab);
 	if (g_flags.r_up)
 		print_dirs(list, files_count);
 	free(tab);
-	if (list == ptr)
+	if (list == backup)
 		return (1);
 	return (0);
 }

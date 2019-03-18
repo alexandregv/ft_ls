@@ -7,9 +7,7 @@ void		print_fileowner(t_stat statb, size_t max, char **ptr)
 	pw = getpwuid(statb.st_uid);
 	if (pw != 0)
 	{
-		**ptr = '\0';
-		ft_strcat(*ptr, pw->pw_name);
-		*ptr += ft_strlen(pw->pw_name);
+		add_to_buff(ptr, pw->pw_name, ft_strlen(pw->pw_name), 0);
 		align(pw->pw_name, max, ptr);
 	}
 }
@@ -21,11 +19,10 @@ void		print_filegroup(t_stat statb, size_t max, char **ptr)
 	gr = getgrgid(statb.st_gid);
 	if (gr != 0)
 	{
-		**ptr = '\0';
-		ft_strcat(*ptr, gr->gr_name);
-		*ptr += ft_strlen(gr->gr_name);
+		add_to_buff(ptr, gr->gr_name, ft_strlen(gr->gr_name), 0);
 		align(gr->gr_name, max, ptr);
 	}
+	*(*ptr)++ = ' ';
 }
 
 static void	set_filemodes(char **modes, mode_t mode, char *fullpath)
@@ -83,7 +80,6 @@ void		print_filemodes(t_list *node, char **modes)
 		(*modes)[0] = 's';
 	else if (S_ISFIFO(mode))
 		(*modes)[0] = 'p';
-	//++*modes;
 	*modes += 1;
 	set_filemodes(modes, mode, fullpath);
 }

@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:16:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 01:50:47 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 03:18:49 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct			s_file
 {
 	char	name[NAME_MAX + 1];
 	char	path[PATH_MAX];
-	char	full_path[NAME_MAX + PATH_MAX + 1];
+	char	full_path[NAME_MAX + PATH_MAX];
 	t_stat	stat;
 }						t_file;
 
@@ -111,7 +111,7 @@ int					lstcmp(t_list *node1, t_list *node2);
 size_t				count_blocks(t_list *head);
 int					print_all(t_list *list, int files_count);
 void				print_file(t_list *node, size_t *tab);
-void				print_filename(t_file *file);
+void				print_filename(t_file *file, char **ptr);
 size_t				*len_max(t_list *node);
 t_file				*f(t_list *node);
 void				print_fileowner(t_stat statb, size_t max, char **ptr);
@@ -124,5 +124,6 @@ void				add_first_file(t_list **list, t_list *args);
 t_list				*fix_reverse_dirs(t_list *head);
 void				handle_r(t_list **list, t_list *args);
 t_list				*ft_while(t_list *list, char *path);
+void				add_to_buff(char **ptr, char *str, size_t inc, int trunc);
 
 #endif

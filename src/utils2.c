@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 20:17:54 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 02:47:15 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,14 @@ void	add_first_file(t_list **list, t_list *args)
 	ft_strcpy(first->full_path, (char *)args->content);
 	ft_strcat(first->full_path, "");
 	ft_list_push_front(list, ft_list_new(first, sizeof(t_file), 0));
+}
+
+void	add_to_buff(char **ptr, char *str, size_t size, int trunc)
+{
+	**ptr = '\0';
+	if (trunc)
+		ft_strncat(*ptr, str, size);
+	else
+		ft_strcat(*ptr, str);
+	*ptr += size;
 }
