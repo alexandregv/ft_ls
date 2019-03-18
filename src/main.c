@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:43 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 14:53:02 by sboulaao         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:13:09 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,11 @@ t_list
 	return (list);
 }
 
-static void
-	ls_each(int fc, int *i, t_list **list, t_list *args)
+static void		ls_each(int fc, t_list **list, t_list **args)
 {
-	if ((fc >= 2 || (g_flags.r_up)) && S_ISDIR(args->content_size) && i)
+	if ((fc >= 2 || (g_flags.r_up)) && S_ISDIR((*args)->content_size))
 		ft_putchar('\n');
-	*list = ft_while(*list, args->content);
+	*list = ft_while(*list, (*args)->content);
 	if (list)
 	{
 		if (!g_flags.u_up)
@@ -90,13 +89,12 @@ static void
 			if (g_flags.r)
 				ft_dlist_rev(list);
 		}
-		handle_r(list, args);
-		add_first_file(list, args);
+		handle_r(list, *args);
+		add_first_file(list, *args);
 		print_all(*list, fc);
-		++*i;
 		ft_list_del(list, NULL);
 	}
-	args = args->next;
+	*args = (*args)->next;
 }
 
 int
@@ -121,7 +119,7 @@ int
 	args = sort_args(fv);
 	nums[2] = 0;
 	while (nums[2] < nums[1] && args)
-		ls_each(nums[1], &nums[2], &list, args);
+		ls_each(nums[1], &list, &args);
 	ft_list_del(&args, NULL);
 	return (EXIT_SUCCESS);
 }

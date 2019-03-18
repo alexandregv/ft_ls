@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:25:20 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 14:13:56 by sboulaao         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:12:42 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ t_list			*sort_args(char **fv)
 	while (fv[i++])
 		if (stat(fv[i - 1], &statb) != -1)
 		{
-			new = ft_list_new(NULL, 0, 0);
-			new->content = ft_strdup(fv[i - 1]);
-			new->content_size = statb.st_mode;
+			new = ft_list_new(ft_strdup(fv[i - 1]), statb.st_mode, 0);
 			ft_list_push_back(S_ISDIR(statb.st_mode) ? &dirs : &files, new);
 		}
 		else
