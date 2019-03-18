@@ -6,7 +6,7 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:55:06 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 18:52:32 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:55:41 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	print_inode(t_list *node, char **ptr)
 	inode = ft_itoa(f(node)->stat.st_ino);
 	add_to_buff(ptr, inode, ft_strlen(inode), 0);
 	free(inode);
+	*(*ptr)++ = ' ';
 }
 
 void		print_file(t_list *node, size_t *tab)
@@ -87,7 +88,6 @@ void		print_file(t_list *node, size_t *tab)
 	if (g_flags.l)
 	{
 		print_inode(node, &ptr);
-		*ptr++ = ' ';
 		print_filemodes(node, &ptr);
 		*ptr++ = ' ';
 		links = ft_itoa(f(node)->stat.st_nlink);
