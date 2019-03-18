@@ -6,7 +6,7 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:53:30 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 18:46:43 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:43:28 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,5 @@ void		print_filemodes(t_list *node, char **modes)
 		(*modes)[0] = 's';
 	else if (S_ISFIFO(mode))
 		(*modes)[0] = 'p';
-	*modes += 1;
 	set_filemodes(modes, mode, fullpath);
 }

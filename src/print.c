@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:19:26 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 19:25:49 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:40:06 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void			print_filename(t_file *file, char **ptr)
 	}
 	if (g_flags.f_up && S_ISDIR(file->stat.st_mode))
 		*(*ptr)++ = '/';
-	else if (g_flags.f_up && S_ISREG(file->stat.st_mode) && file->stat.st_mode & S_IXUSR)
+	else if (g_flags.f_up && S_ISREG(file->stat.st_mode)
+			&& file->stat.st_mode & S_IXUSR)
 		*(*ptr)++ = '*';
 	else if (g_flags.f_up && S_ISSOCK(file->stat.st_mode))
 		*(*ptr)++ = '=';
 	else if (g_flags.f_up && S_ISFIFO(file->stat.st_mode))
 		*(*ptr)++ = '|';
-	*(*ptr)++ = '\n';
 }
 
 static void		print_summary(t_list *list, size_t *tab)
