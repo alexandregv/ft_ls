@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:55 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 14:25:15 by sboulaao         ###   ########.fr       */
+/*   Updated: 2019/03/18 16:04:14 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t
 	while (f(head)->path[i])
 		if (f(head)->path[i++] == '/')
 			++slashes;
-	while_slashes(head, path, slashes, blocks);
+	while_slashes(head, path, slashes, &blocks);
 	return (blocks);
 }
 

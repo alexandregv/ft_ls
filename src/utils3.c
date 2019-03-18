@@ -6,7 +6,7 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:24:38 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 15:51:44 by sboulaao         ###   ########.fr       */
+/*   Updated: 2019/03/18 16:04:05 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	if_notcurr(t_list *list, int files_count, char *ptr, char *buff)
 	}
 }
 
-void	while_slashes(t_list *head, char *path, size_t slashes, size_t blocks)
+void	while_slashes(t_list *head, char *path, size_t slashes, size_t *blocks)
 {
 	int				i;
 	size_t			curr_slashes;
@@ -47,7 +47,7 @@ void	while_slashes(t_list *head, char *path, size_t slashes, size_t blocks)
 	while (head)
 	{
 		if (!ft_strcmp(path, f(head)->path))
-			blocks += f(head)->stat.st_blocks;
+			*blocks += f(head)->stat.st_blocks;
 		i = 0;
 		curr_slashes = 0;
 		while (f(head)->path[i])
