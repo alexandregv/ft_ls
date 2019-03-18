@@ -6,7 +6,7 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:55:06 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 18:55:41 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 19:42:24 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,13 @@ void		print_file(t_list *node, size_t *tab)
 		free(links);
 	}
 	print_filename(f(node), &ptr);
+	if (g_flags.m && node->next)
+	{
+		*ptr++ = ',';
+		*ptr++ = ' ';
+	}
+	else
+		*ptr++ = '\n';
 	*ptr++ = '\0';
 	ft_putstr(buff);
 }
