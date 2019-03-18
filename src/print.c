@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:19:26 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 03:39:32 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 11:57:31 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int				print_all(t_list *list, int files_count)
 	if (g_flags.r_up)
 		print_dirs(list, files_count);
 	free(tab);
+	free(buff);
 	if (list == backup)
 		return (1);
 	return (0);
