@@ -6,16 +6,13 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:16:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 14:29:05 by sboulaao         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:09:24 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 
-# ifndef __APPLE__
-#  include <sys/sysmacros.h>
-# endif
 # include <sys/types.h>
 # include <sys/xattr.h>
 # include <sys/stat.h>
@@ -42,42 +39,21 @@
 # define COLOR_RED         "\033[31m"
 # define COLOR_BG_RED      "\033[30;41m"
 
-# ifdef __APPLE__
-#  define COLOR_DIR  COLOR_CYAN
-#  define COLOR_DIRT COLOR_BG_GREEN
-#  define COLOR_LNK  COLOR_MAGENTA
-#  define COLOR_FIFO COLOR_YELLOW
-#  define COLOR_SOCK COLOR_MAGENTA
-#  define COLOR_BLK  COLOR_BOLD_YELLOW
-#  define COLOR_CHR  COLOR_BOLD_YELLOW
-#  define COLOR_EXEC COLOR_RED
-#  define COLOR_OLNK COLOR_BOLD_GREEN
-#  define COLOR_REGS COLOR_BG_RED
-# else
-#  define COLOR_DIR  COLOR_BOLD_BLUE
-#  define COLOR_DIRT COLOR_BG_GREEN
-#  define COLOR_LNK  COLOR_CYAN
-#  define COLOR_FIFO COLOR_YELLOW
-#  define COLOR_SOCK COLOR_MAGENTA
-#  define COLOR_BLK  COLOR_BOLD_YELLOW
-#  define COLOR_CHR  COLOR_BOLD_YELLOW
-#  define COLOR_EXEC COLOR_BOLD_GREEN
-#  define COLOR_OLNK COLOR_BOLD_GREEN
-#  define COLOR_REGS COLOR_BG_RED
+# define COLOR_DIR  COLOR_CYAN
+# define COLOR_DIRT COLOR_BG_GREEN
+# define COLOR_LNK  COLOR_MAGENTA
+# define COLOR_FIFO COLOR_YELLOW
+# define COLOR_SOCK COLOR_MAGENTA
+# define COLOR_BLK  COLOR_BOLD_YELLOW
+# define COLOR_CHR  COLOR_BOLD_YELLOW
+# define COLOR_EXEC COLOR_RED
+# define COLOR_OLNK COLOR_BOLD_GREEN
+# define COLOR_REGS COLOR_BG_RED
 
-# endif
-
-# ifdef __APPLE__
-#  define ST_MTIME st_mtimespec.tv_sec
-#  define FT_XATTR_NOFOLLOW 0, XATTR_NOFOLLOW
-#  define OWNER_GROUP_SEPARATOR "  "
-#  define SIZE_SEPARATOR 1
-# else
-#  define ST_MTIME st_mtime
-#  define FT_XATTR_NOFOLLOW 0
-#  define OWNER_GROUP_SEPARATOR " "
-#  define SIZE_SEPARATOR 0
-# endif
+# define ST_MTIME st_mtimespec.tv_sec
+# define FT_XATTR_NOFOLLOW 0, XATTR_NOFOLLOW
+# define OWNER_GROUP_SEPARATOR "  "
+# define SIZE_SEPARATOR 1
 
 typedef struct timespec	t_timespec;
 typedef struct stat		t_stat;
@@ -101,7 +77,7 @@ struct
 	unsigned int	t		: 1;
 	unsigned int	u_up	: 1;
 	unsigned int	g_up	: 1;
-}	g_flags;
+} g_flags;
 
 int					parse_flags(int ac, char **av);
 t_list				*sort_args(char **fv);
@@ -128,5 +104,6 @@ void				while_slashes(t_list *head, char *path, size_t slashes
 void				while_node(t_list *node, char *dirpath, size_t *tab
 					, size_t slashes);
 size_t				*tab_to_max(size_t *tab, t_list *node);
+void				if_notcurr(t_list *list, int files_count, char *ptr, char *buff);
 
 #endif
