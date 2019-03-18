@@ -6,7 +6,7 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:24:38 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 16:53:18 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 16:04:05 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	if_notcurr(t_list *list, int files_count, char *ptr, char *buff)
 	{
 		if (*f(list)->name)
 			add_to_buff(&ptr, "\n", 1, 0);
-		if ((g_flags.r_up || files_count > 1) && S_ISDIR(f(list)->stat.st_mode))
+		if (g_flags.r_up || files_count > 1)
 		{
 			add_to_buff(&ptr, f(list)->full_path
 					, ft_strlen(f(list)->full_path), 0);

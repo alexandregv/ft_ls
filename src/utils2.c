@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 16:58:17 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 13:54:18 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,19 @@ void	manual_add(t_list **list, t_list *args, int mode)
 	if (mode == 1)
 	{
 		new = (t_file *)malloc(sizeof(t_file));
+		ft_list_push_back(list, ft_list_new(new, sizeof(t_file), 0));
 		ft_strcpy(new->path, (char *)args->content);
 		ft_strcpy(new->name, "");
 		ft_strcpy(new->full_path, (char *)args->content);
 		ft_strcat(new->full_path, "");
-		ft_list_push_back(list, ft_list_new(new, sizeof(t_file), 0));
 	}
 	else if (mode == 2)
 	{
 		new = (t_file *)malloc(sizeof(t_file));
+		ft_list_push_front(list, ft_list_new(new, sizeof(t_file), 0));
 		ft_strcpy(new->path, (char *)args->content);
 		ft_strcpy(new->name, "");
 		ft_strcpy(new->full_path, (char *)args->content);
-		stat(new->full_path, &new->stat);
-		ft_list_push_front(list, ft_list_new(new, sizeof(t_file), 0));
 	}
 }
 
@@ -59,7 +58,6 @@ void	add_first_file(t_list **list, t_list *args)
 	ft_strcpy(first->name, "");
 	ft_strcpy(first->full_path, (char *)args->content);
 	ft_strcat(first->full_path, "");
-	stat(first->full_path, &first->stat);
 	ft_list_push_front(list, ft_list_new(first, sizeof(t_file), 0));
 }
 
