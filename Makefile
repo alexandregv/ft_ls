@@ -6,7 +6,7 @@
 #    By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/18 16:51:51 by aguiot--          #+#    #+#              #
-#    Updated: 2019/03/18 15:07:56 by sboulaao         ###   ########.fr        #
+#    Updated: 2019/03/18 15:46:49 by aguiot--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,6 @@ fclean: clean
 re: fclean all
 
 norm:
-	@norminette | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1
+	@norminette | $(GREP) -v "Not a valid file" | $(GREP) "Error\|Warning" -B 1 || true
 
 .PHONY: clean fclean all re norm
