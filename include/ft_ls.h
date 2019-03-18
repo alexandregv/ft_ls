@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:16:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 00:37:06 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 01:50:47 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ struct
 int					parse_flags(int ac, char **av);
 t_list				*sort_args(char **fv);
 int					lstcmp(t_list *node1, t_list *node2);
-size_t				count_blocks(const t_list *head);
+size_t				count_blocks(t_list *head);
 int					print_all(t_list *list, int files_count);
 void				print_file(t_list *node, size_t *tab);
 void				print_filename(t_file *file);

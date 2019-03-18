@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:55 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/17 16:19:54 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 01:54:41 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,39 @@ t_file
 }
 
 size_t
-	count_blocks(const t_list *head)
+	count_blocks(t_list *head)
 {
 	size_t			blocks;
 	char			*path;
+	size_t			slashes;
+	size_t			curr_slashes;
+	size_t			i;
 
 	blocks = 0;
-	path = ((t_file *)head->content)->path;
+	path = f(head)->path;
+
+	i = 0;
+	slashes = 0;
+	while (f(head)->path[i])
+		if (f(head)->path[i++] == '/')
+			++slashes;
+
 	while (head)
 	{
 		//printf("blocks : %zu, st_blocks : %lld, size: %lld, nom: %s\n"
 		//		, blocks, ((t_file *)head->content)->stat.st_blocks
 		//		, ((t_file *)head->content)->stat.st_size
 		//		, ((t_file *)head->content)->name);
-		if (!ft_strcmp(path, ((t_file *)head->content)->path))
-			blocks += ((t_file *)head->content)->stat.st_blocks;
+		if (!ft_strcmp(path, f(head)->path))
+			blocks += f(head)->stat.st_blocks;
+
+		i = 0;
+		curr_slashes = 0;
+		while (f(head)->path[i])
+			if (f(head)->path[i++] == '/')
+				++curr_slashes;
+		if (curr_slashes < slashes)
+			break ;
 		head = head->next;
 	}
 	return (blocks);
@@ -88,10 +106,20 @@ size_t
 	size_t			*tab;
 	char			*dirpath;
 	ssize_t			xattr;
+	size_t			slashes;
+	size_t			curr_slashes;
+	size_t			i;
 
 	if (!(tab = ft_sizet_tab(7)))
 		return (NULL);
 	dirpath = ft_strjoin(f(node)->full_path, "/");
+
+	i = 0;
+	slashes = 0;
+	while (f(node)->path[i])
+		if (f(node)->path[i++] == '/')
+			++slashes;
+
 	while (node)
 	{
 		if (!ft_strcmp(dirpath, f(node)->path))
@@ -107,6 +135,13 @@ size_t
 #endif
 			(void)xattr;
 		}
+		i = 0;
+		curr_slashes = 0;
+		while (f(node)->path[i])
+			if (f(node)->path[i++] == '/')
+				++curr_slashes;
+		if (curr_slashes < slashes)
+			break ;
 		node = node->next;
 	}
 	free(dirpath);
