@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:43 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 15:13:09 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:43:00 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ t_list
 	return (list);
 }
 
-static void		ls_each(int fc, t_list **list, t_list **args)
+static void
+	ls_each(int fc, t_list **list, t_list **args)
 {
 	if ((fc >= 2 || (g_flags.r_up)) && S_ISDIR((*args)->content_size))
 		ft_putchar('\n');

@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:16:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 15:09:24 by sboulaao         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:42:14 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <grp.h>
 # include <sys/acl.h>
 # include "libft.h"
+# include "struct.h"
 
 # define COLOR_RESET       "\033[0m"
 # define COLOR_BOLD_BLUE   "\033[1;94m"
@@ -59,51 +60,40 @@ typedef struct timespec	t_timespec;
 typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 
-typedef struct			s_file
+typedef struct	s_file
 {
-	char	name[NAME_MAX + 1];
-	char	path[PATH_MAX];
-	char	full_path[NAME_MAX + PATH_MAX];
-	t_stat	stat;
-}						t_file;
+	char		name[NAME_MAX + 1];
+	char		path[PATH_MAX];
+	char		full_path[NAME_MAX + PATH_MAX];
+	t_stat		stat;
+}				t_file;
 
-struct
-{
-	unsigned int	l		: 1;
-	unsigned int	r_up	: 1;
-	unsigned int	a		: 1;
-	unsigned int	a_up	: 1;
-	unsigned int	r		: 1;
-	unsigned int	t		: 1;
-	unsigned int	u_up	: 1;
-	unsigned int	g_up	: 1;
-} g_flags;
-
-int					parse_flags(int ac, char **av);
-t_list				*sort_args(char **fv);
-int					lstcmp(t_list *node1, t_list *node2);
-size_t				count_blocks(t_list *head);
-int					print_all(t_list *list, int files_count);
-void				print_file(t_list *node, size_t *tab);
-void				print_filename(t_file *file, char **ptr);
-size_t				*len_max(t_list *node);
-t_file				*f(t_list *node);
-void				print_fileowner(t_stat statb, size_t max, char **ptr);
-void				print_filegroup(t_stat statb, size_t max, char **ptr);
-void				print_filemodes(t_list *node, char **ptr);
-void				align(char *str, size_t max, char **ptr);
-void				print_dir(t_list *node);
-void				manual_add(t_list **list, t_list *args, int mode);
-void				add_first_file(t_list **list, t_list *args);
-t_list				*fix_reverse_dirs(t_list *head);
-void				handle_r(t_list **list, t_list *args);
-t_list				*ft_while(t_list *list, char *path);
-void				add_to_buff(char **ptr, char *str, size_t inc, int trunc);
-void				while_slashes(t_list *head, char *path, size_t slashes
-					, size_t blocks);
-void				while_node(t_list *node, char *dirpath, size_t *tab
-					, size_t slashes);
-size_t				*tab_to_max(size_t *tab, t_list *node);
-void				if_notcurr(t_list *list, int files_count, char *ptr, char *buff);
+int				parse_flags(int ac, char **av);
+t_list			*sort_args(char **fv);
+int				lstcmp(t_list *node1, t_list *node2);
+size_t			count_blocks(t_list *head);
+int				print_all(t_list *list, int files_count);
+void			print_file(t_list *node, size_t *tab);
+void			print_filename(t_file *file, char **ptr);
+size_t			*len_max(t_list *node);
+t_file			*f(t_list *node);
+void			print_fileowner(t_stat statb, size_t max, char **ptr);
+void			print_filegroup(t_stat statb, size_t max, char **ptr);
+void			print_filemodes(t_list *node, char **ptr);
+void			align(char *str, size_t max, char **ptr);
+void			print_dir(t_list *node);
+void			manual_add(t_list **list, t_list *args, int mode);
+void			add_first_file(t_list **list, t_list *args);
+t_list			*fix_reverse_dirs(t_list *head);
+void			handle_r(t_list **list, t_list *args);
+t_list			*ft_while(t_list *list, char *path);
+void			add_to_buff(char **ptr, char *str, size_t inc, int trunc);
+void			while_slashes(t_list *head, char *path, size_t slashes
+				, size_t blocks);
+void			while_node(t_list *node, char *dirpath, size_t *tab
+				, size_t slashes);
+size_t			*tab_to_max(size_t *tab, t_list *node);
+void			if_notcurr(t_list *list, int files_count, char *ptr
+				, char *buff);
 
 #endif
