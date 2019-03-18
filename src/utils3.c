@@ -6,7 +6,7 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:24:38 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 16:04:05 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 20:16:12 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	if_notcurr(t_list *list, int files_count, char *ptr, char *buff)
 					, ft_strlen(f(list)->full_path), 0);
 			add_to_buff(&ptr, ":\n", 2, 0);
 		}
-		if (g_flags.l && S_ISDIR(f(list)->stat.st_mode))
+		//if (g_flags.l && S_ISDIR(f(list)->stat.st_mode))
+		if (g_flags.l)
 		{
 			add_to_buff(&ptr, "total ", 6, 0);
 			itoa = ft_itoa(count_blocks(list->next));
@@ -46,7 +47,7 @@ void	while_slashes(t_list *head, char *path, size_t slashes, size_t *blocks)
 
 	while (head)
 	{
-		if (!ft_strcmp(path, f(head)->path))
+		if (!ft_strncmp(path, f(head)->path, ft_strlen(f(head)->path) - 1))
 			*blocks += f(head)->stat.st_blocks;
 		i = 0;
 		curr_slashes = 0;
