@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   format.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 14:55:06 by sboulaao          #+#    #+#             */
+/*   Updated: 2019/03/18 14:55:12 by sboulaao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void		align(char *str, size_t max, char **ptr)
@@ -70,7 +82,8 @@ void		print_file(t_list *node, size_t *tab)
 		add_to_buff(&ptr, links, ft_strlen(links), 0);
 		*ptr++ = ' ';
 		print_fileowner(f(node)->stat, tab[2], &ptr);
-		add_to_buff(&ptr, OWNER_GROUP_SEPARATOR, ft_strlen(OWNER_GROUP_SEPARATOR), 0);
+		add_to_buff(&ptr, OWNER_GROUP_SEPARATOR
+				, ft_strlen(OWNER_GROUP_SEPARATOR), 0);
 		print_filegroup(f(node)->stat, tab[3], &ptr);
 		print_size(f(node)->stat, tab + 4, &ptr);
 		print_time(f(node)->stat, &ptr);

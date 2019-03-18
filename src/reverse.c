@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:19:20 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 20:19:20 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 13:54:51 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,10 @@ void	handle_r(t_list **list, t_list *args)
 {
 	if (g_flags.r)
 	{
-		DEBUGendl("-----------List after manual add of 1st entry at back-----");
 		manual_add(list, args, 1);
-		DEBUG(ft_list_iter(*list, print_dir, 0));
 		if (g_flags.r_up)
-		{
-			DEBUGendl("-----------Fixdirs-----------------");
 			*list = fix_reverse_dirs(*list);
-			DEBUGendl("-----------List after fixdirs-----------------");
-			DEBUG(ft_list_iter(*list, print_dir, 0));
-		}
 	}
 	else
-	{
-		DEBUGendl("-----------List after manual add of 1st entry at front----");
 		manual_add(list, args, 2);
-		DEBUG(ft_list_iter(*list, print_dir, 0));
-	}
 }

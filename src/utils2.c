@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 02:47:15 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 13:54:18 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,7 @@ int		lstcmp(t_list *node1, t_list *node2)
 		return (f(node1)->stat.ST_MTIME > f(node2)->stat.ST_MTIME);
 	}
 	else
-	{
-		DEBUGstr(" => sorting ");
-		DEBUGstr(f(node1)->full_path);
-		DEBUGstr("	|	");
-		DEBUGstr(f(node2)->full_path);
 		return (ft_strcmp(f(node1)->full_path, f(node2)->full_path) < 0);
-	}
 }
 
 void	manual_add(t_list **list, t_list *args, int mode)

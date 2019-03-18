@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:25:20 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 20:25:20 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 14:13:56 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,10 @@ static t_list	*norm_lol(t_list *files, t_list *dirs)
 	if (files != NULL)
 	{
 		ft_list_last(files)->next = dirs;
-		DEBUG(ft_list_iter(files, print_node, 0));
 		return (files);
 	}
 	else
-	{
-		DEBUG(ft_list_iter(dirs, print_node, 0));
 		return (dirs);
-	}
 }
 
 t_list			*sort_args(char **fv)
@@ -52,22 +48,19 @@ t_list			*sort_args(char **fv)
 	files = NULL;
 	dirs = NULL;
 	i = 0;
-	while (fv[i])
-	{
-		if (stat(fv[i], &statb) != -1)
+	while (fv[i++])
+		if (stat(fv[i - 1], &statb) != -1)
 		{
 			new = ft_list_new(NULL, 0, 0);
-			new->content = ft_strdup(fv[i]);
+			new->content = ft_strdup(fv[i - 1]);
 			new->content_size = statb.st_mode;
 			ft_list_push_back(S_ISDIR(statb.st_mode) ? &dirs : &files, new);
 		}
 		else
 		{
 			ft_putstr("ft_ls: '");
-			ft_putstr(fv[i]);
+			ft_putstr(fv[i - 1]);
 			ft_putendl("': No such file or directory");
 		}
-		++i;
-	}
 	return (norm_lol(files, dirs));
 }

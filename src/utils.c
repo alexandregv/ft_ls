@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:55 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 01:54:41 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 14:25:15 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,16 @@ size_t
 	size_t			blocks;
 	char			*path;
 	size_t			slashes;
-	size_t			curr_slashes;
 	size_t			i;
 
 	blocks = 0;
 	path = f(head)->path;
-
 	i = 0;
 	slashes = 0;
 	while (f(head)->path[i])
 		if (f(head)->path[i++] == '/')
 			++slashes;
-
-	while (head)
-	{
-		//printf("blocks : %zu, st_blocks : %lld, size: %lld, nom: %s\n"
-		//		, blocks, ((t_file *)head->content)->stat.st_blocks
-		//		, ((t_file *)head->content)->stat.st_size
-		//		, ((t_file *)head->content)->name);
-		if (!ft_strcmp(path, f(head)->path))
-			blocks += f(head)->stat.st_blocks;
-
-		i = 0;
-		curr_slashes = 0;
-		while (f(head)->path[i])
-			if (f(head)->path[i++] == '/')
-				++curr_slashes;
-		if (curr_slashes < slashes)
-			break ;
-		head = head->next;
-	}
+	while_slashes(head, path, slashes, blocks);
 	return (blocks);
 }
 
@@ -105,45 +85,18 @@ size_t
 {
 	size_t			*tab;
 	char			*dirpath;
-	ssize_t			xattr;
 	size_t			slashes;
-	size_t			curr_slashes;
 	size_t			i;
 
 	if (!(tab = ft_sizet_tab(7)))
 		return (NULL);
 	dirpath = ft_strjoin(f(node)->full_path, "/");
-
 	i = 0;
 	slashes = 0;
 	while (f(node)->path[i])
 		if (f(node)->path[i++] == '/')
 			++slashes;
-
-	while (node)
-	{
-		if (!ft_strcmp(dirpath, f(node)->path))
-		{
-			tab_to_max(tab, node);
-#ifndef __APPLE__
-			if (!tab[6])
-			{
-				xattr = listxattr(f(node)->full_path, NULL, 0);
-				if (xattr >= 1)
-					tab[6] = 1;
-			}
-#endif
-			(void)xattr;
-		}
-		i = 0;
-		curr_slashes = 0;
-		while (f(node)->path[i])
-			if (f(node)->path[i++] == '/')
-				++curr_slashes;
-		if (curr_slashes < slashes)
-			break ;
-		node = node->next;
-	}
+	while_node(node, dirpath, tab, slashes);
 	free(dirpath);
 	return (tab);
 }

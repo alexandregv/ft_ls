@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:19:26 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 11:57:31 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 15:02:24 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void			print_filename(t_file *file, char **ptr)
 	if (S_ISLNK(file->stat.st_mode))
 	{
 		add_to_buff(ptr, " -> ", 4, 0);
-		add_to_buff(ptr, buff, readlink(file->full_path, buff, PATH_MAX + NAME_MAX), 1);
+		add_to_buff(ptr, buff, readlink(file->full_path, buff
+					, PATH_MAX + NAME_MAX), 1);
 	}
 	*(*ptr)++ = '\n';
 }
@@ -87,32 +88,12 @@ int				print_all(t_list *list, int files_count)
 	size_t	*tab;
 	char	*buff;
 	char	*ptr;
-	char	*itoa;
 
 	buff = ft_strnew(PATH_MAX + NAME_MAX + 255);
 	ptr = buff;
 	backup = list;
 	tab = g_flags.l ? len_max(list) : NULL;
-	if (ft_strcmp(f(list)->name, ".") != 0
-			&& ft_strcmp(f(list)->name, "..") != 0)
-	{
-		if (*f(list)->name)
-			add_to_buff(&ptr, "\n", 1, 0);
-		if (g_flags.r_up || files_count > 1)
-		{
-			add_to_buff(&ptr, f(list)->full_path, ft_strlen(f(list)->full_path), 0);
-			add_to_buff(&ptr, ":\n", 2, 0);
-		}
-		if (g_flags.l)
-		{
-			add_to_buff(&ptr, "total ", 6, 0);
-			itoa = ft_itoa(count_blocks(list->next));
-			add_to_buff(&ptr, itoa, ft_strlen(itoa), 0);
-			add_to_buff(&ptr, "\n", 1, 0);
-			free(itoa);
-		}
-		ft_putstr(buff);
-	}
+	if_notcurr(list, files_count, ptr, buff);
 	print_summary(list, tab);
 	if (g_flags.r_up)
 		print_dirs(list, files_count);

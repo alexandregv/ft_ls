@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   modes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/18 14:53:30 by sboulaao          #+#    #+#             */
+/*   Updated: 2019/03/18 14:54:12 by sboulaao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 void		print_fileowner(t_stat statb, size_t max, char **ptr)
@@ -44,15 +56,10 @@ static void	set_filemodes(char **modes, mode_t mode, char *fullpath)
 		(*modes)[9] = 'T';
 	else if ((mode & S_IXOTH) && (mode & S_ISVTX))
 		(*modes)[9] = 't';
-#ifdef __APPLE__
 	if (acl_get_file(fullpath, ACL_TYPE_EXTENDED))
 		(*modes)[10] = '+';
 	if (listxattr(fullpath, NULL, 0, XATTR_NOFOLLOW) > 0)
 		(*modes)[10] = '@';
-#else
-	if (listxattr(fullpath, NULL, 0) > 0)
-		(*modes)[10] = '+';
-#endif
 	*modes += 10;
 }
 
