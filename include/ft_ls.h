@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:16:50 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 21:41:38 by aguiot           ###   ########.fr       */
+/*   Updated: 2019/03/18 00:37:06 by aguiot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,10 @@ void				print_file(t_list *node, size_t *tab);
 void				print_filename(t_file *file);
 size_t				*len_max(t_list *node);
 t_file				*f(t_list *node);
-void				print_fileowner(t_stat statb, size_t max);
-void				print_filegroup(t_stat statb, size_t max);
-void				print_filemodes(t_list *node);
-void				align(char *str, size_t max);
+void				print_fileowner(t_stat statb, size_t max, char **ptr);
+void				print_filegroup(t_stat statb, size_t max, char **ptr);
+void				print_filemodes(t_list *node, char **ptr);
+void				align(char *str, size_t max, char **ptr);
 void				print_dir(t_list *node);
 void				manual_add(t_list **list, t_list *args, int mode);
 void				add_first_file(t_list **list, t_list *args);
