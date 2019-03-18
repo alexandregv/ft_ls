@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:19:54 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 19:37:28 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 20:44:14 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,8 @@ static int	invalid_option(char option)
 	return (-1);
 }
 
-
-static int	check_flags_chars(char **av, int i)
+static void	check_flm(char **av, int i)
 {
-	g_flags.r_up = (*av[i] == 'R' ? 1 : g_flags.r_up);
-	g_flags.r = (*av[i] == 'r' ? 1 : g_flags.r);
-	g_flags.t = (*av[i] == 't' ? 1 : g_flags.t);
-	g_flags.g_up = (*av[i] == 'G' ? 1 : g_flags.g_up);
-	g_flags.g = (*av[i] == 'g' ? 1 : g_flags.g);
-	g_flags.i = (*av[i] == 'i' ? 1 : g_flags.i);
-	g_flags.f_up = (*av[i] == 'F' ? 1 : g_flags.f_up);
 	if (*av[i] == 'f')
 	{
 		g_flags.f = 1;
@@ -45,6 +37,18 @@ static int	check_flags_chars(char **av, int i)
 		g_flags.l = 0;
 		g_flags.m = 1;
 	}
+}
+
+static int	check_flags_chars(char **av, int i)
+{
+	g_flags.r_up = (*av[i] == 'R' ? 1 : g_flags.r_up);
+	g_flags.r = (*av[i] == 'r' ? 1 : g_flags.r);
+	g_flags.t = (*av[i] == 't' ? 1 : g_flags.t);
+	g_flags.g_up = (*av[i] == 'G' ? 1 : g_flags.g_up);
+	g_flags.g = (*av[i] == 'g' ? 1 : g_flags.g);
+	g_flags.i = (*av[i] == 'i' ? 1 : g_flags.i);
+	g_flags.f_up = (*av[i] == 'F' ? 1 : g_flags.f_up);
+	check_flm(av, i);
 	if (*av[i] == 'a')
 	{
 		g_flags.a_up = 0;

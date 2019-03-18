@@ -6,7 +6,7 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:24:38 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 20:16:12 by sboulaao         ###   ########.fr       */
+/*   Updated: 2019/03/18 20:50:00 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	if_notcurr(t_list *list, int files_count, char *ptr, char *buff)
 					, ft_strlen(f(list)->full_path), 0);
 			add_to_buff(&ptr, ":\n", 2, 0);
 		}
-		//if (g_flags.l && S_ISDIR(f(list)->stat.st_mode))
 		if (g_flags.l)
 		{
 			add_to_buff(&ptr, "total ", 6, 0);
@@ -78,4 +77,13 @@ void	while_node(t_list *node, char *dirpath, size_t *tab, size_t slashes)
 			break ;
 		node = node->next;
 	}
+}
+
+void	align(char *str, size_t max, char **ptr)
+{
+	int				spaces;
+
+	spaces = max - ft_strlen(str);
+	while (spaces-- > 0)
+		*(*ptr)++ = ' ';
 }

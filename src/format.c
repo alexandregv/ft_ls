@@ -6,20 +6,11 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:55:06 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 19:42:24 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 20:49:37 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-void		align(char *str, size_t max, char **ptr)
-{
-	int		spaces;
-
-	spaces = max - ft_strlen(str);
-	while (spaces-- > 0)
-		*(*ptr)++ = ' ';
-}
 
 static void	print_time(t_stat statb, char **ptr)
 {
@@ -65,7 +56,7 @@ static void	print_size(t_stat statb, size_t *max, char **ptr)
 	*(*ptr)++ = ' ';
 }
 
-void	print_inode(t_list *node, char **ptr)
+static void	print_inode(t_list *node, char **ptr)
 {
 	char	*inode;
 
@@ -77,32 +68,36 @@ void	print_inode(t_list *node, char **ptr)
 	*(*ptr)++ = ' ';
 }
 
+static void	l_flag(t_list *node, char **ptr, size_t *tab)
+{
+	char	*links;
+
+	print_inode(node, ptr);
+	print_filemodes(node, ptr);
+	*(*ptr)++ = ' ';
+	links = ft_itoa(f(node)->stat.st_nlink);
+	align(links, tab[1], ptr);
+	add_to_buff(ptr, links, ft_strlen(links), 0);
+	*(*ptr)++ = ' ';
+	print_fileowner(f(node)->stat, tab[2], ptr);
+	if (!g_flags.g)
+		add_to_buff(ptr, OWNER_GROUP_SEPARATOR
+				, ft_strlen(OWNER_GROUP_SEPARATOR), 0);
+	print_filegroup(f(node)->stat, tab[3], ptr);
+	print_size(f(node)->stat, tab + 4, ptr);
+	print_time(f(node)->stat, ptr);
+	free(links);
+}
+
 void		print_file(t_list *node, size_t *tab)
 {
 	char	buff[PATH_MAX + NAME_MAX + 255];
 	char	*ptr;
-	char	*links;
 
 	ptr = buff;
 	ft_memset(buff, ' ', PATH_MAX + NAME_MAX + 255);
 	if (g_flags.l)
-	{
-		print_inode(node, &ptr);
-		print_filemodes(node, &ptr);
-		*ptr++ = ' ';
-		links = ft_itoa(f(node)->stat.st_nlink);
-		align(links, tab[1], &ptr);
-		add_to_buff(&ptr, links, ft_strlen(links), 0);
-		*ptr++ = ' ';
-		print_fileowner(f(node)->stat, tab[2], &ptr);
-		if (!g_flags.g)
-			add_to_buff(&ptr, OWNER_GROUP_SEPARATOR
-					, ft_strlen(OWNER_GROUP_SEPARATOR), 0);
-		print_filegroup(f(node)->stat, tab[3], &ptr);
-		print_size(f(node)->stat, tab + 4, &ptr);
-		print_time(f(node)->stat, &ptr);
-		free(links);
-	}
+		l_flag(node, &ptr, tab);
 	print_filename(f(node), &ptr);
 	if (g_flags.m && node->next)
 	{
