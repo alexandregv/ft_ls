@@ -6,7 +6,7 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:55:06 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 20:49:37 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 21:00:24 by sboulaao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static void	l_flag(t_list *node, char **ptr, size_t *tab)
 {
 	char	*links;
 
-	print_inode(node, ptr);
 	print_filemodes(node, ptr);
 	*(*ptr)++ = ' ';
 	links = ft_itoa(f(node)->stat.st_nlink);
@@ -96,6 +95,7 @@ void		print_file(t_list *node, size_t *tab)
 
 	ptr = buff;
 	ft_memset(buff, ' ', PATH_MAX + NAME_MAX + 255);
+	print_inode(node, &ptr);
 	if (g_flags.l)
 		l_flag(node, &ptr, tab);
 	print_filename(f(node), &ptr);
