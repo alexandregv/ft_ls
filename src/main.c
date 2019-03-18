@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:43 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 20:19:40 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 15:02:46 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ t_list			*ft_while(t_list *list, char *path)
 	return (list);
 }
 
-static void		ls_each(int fc, int *i, t_list **list, t_list *args)
+static void		ls_each(int fc, t_list **list, t_list **args)
 {
-	if ((fc >= 2 || (g_flags.r_up)) && S_ISDIR(args->content_size) && i)
+	if ((fc >= 2 || (g_flags.r_up)) && S_ISDIR((*args)->content_size))
 		ft_putchar('\n');
 	DEBUGstr("Starting path = ");
-	DEBUGendl(args->content);
-	*list = ft_while(*list, args->content);
+	DEBUGendl((*args)->content);
+	*list = ft_while(*list, (*args)->content);
 	if (list)
 	{
 		DEBUGendl("------------List before sort----------------");
@@ -81,14 +81,13 @@ static void		ls_each(int fc, int *i, t_list **list, t_list *args)
 			DEBUGendl("------------List after sort----------------");
 			DEBUG(ft_list_iter(*list, print_dir, 0));
 		}
-		handle_r(list, args);
-		add_first_file(list, args);
+		handle_r(list, *args);
+		add_first_file(list, *args);
 		DEBUGendl("------------Print all----------------");
 		print_all(*list, fc);
-		++*i;
 		ft_list_del(list, NULL);
 	}
-	args = args->next;
+	*args = (*args)->next;
 }
 
 int				main(int ac, char **av)
@@ -113,7 +112,7 @@ int				main(int ac, char **av)
 	args = sort_args(fv);
 	nums[2] = 0;
 	while (nums[2] < nums[1] && args)
-		ls_each(nums[1], &nums[2], &list, args);
+		ls_each(nums[1], &list, &args);
 	ft_list_del(&args, NULL);
 	return (EXIT_SUCCESS);
 }

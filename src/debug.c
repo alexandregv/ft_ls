@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:18:02 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/16 20:24:25 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 14:25:50 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ void	debug_flags(int i)
 
 void	print_node(t_list *node)
 {
-	ft_putstr(" => ");
-	ft_putstr(((t_file *)node->content)->path);
-	ft_putendl(((t_file *)node->content)->name);
+	//ft_putstr(" => ");
+	//ft_putstr(((t_file *)node->content)->path);
+	//ft_putendl(((t_file *)node->content)->name);
+	ft_putendl(node->content);
 }
 
 void	print_dir(t_list *node)
