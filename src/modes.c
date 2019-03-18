@@ -6,7 +6,7 @@
 /*   By: sboulaao <sboulaao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:53:30 by sboulaao          #+#    #+#             */
-/*   Updated: 2019/03/18 14:54:12 by sboulaao         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:46:43 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void		print_fileowner(t_stat statb, size_t max, char **ptr)
 {
 	struct passwd	*pw;
 
+	if (g_flags.g)
+		return ;
 	pw = getpwuid(statb.st_uid);
 	if (pw != 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:17:43 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 15:43:00 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:37:47 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void
 	*list = ft_while(*list, (*args)->content);
 	if (list)
 	{
-		if (!g_flags.u_up)
+		if (!g_flags.f)
 		{
 			*list = ft_dlist_msort(*list, lstcmp);
 			if (g_flags.r)

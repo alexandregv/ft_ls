@@ -6,7 +6,7 @@
 /*   By: aguiot-- <aguiot--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:25:20 by aguiot--          #+#    #+#             */
-/*   Updated: 2019/03/18 15:12:42 by aguiot--         ###   ########.fr       */
+/*   Updated: 2019/03/18 18:37:59 by aguiot--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static t_list	*norm_lol(t_list *files, t_list *dirs)
 {
-	if (!g_flags.u_up)
+	if (!g_flags.f)
 	{
 		if (files != NULL)
 			ft_list_sort(&files, (int (*)(const void*, const void*))ft_strcmp);
 		if (dirs != NULL)
 			ft_list_sort(&dirs, (int (*)(const void*, const void*))ft_strcmp);
 	}
-	if (!g_flags.u_up && g_flags.r)
+	if (!g_flags.f && g_flags.r)
 	{
 		if (files != NULL)
 			ft_list_rev(&files);
